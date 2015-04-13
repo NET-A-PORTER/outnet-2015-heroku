@@ -1,0 +1,23 @@
+{
+  "name": "preston",
+  "version": "0.1.0",
+  "description": "Style guide generator for the rich and famous",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.vm.wtf.nap:7999/out/preston.git"
+  },
+  "keywords": [
+    "styleguide"
+  ],
+  "author": "The Outnet Team",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^0.19.0",
+    "koa-router": "^4.3.2",
+    "koa-static": "^1.4.9"
+  }
+}
