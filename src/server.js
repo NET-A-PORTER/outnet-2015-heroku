@@ -1,10 +1,6 @@
-var app		= require('koa')();
-var router	= require('koa-router');
-var serve	= require('koa-static');
-var utils	= require('./global');
+module.exports = require('koa')();
 
-module.exports = app;
-
+require('./global');
 require('./core/serve');
 require('./core/views');
 require('./core/router');
