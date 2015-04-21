@@ -1,7 +1,26 @@
-#body {
-	background: #f00;
+body {
+	margin: 0;
+	padding: 0;
 }
 
-#preston {
-	background: #eee;
+.preston-heading {
+	background: #fff;
+	border-bottom: #ccc 1px solid;
+	margin-bottom: 20px;
+	box-shadow: #ccc 0 10px 10px -10px;
+	color: #333;
+	padding: 20px;
+	font-family: Garamond, serif;
+	letter-spacing: 0.1em;
+	font-variant: small-caps;
+	.preston-title {
+		font-size: 14pt;
+		&:first-letter{
+			text-transform: uppercase;
+		}
+	}
+}
+.preston-body {
+	max-width: 1200px;
+	margin: 0 auto;
 }
