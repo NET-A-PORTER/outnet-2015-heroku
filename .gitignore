@@ -11,7 +11,8 @@ pids
 node_modules
 
 # generated files
-src/client/css/style.css
+src/client/css/*
+!src/client/css/style.scss
 
 # Mac nonsense
 .DS_Store
