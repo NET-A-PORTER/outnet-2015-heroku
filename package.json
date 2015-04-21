@@ -21,5 +21,8 @@
     "koa-router": "^4.3.2",
     "koa-static": "^1.4.9",
     "node-sass-middleware": "^0.5.0"
+  },
+  "scripts": {
+	  "start": "node --harmony src/server.js"
   }
 }
