@@ -9,3 +9,9 @@ pids
 
 # Dependency directory
 node_modules
+
+# generated files
+src/client/css/style.css
+
+# Mac nonsense
+.DS_Store
