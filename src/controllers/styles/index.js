@@ -1,12 +1,13 @@
 var Styles		= require('./styles');
-var styleDir	= base.path('styles')
+var styleDir	= base.path('styles');
 var styles		= null;
 
 function * list() {
-	styles = styles || new Styles(styleDir);
-	if (styles) {
+	try {
+		// assign styles for caching
+		styles = styles || new Styles(styleDir);
 		this.body = yield styles.getAll();
-	} else {
+	} catch(e) {
 		this.status = 500;
 		this.body = {
 			message: 'There was an error retrieving styles'

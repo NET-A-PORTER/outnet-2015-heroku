@@ -1,15 +1,21 @@
-var fs = require('fs');
-var Styles = (baseDir) => {
+var fs		= require('fs');
+var Style	= require('./style');
+var Styles	= (baseDir) => {
 	if (!baseDir) throw new Error('No base directory specified');
 	this.baseDir = baseDir;
 }
 
+// TODO: caching of loaded style directories
 Styles.prototype.getAll = function * () {
-	var that = this;
+	var baseDir = this.baseDir;
 	return new Promise((resolve, reject) => {
-		fs.readdir(that.baseDir, (err, result) => {
-			if (err) reject(err);
-			resolve(result);
+		// read style directory
+		fs.readdir(baseDir, (err, projects) => {
+			if (err) return reject(err);
+			return Promise.all(
+				// get defintion of each style
+				projects.map(project => new Style(project, baseDir).getDefinition())
+			).then(resolve, reject);
 		});
 	});
 };
