@@ -13,6 +13,26 @@ body ***REMOVED***
 	font-family: Garamond, serif;
 	letter-spacing: 0.1em;
 	font-variant: small-caps;
+	a ***REMOVED***
+		color: #000;
+		position: relative;
+		text-decoration: none;
+		&:after ***REMOVED***
+			transition: all 0.1s ease-out;
+			position: absolute;
+			content: '';
+			background: #000;
+			height: 1px;
+			width: 100%;
+			bottom: -5px;
+			left: 0;
+			opacity: 0;
+		***REMOVED***
+		&:hover:after ***REMOVED***
+			opacity: 1;
+			bottom: 0;
+		***REMOVED***
+	***REMOVED***
 	.preston-title ***REMOVED***
 		font-size: 14pt;
 		&:first-letter***REMOVED***
@@ -23,7 +43,7 @@ body ***REMOVED***
 		float: right;
 		> a ***REMOVED***
 			display: inline-block;
-			padding: 2px 5px;
+			margin-left: 5px;
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
