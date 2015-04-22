@@ -9,9 +9,12 @@
 	<div class="preston-heading" ng-controller="NavCtrl">
 		<div class="preston-container">
 			<div class="preston-nav">
-				<a ng-repeat="style in nav" ui-sref="guide">:: style.title ::</a>
+				<div class="preston-nav-item"
+					ng-repeat="style in nav"
+					ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"
+					ui-sref-active="active">:: style.title ::</div>
 			</div>
-			<a class="preston-title" href="/">Preston</a>
+			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
 		</div>
 	</div>
 	<div class="preston-container" ui-view>
@@ -28,14 +31,14 @@
 			$interpolateProvider.endSymbol('::');
 
 			// routing
-			$urlRouterProvider.otherwise('');
+			$urlRouterProvider.otherwise('/');
 			$stateProvider
 				.state('home', ***REMOVED***
-					url: '',
+					url: '/',
 					templateUrl: 'templates/home.html'
 				***REMOVED***)
 				.state('guide', ***REMOVED***
-					url: '/style/:type',
+					url: '/style/:name',
 					templateUrl: 'templates/guide.html'
 				***REMOVED***);
 		***REMOVED***)

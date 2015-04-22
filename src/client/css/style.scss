@@ -2,7 +2,16 @@ body ***REMOVED***
 	margin: 0;
 	padding: 0;
 ***REMOVED***
-
+.preston-container ***REMOVED***
+	max-width: 1200px;
+	margin: 0 auto;
+***REMOVED***
+.preston-heading,
+.preston-home ***REMOVED***
+	font-family: Garamond, serif;
+	letter-spacing: 0.1em;
+	font-variant: small-caps;
+***REMOVED***
 .preston-heading ***REMOVED***
 	background: #fff;
 	border-bottom: #ccc 1px solid;
@@ -10,27 +19,10 @@ body ***REMOVED***
 	box-shadow: #ccc 0 10px 10px -10px;
 	color: #333;
 	padding: 10px;
-	font-family: Garamond, serif;
-	letter-spacing: 0.1em;
-	font-variant: small-caps;
-	a ***REMOVED***
-		color: #000;
-		position: relative;
-		text-decoration: none;
-		&:after ***REMOVED***
-			transition: all 0.1s ease-out;
-			position: absolute;
-			content: '';
-			background: #000;
-			height: 1px;
-			width: 100%;
-			bottom: -5px;
-			left: 0;
-			opacity: 0;
-		***REMOVED***
-		&:hover:after ***REMOVED***
-			opacity: 1;
-			bottom: 0;
+	.preston-nav ***REMOVED***
+		float: right;
+		> div ***REMOVED***
+			margin-left: 5px;
 		***REMOVED***
 	***REMOVED***
 	.preston-title ***REMOVED***
@@ -39,15 +31,37 @@ body ***REMOVED***
 			text-transform: uppercase;
 		***REMOVED***
 	***REMOVED***
-	.preston-nav ***REMOVED***
-		float: right;
-		> a ***REMOVED***
-			display: inline-block;
-			margin-left: 5px;
-		***REMOVED***
-	***REMOVED***
 ***REMOVED***
-.preston-container ***REMOVED***
-	max-width: 1200px;
-	margin: 0 auto;
+.preston-home ***REMOVED***
+	padding: 20px;
+	margin-top: 200px;
+	.preston-nav-item ***REMOVED***
+		font-size: 48px;
+	***REMOVED***	
+***REMOVED***
+.preston-p ***REMOVED***
+	margin-bottom: 10px;
+***REMOVED***
+.preston-nav-item ***REMOVED***
+	color: #000;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+	&:after ***REMOVED***
+		transition: all 0.1s ease-out;
+		position: absolute;
+		content: '';
+		background: #000;
+		height: 1px;
+		width: 100%;
+		bottom: -5px;
+		left: 0;
+		opacity: 0;
+	***REMOVED***
+	&.active:after,
+	&:hover:after ***REMOVED***
+		opacity: 1;
+		bottom: 0;
+	***REMOVED***
 ***REMOVED***
