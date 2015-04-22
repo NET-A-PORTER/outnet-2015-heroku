@@ -1,15 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/outnet-2015/typography/style.css">
 </head>
 <body>
-	<div class="preston-heading">
+	<div class="preston-heading" ng-controller="NavCtrl">
+		<div class="preston-nav">
+			<div ng-repeat="project in nav">:: project.title ::</div>
+		</div>
 		<div class="preston-title">Preston</div>
 	</div>
 	<div class="preston-body">
 		***REMOVED******REMOVED******REMOVED***@body***REMOVED******REMOVED******REMOVED***
 	</div>
+	<script src="/js/angular.js"></script>
+	<script>
+	angular
+		.module('app', [])
+		.config(function($interpolateProvider) ***REMOVED***
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+		***REMOVED***)
+		.service('ApiService', function($http) ***REMOVED***
+			return function(version, controller) ***REMOVED***
+				var versionParsed = parseFloat(version).toFixed(1);
+				var baseUrl = '/api/' + versionParsed + '/' + controller;
+
+				return ***REMOVED***
+					get: function() ***REMOVED***
+						return $http
+							.get(baseUrl)
+							.error(function(data) ***REMOVED***
+								alert('error');
+							***REMOVED***);
+					***REMOVED***
+				***REMOVED***
+			***REMOVED***
+		***REMOVED***)
+		.service('StylesService', function(ApiService) ***REMOVED***
+			var api = new ApiService(1.0, 'styles');
+			return ***REMOVED***
+				getAll: function() ***REMOVED***
+					return api.get().then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
+				***REMOVED***
+			***REMOVED***;
+		***REMOVED***)
+		.controller('NavCtrl', function($scope, StylesService) ***REMOVED***
+			StylesService
+				.getAll()
+				.then(function(result) ***REMOVED***
+					$scope.nav = result;
+				***REMOVED***);
+		***REMOVED***);
+	</script>
 </body>
 </html>
