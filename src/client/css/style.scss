@@ -19,6 +19,13 @@ body {
 			text-transform: uppercase;
 		}
 	}
+	.preston-nav {
+		float: right;
+		> div {
+			display: inline-block;
+			padding: 2px 5px;
+		}
+	}
 }
 .preston-body {
 	max-width: 1200px;

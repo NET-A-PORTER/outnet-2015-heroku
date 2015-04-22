@@ -1,15 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/outnet-2015/typography/style.css">
 </head>
 <body>
-	<div class="preston-heading">
+	<div class="preston-heading" ng-controller="NavCtrl">
+		<div class="preston-nav">
+			<div ng-repeat="project in nav">:: project.title ::</div>
+		</div>
 		<div class="preston-title">Preston</div>
 	</div>
 	<div class="preston-body">
 		{{{@body}}}
 	</div>
+	<script src="/js/angular.js"></script>
+	<script>
+	angular
+		.module('app', [])
+		.config(function($interpolateProvider) {
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+		})
+		.service('ApiService', function($http) {
+			return function(version, controller) {
+				var versionParsed = parseFloat(version).toFixed(1);
+				var baseUrl = '/api/' + versionParsed + '/' + controller;
+
+				return {
+					get: function() {
+						return $http
+							.get(baseUrl)
+							.error(function(data) {
+								alert('error');
+							});
+					}
+				}
+			}
+		})
+		.service('StylesService', function(ApiService) {
+			var api = new ApiService(1.0, 'styles');
+			return {
+				getAll: function() {
+					return api.get().then(function(result) {
+						return result.data;
+					});
+				}
+			};
+		})
+		.controller('NavCtrl', function($scope, StylesService) {
+			StylesService
+				.getAll()
+				.then(function(result) {
+					$scope.nav = result;
+				});
+		});
+	</script>
 </body>
 </html>
