@@ -2,7 +2,16 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
+.preston-container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.preston-heading,
+.preston-home {
+	font-family: Garamond, serif;
+	letter-spacing: 0.1em;
+	font-variant: small-caps;
+}
 .preston-heading {
 	background: #fff;
 	border-bottom: #ccc 1px solid;
@@ -10,27 +19,10 @@ body {
 	box-shadow: #ccc 0 10px 10px -10px;
 	color: #333;
 	padding: 10px;
-	font-family: Garamond, serif;
-	letter-spacing: 0.1em;
-	font-variant: small-caps;
-	a {
-		color: #000;
-		position: relative;
-		text-decoration: none;
-		&:after {
-			transition: all 0.1s ease-out;
-			position: absolute;
-			content: '';
-			background: #000;
-			height: 1px;
-			width: 100%;
-			bottom: -5px;
-			left: 0;
-			opacity: 0;
-		}
-		&:hover:after {
-			opacity: 1;
-			bottom: 0;
+	.preston-nav {
+		float: right;
+		> div {
+			margin-left: 5px;
 		}
 	}
 	.preston-title {
@@ -39,15 +31,37 @@ body {
 			text-transform: uppercase;
 		}
 	}
-	.preston-nav {
-		float: right;
-		> a {
-			display: inline-block;
-			margin-left: 5px;
-		}
-	}
 }
-.preston-container {
-	max-width: 1200px;
-	margin: 0 auto;
+.preston-home {
+	padding: 20px;
+	margin-top: 200px;
+	.preston-nav-item {
+		font-size: 48px;
+	}	
+}
+.preston-p {
+	margin-bottom: 10px;
+}
+.preston-nav-item {
+	color: #000;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+	&:after {
+		transition: all 0.1s ease-out;
+		position: absolute;
+		content: '';
+		background: #000;
+		height: 1px;
+		width: 100%;
+		bottom: -5px;
+		left: 0;
+		opacity: 0;
+	}
+	&.active:after,
+	&:hover:after {
+		opacity: 1;
+		bottom: 0;
+	}
 }

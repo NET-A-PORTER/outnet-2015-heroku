@@ -1,1 +1,4 @@
-Homepage
+<div class="preston-home" ng-controller="NavCtrl">
+	<div class="preston-p">Available style guides</div>
+	<div class="preston-nav-item" ng-repeat="style in nav" ui-sref="guide({ name: style.name })">:: style.title ::</div>
+</div>
