@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html ng-app="app">
-<head>
+<head ng-controller="HeadCtrl">
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/outnet-2015/typography/style.css">
+	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content ::/style.css">
 </head>
 <body>
 	<div class="preston-heading" ng-controller="NavCtrl">
@@ -58,9 +58,9 @@
 				var baseUrl = '/api/' + versionParsed + '/' + controller;
 
 				return ***REMOVED***
-					get: function() ***REMOVED***
+					get: function(path) ***REMOVED***
 						return $http
-							.get(baseUrl)
+							.get(baseUrl + (path || ''))
 							.error(function(data) ***REMOVED***
 								MessageService.error(data.message || 'An error occured');
 							***REMOVED***);
@@ -70,7 +70,15 @@
 		***REMOVED***)
 		.service('StylesService', function(ApiService) ***REMOVED***
 			var api = new ApiService(1.0, 'styles');
+
+			// TODO: cache responses as some are
+			// used in multiple controller instances
 			return ***REMOVED***
+				get: function(name) ***REMOVED***
+					return api.get('/' + name).then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
+				***REMOVED***,
 				getAll: function() ***REMOVED***
 					return api.get().then(function(result) ***REMOVED***
 						return result.data;
@@ -78,12 +86,22 @@
 				***REMOVED***
 			***REMOVED***;
 		***REMOVED***)
+		.controller('HeadCtrl', function($scope, StylesService) ***REMOVED***
+			StylesService
+				.get('outnet-2015')
+				.then(function(result) ***REMOVED***
+					$scope.style = result;
+				***REMOVED***);
+		***REMOVED***)
 		.controller('NavCtrl', function($scope, StylesService) ***REMOVED***
 			StylesService
 				.getAll()
 				.then(function(result) ***REMOVED***
 					$scope.nav = result;
 				***REMOVED***);
+		***REMOVED***)
+		.controller('StyleCtrl', function($scope, StylesService) ***REMOVED***
+
 		***REMOVED***);
 	</script>
 </body>
