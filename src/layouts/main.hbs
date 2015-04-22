@@ -7,12 +7,14 @@
 </head>
 <body>
 	<div class="preston-heading" ng-controller="NavCtrl">
-		<div class="preston-nav">
-			<div ng-repeat="project in nav">:: project.title ::</div>
+		<div class="preston-container">
+			<div class="preston-nav">
+				<a ng-repeat="project in nav">:: project.title ::</a>
+			</div>
+			<div class="preston-title">Preston</div>
 		</div>
-		<div class="preston-title">Preston</div>
 	</div>
-	<div class="preston-body">
+	<div class="preston-container">
 		{{{@body}}}
 	</div>
 	<script src="/js/angular.js"></script>
@@ -23,7 +25,17 @@
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 		})
-		.service('ApiService', function($http) {
+		.service('MessageService', function() {
+			function display(type, message) {
+				alert(message);
+			}
+			return {
+				error: function(message) {
+					display('error', message);
+				}
+			};
+		})
+		.service('ApiService', function($http, MessageService) {
 			return function(version, controller) {
 				var versionParsed = parseFloat(version).toFixed(1);
 				var baseUrl = '/api/' + versionParsed + '/' + controller;
@@ -33,7 +45,7 @@
 						return $http
 							.get(baseUrl)
 							.error(function(data) {
-								alert('error');
+								MessageService.error(data.message || 'An error occured');
 							});
 					}
 				}

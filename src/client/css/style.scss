@@ -9,7 +9,7 @@ body {
 	margin-bottom: 20px;
 	box-shadow: #ccc 0 10px 10px -10px;
 	color: #333;
-	padding: 20px;
+	padding: 10px;
 	font-family: Garamond, serif;
 	letter-spacing: 0.1em;
 	font-variant: small-caps;
@@ -21,13 +21,13 @@ body {
 	}
 	.preston-nav {
 		float: right;
-		> div {
+		> a {
 			display: inline-block;
 			padding: 2px 5px;
 		}
 	}
 }
-.preston-body {
+.preston-container {
 	max-width: 1200px;
 	margin: 0 auto;
 }
