@@ -7,12 +7,14 @@
 </head>
 <body>
 	<div class="preston-heading" ng-controller="NavCtrl">
-		<div class="preston-nav">
-			<div ng-repeat="project in nav">:: project.title ::</div>
+		<div class="preston-container">
+			<div class="preston-nav">
+				<a ng-repeat="project in nav">:: project.title ::</a>
+			</div>
+			<div class="preston-title">Preston</div>
 		</div>
-		<div class="preston-title">Preston</div>
 	</div>
-	<div class="preston-body">
+	<div class="preston-container">
 		***REMOVED******REMOVED******REMOVED***@body***REMOVED******REMOVED******REMOVED***
 	</div>
 	<script src="/js/angular.js"></script>
@@ -23,7 +25,17 @@
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 		***REMOVED***)
-		.service('ApiService', function($http) ***REMOVED***
+		.service('MessageService', function() ***REMOVED***
+			function display(type, message) ***REMOVED***
+				alert(message);
+			***REMOVED***
+			return ***REMOVED***
+				error: function(message) ***REMOVED***
+					display('error', message);
+				***REMOVED***
+			***REMOVED***;
+		***REMOVED***)
+		.service('ApiService', function($http, MessageService) ***REMOVED***
 			return function(version, controller) ***REMOVED***
 				var versionParsed = parseFloat(version).toFixed(1);
 				var baseUrl = '/api/' + versionParsed + '/' + controller;
@@ -33,7 +45,7 @@
 						return $http
 							.get(baseUrl)
 							.error(function(data) ***REMOVED***
-								alert('error');
+								MessageService.error(data.message || 'An error occured');
 							***REMOVED***);
 					***REMOVED***
 				***REMOVED***
