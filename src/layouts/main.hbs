@@ -8,23 +8,22 @@
 <body>
 	<div class="preston-heading" ng-controller="NavCtrl">
 		<div class="preston-container">
+			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
 			<div class="preston-nav">
 				<div class="preston-nav-item"
 					ng-repeat="style in nav"
 					ui-sref="guide({ name: style.name })"
-					ui-sref-active="active">:: style.title ::</div>
+					ui-sref-active="active" ng-bind="style.title"></div>
 			</div>
-			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
 		</div>
 	</div>
-	<div class="preston-container" ui-view>
-		{{{@body}}}
-	</div>
+	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/angular-router.js"></script>
+	<script src="/js/angular-sanitize.js"></script>
 	<script>
 	angular
-		.module('app', ['ui.router'])
+		.module('app', ['ngSanitize', 'ui.router'])
 		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
 			// stop conflicting with handlebars
 			$interpolateProvider.startSymbol('::');
@@ -68,7 +67,7 @@
 				}
 			}
 		})
-		.service('StylesService', function(ApiService) {
+		.factory('StylesFactory', function(ApiService) {
 			var api = new ApiService(1.0, 'styles');
 
 			// TODO: cache responses as some are
@@ -86,23 +85,53 @@
 				}
 			};
 		})
-		.controller('HeadCtrl', function($scope, StylesService) {
-			StylesService
-				.get('outnet-2015')
-				.then(function(result) {
-					$scope.style = result;
+		.service('StyleContentService', function(StylesFactory) {
+			return function StyleContent(styleName, contentName) {
+				var self = this;
+				this.style = styleName;
+				this.name = contentName;
+				StylesFactory
+					.get(this.style + '/' + this.name)
+					.then(function(data) {
+						self.markup = data.markup;
+					});
+			};
+		})
+		.service('StyleService', function(StylesFactory, StyleContentService) {
+			return function Style(name) {
+				var self = this;
+				return StylesFactory
+					.get(name)
+					.then(function(data) {
+						self.title = data.title;
+						self.name = data.name;
+						self.contents = data.contents.map(function(content) {
+							return new StyleContentService(data.name, content);
+						});
+						return self;
+					});
+			};
+		})
+		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) {
+			new StyleService($state.params.name)
+				.then(function(style) {
+						console.log(style)
+					$rootScope.$broadcast('styleSelected', style);
+					$scope.contents = style.contents;
 				});
 		})
-		.controller('NavCtrl', function($scope, StylesService) {
-			StylesService
+		.controller('HeadCtrl', function($scope) {
+			$scope.$on('styleSelected', function(e, style) {
+				$scope.style = style;
+			});
+		})
+		.controller('NavCtrl', function($scope, StylesFactory) {
+			StylesFactory
 				.getAll()
 				.then(function(result) {
 					$scope.nav = result;
 				});
 		})
-		.controller('StyleCtrl', function($scope, StylesService) {
-
-		});
 	</script>
 </body>
 </html>
