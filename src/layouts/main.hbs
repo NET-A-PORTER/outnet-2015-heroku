@@ -1,15 +1,146 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html ng-app="app">
+<head ng-controller="HeadCtrl">
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlightjs.css">
+	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content.name ::/style.css">
 </head>
 <body>
-	<div class="preston-heading">
-		<div class="preston-title">Preston</div>
+	<div class="preston-header preston-content" ng-controller="NavCtrl">
+		<div class="preston-container">
+			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
+			<div class="preston-nav">
+				<div class="preston-nav-item"
+					ng-repeat="style in nav"
+					ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"
+					ui-sref-active="active" ng-bind="style.title"></div>
+			</div>
+		</div>
 	</div>
-	<div class="preston-body">
-		***REMOVED******REMOVED******REMOVED***@body***REMOVED******REMOVED******REMOVED***
-	</div>
+	<div class="preston-container" ui-view></div>
+	<script src="/js/angular.js"></script>
+	<script src="/js/highlight.js"></script>
+	<script src="/js/angular-router.js"></script>
+	<script src="/js/angular-sanitize.js"></script>
+	<script>
+	angular
+		.module('app', ['ngSanitize', 'ui.router'])
+		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) ***REMOVED***
+			// stop conflicting with handlebars
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+
+			// routing
+			$urlRouterProvider.otherwise('/');
+			$stateProvider
+				.state('home', ***REMOVED***
+					url: '/',
+					templateUrl: 'templates/home.html'
+				***REMOVED***)
+				.state('guide', ***REMOVED***
+					url: '/style/:name',
+					templateUrl: 'templates/guide.html'
+				***REMOVED***);
+		***REMOVED***)
+		.service('MessageService', function() ***REMOVED***
+			function display(type, message) ***REMOVED***
+				alert(message);
+			***REMOVED***
+			return ***REMOVED***
+				error: function(message) ***REMOVED***
+					display('error', message);
+				***REMOVED***
+			***REMOVED***;
+		***REMOVED***)
+		.service('ApiService', function($http, MessageService) ***REMOVED***
+			return function(version, controller) ***REMOVED***
+				var versionParsed = parseFloat(version).toFixed(1);
+				var baseUrl = '/api/' + versionParsed + '/' + controller;
+
+				return ***REMOVED***
+					get: function(path) ***REMOVED***
+						return $http
+							.get(baseUrl + (path || ''))
+							.error(function(data) ***REMOVED***
+								MessageService.error(data.message || 'An error occured');
+							***REMOVED***);
+					***REMOVED***
+				***REMOVED***
+			***REMOVED***
+		***REMOVED***)
+		.factory('StylesFactory', function(ApiService) ***REMOVED***
+			var api = new ApiService(1.0, 'styles');
+
+			// TODO: cache responses as some are
+			// used in multiple controller instances
+			return ***REMOVED***
+				get: function(name) ***REMOVED***
+					return api.get('/' + name).then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
+				***REMOVED***,
+				getAll: function() ***REMOVED***
+					return api.get().then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
+				***REMOVED***
+			***REMOVED***;
+		***REMOVED***)
+		.service('StyleContentService', function($sce, StylesFactory) ***REMOVED***
+			return function StyleContent(styleName, contentName) ***REMOVED***
+				var self = this;
+				this.style = styleName;
+				this.name = contentName;
+				StylesFactory
+					.get(this.style + '/' + this.name)
+					.then(function(data) ***REMOVED***
+						self.markup = $sce.trustAsHtml(data.markup);
+					***REMOVED***);
+			***REMOVED***;
+		***REMOVED***)
+		.service('StyleService', function(StylesFactory, StyleContentService) ***REMOVED***
+			return function Style(name) ***REMOVED***
+				var self = this;
+				return StylesFactory
+					.get(name)
+					.then(function(data) ***REMOVED***
+						self.title = data.title;
+						self.name = data.name;
+						self.contents = data.contents.map(function(content) ***REMOVED***
+							return new StyleContentService(data.name, content);
+						***REMOVED***);
+						return self;
+					***REMOVED***);
+			***REMOVED***;
+		***REMOVED***)
+		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) ***REMOVED***
+			new StyleService($state.params.name)
+				.then(function(style) ***REMOVED***
+					$rootScope.$broadcast('styleSelected', style);
+					$scope.contents = style.contents;
+
+					// Hacked ... make this a directive
+					setTimeout(function() ***REMOVED***
+						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
+						codeBlocks.forEach(function(block) ***REMOVED***
+							hljs.highlightBlock(block);
+						***REMOVED***);
+					***REMOVED***, 100)
+				***REMOVED***);
+		***REMOVED***)
+		.controller('HeadCtrl', function($scope) ***REMOVED***
+			$scope.$on('styleSelected', function(e, style) ***REMOVED***
+				$scope.style = style;
+			***REMOVED***);
+		***REMOVED***)
+		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
+			StylesFactory
+				.getAll()
+				.then(function(result) ***REMOVED***
+					$scope.nav = result;
+				***REMOVED***);
+		***REMOVED***)
+	</script>
 </body>
 </html>
