@@ -1,15 +1,146 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html ng-app="app">
+<head ng-controller="HeadCtrl">
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlightjs.css">
+	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content.name ::/style.css">
 </head>
 <body>
-	<div class="preston-heading">
-		<div class="preston-title">Preston</div>
+	<div class="preston-header preston-content" ng-controller="NavCtrl">
+		<div class="preston-container">
+			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
+			<div class="preston-nav">
+				<div class="preston-nav-item"
+					ng-repeat="style in nav"
+					ui-sref="guide({ name: style.name })"
+					ui-sref-active="active" ng-bind="style.title"></div>
+			</div>
+		</div>
 	</div>
-	<div class="preston-body">
-		{{{@body}}}
-	</div>
+	<div class="preston-container" ui-view></div>
+	<script src="/js/angular.js"></script>
+	<script src="/js/highlight.js"></script>
+	<script src="/js/angular-router.js"></script>
+	<script src="/js/angular-sanitize.js"></script>
+	<script>
+	angular
+		.module('app', ['ngSanitize', 'ui.router'])
+		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
+			// stop conflicting with handlebars
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+
+			// routing
+			$urlRouterProvider.otherwise('/');
+			$stateProvider
+				.state('home', {
+					url: '/',
+					templateUrl: 'templates/home.html'
+				})
+				.state('guide', {
+					url: '/style/:name',
+					templateUrl: 'templates/guide.html'
+				});
+		})
+		.service('MessageService', function() {
+			function display(type, message) {
+				alert(message);
+			}
+			return {
+				error: function(message) {
+					display('error', message);
+				}
+			};
+		})
+		.service('ApiService', function($http, MessageService) {
+			return function(version, controller) {
+				var versionParsed = parseFloat(version).toFixed(1);
+				var baseUrl = '/api/' + versionParsed + '/' + controller;
+
+				return {
+					get: function(path) {
+						return $http
+							.get(baseUrl + (path || ''))
+							.error(function(data) {
+								MessageService.error(data.message || 'An error occured');
+							});
+					}
+				}
+			}
+		})
+		.factory('StylesFactory', function(ApiService) {
+			var api = new ApiService(1.0, 'styles');
+
+			// TODO: cache responses as some are
+			// used in multiple controller instances
+			return {
+				get: function(name) {
+					return api.get('/' + name).then(function(result) {
+						return result.data;
+					});
+				},
+				getAll: function() {
+					return api.get().then(function(result) {
+						return result.data;
+					});
+				}
+			};
+		})
+		.service('StyleContentService', function($sce, StylesFactory) {
+			return function StyleContent(styleName, contentName) {
+				var self = this;
+				this.style = styleName;
+				this.name = contentName;
+				StylesFactory
+					.get(this.style + '/' + this.name)
+					.then(function(data) {
+						self.markup = $sce.trustAsHtml(data.markup);
+					});
+			};
+		})
+		.service('StyleService', function(StylesFactory, StyleContentService) {
+			return function Style(name) {
+				var self = this;
+				return StylesFactory
+					.get(name)
+					.then(function(data) {
+						self.title = data.title;
+						self.name = data.name;
+						self.contents = data.contents.map(function(content) {
+							return new StyleContentService(data.name, content);
+						});
+						return self;
+					});
+			};
+		})
+		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) {
+			new StyleService($state.params.name)
+				.then(function(style) {
+					$rootScope.$broadcast('styleSelected', style);
+					$scope.contents = style.contents;
+
+					// Hacked ... make this a directive
+					setTimeout(function() {
+						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
+						codeBlocks.forEach(function(block) {
+							hljs.highlightBlock(block);
+						});
+					}, 100)
+				});
+		})
+		.controller('HeadCtrl', function($scope) {
+			$scope.$on('styleSelected', function(e, style) {
+				$scope.style = style;
+			});
+		})
+		.controller('NavCtrl', function($scope, StylesFactory) {
+			StylesFactory
+				.getAll()
+				.then(function(result) {
+					$scope.nav = result;
+				});
+		})
+	</script>
 </body>
 </html>
