@@ -1,6 +1,8 @@
 <div ng-controller="StyleCtrl">
 	<div ng-repeat="content in contents">
-		<h1 ng-bind="content.name"></h1>
-		<div ng-bind-html="content.markup"></div>
+		<div class="preston-content preston-offset-small">
+			<div class="preston-nav-item preston-nav-large" ng-bind="content.name"></div>
+		</div>
+		<div class="preston-contents" ng-bind-html="content.markup"></div>
 	</div>
 </div>

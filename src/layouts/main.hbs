@@ -3,10 +3,10 @@
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content ::/style.css">
+	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content.name ::/style.css">
 </head>
 <body>
-	<div class="preston-heading" ng-controller="NavCtrl">
+	<div class="preston-header preston-content" ng-controller="NavCtrl">
 		<div class="preston-container">
 			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
 			<div class="preston-nav">
@@ -115,7 +115,6 @@
 		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) {
 			new StyleService($state.params.name)
 				.then(function(style) {
-						console.log(style)
 					$rootScope.$broadcast('styleSelected', style);
 					$scope.contents = style.contents;
 				});
