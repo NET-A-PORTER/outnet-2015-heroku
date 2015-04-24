@@ -16,13 +16,11 @@
   "author": "The Outnet Team",
   "license": "MIT",
   "dependencies": ***REMOVED***
+    "handlebars": "^3.0.2",
     "koa": "^0.19.0",
     "koa-handlebars": "^0.5.3",
     "koa-router": "^4.3.2",
     "koa-static": "^1.4.9",
     "node-sass-middleware": "^0.5.0"
-***REMOVED***,
-  "scripts": ***REMOVED***
-	  "start": "node --harmony src/server.js"
 ***REMOVED***
 ***REMOVED***

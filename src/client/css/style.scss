@@ -10,6 +10,10 @@ body ***REMOVED***
 	max-width: $preston-window-width;
 	padding: $preston-window-padding;
 	margin: 0 auto;
+	&[ui-view] ***REMOVED***
+		// allow some margin to bottom of page
+		margin-bottom: 100px;
+	***REMOVED***
 ***REMOVED***
 .preston-content ***REMOVED***
 	margin-bottom: $preston-window-padding;
@@ -41,8 +45,13 @@ body ***REMOVED***
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
-.preston-p ***REMOVED***
-	margin-bottom: 10px;
+.preston-markup ***REMOVED***
+	padding: 20px;
+	margin: 10px 0 20px;
+	.preston-markup-title ***REMOVED***
+		font-family: monospace;
+		margin-bottom: 10px;
+	***REMOVED***
 ***REMOVED***
 .preston-nav-item ***REMOVED***
 	color: $preston-text-color;
@@ -69,4 +78,7 @@ body ***REMOVED***
 	&.preston-nav-large ***REMOVED***
 		font-size: 36pt;
 	***REMOVED***
+***REMOVED***
+.preston-p ***REMOVED***
+	margin-bottom: 10px;
 ***REMOVED***
