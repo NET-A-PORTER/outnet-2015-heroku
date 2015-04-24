@@ -1,5 +1,6 @@
 <div ng-controller="StyleCtrl">
-	<div ng-repeat="chunk in style.contents">
-		:: chunk ::
+	<div ng-repeat="content in contents">
+		<h1 ng-bind="content.name"></h1>
+		<div ng-bind-html="content.markup"></div>
 	</div>
 </div>
