@@ -10,6 +10,10 @@ body {
 	max-width: $preston-window-width;
 	padding: $preston-window-padding;
 	margin: 0 auto;
+	&[ui-view] {
+		// allow some margin to bottom of page
+		margin-bottom: 100px;
+	}
 }
 .preston-content {
 	margin-bottom: $preston-window-padding;
@@ -41,8 +45,13 @@ body {
 		}
 	}
 }
-.preston-p {
-	margin-bottom: 10px;
+.preston-markup {
+	padding: 20px;
+	margin: 10px 0 20px;
+	.preston-markup-title {
+		font-family: monospace;
+		margin-bottom: 10px;
+	}
 }
 .preston-nav-item {
 	color: $preston-text-color;
@@ -69,4 +78,7 @@ body {
 	&.preston-nav-large {
 		font-size: 36pt;
 	}
+}
+.preston-p {
+	margin-bottom: 10px;
 }

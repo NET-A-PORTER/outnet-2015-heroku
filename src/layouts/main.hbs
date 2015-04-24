@@ -3,6 +3,7 @@
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlightjs.css">
 	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content.name ::/style.css">
 </head>
 <body>
@@ -19,6 +20,7 @@
 	</div>
 	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
+	<script src="/js/highlight.js"></script>
 	<script src="/js/angular-router.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
 	<script>
@@ -85,7 +87,7 @@
 				}
 			};
 		})
-		.service('StyleContentService', function(StylesFactory) {
+		.service('StyleContentService', function($sce, StylesFactory) {
 			return function StyleContent(styleName, contentName) {
 				var self = this;
 				this.style = styleName;
@@ -93,7 +95,7 @@
 				StylesFactory
 					.get(this.style + '/' + this.name)
 					.then(function(data) {
-						self.markup = data.markup;
+						self.markup = $sce.trustAsHtml(data.markup);
 					});
 			};
 		})
@@ -117,6 +119,14 @@
 				.then(function(style) {
 					$rootScope.$broadcast('styleSelected', style);
 					$scope.contents = style.contents;
+
+					// Hacked ... make this a directive
+					setTimeout(function() {
+						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
+						codeBlocks.forEach(function(block) {
+							hljs.highlightBlock(block);
+						});
+					}, 100)
 				});
 		})
 		.controller('HeadCtrl', function($scope) {
