@@ -1,5 +1,6 @@
 var Style		= require('./style');
 var Styles		= require('./styles');
+var Content		= require('./content');
 var styleDir	= base.path('styles');
 var styles		= null;
 
@@ -19,19 +20,36 @@ function * list() {
 
 function * get() {
 	try {
-		var name = this.params.name;
-		var style = new Style(name, styleDir);
+		var styleName = this.params.style;
+		var style = new Style(styleName, styleDir);
 		this.body = yield style.getDefinition();
 	} catch(e) {
 		console.log(e);
 		this.status = 500;
 		this.body = {
-			message: 'Error retrieving style ' + name
+			message: 'Error retrieving style ' + styleName
+		};
+	}
+}
+
+function * getContents() {
+	try {
+		var styleName = this.params.style;
+		var contentName = this.params.content;
+		var baseDir = styleDir + '/' + styleName + '/' + contentName;
+		var content = yield new Content(baseDir);
+		this.body = content.toJSON();
+	} catch(e) {
+		console.log(e);
+		this.status = 500;
+		this.body = {
+			message: 'Error retrieving ' + contentName + ' contents'
 		};
 	}
 }
 
 module.exports = {
 	get: get,
+	getContents: getContents,
 	list: list
 };
