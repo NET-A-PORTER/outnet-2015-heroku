@@ -2,9 +2,9 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/highlightjs.css">
-	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href="/css/:: style.name ::/:: content.name ::/style.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href=":: content.cssPath ::">
 </head>
 <body>
 	<div class="preston-header preston-content" ng-controller="NavCtrl">
@@ -96,6 +96,15 @@
 					.get(this.style + '/' + this.name)
 					.then(function(data) {
 						self.markup = $sce.trustAsHtml(data.markup);
+						self.scss = data.scss
+							.replace(/(\n|\r)/g, '<br />')
+							.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+						self.css = data.css
+							.replace(/(\n|\r)/g, '<br />')
+							.replace(/\s\s/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+
+						self.cssPath = '/css/' + self.style + '/' + self.name + '/style.css';
 					});
 			};
 		})
@@ -115,10 +124,16 @@
 			};
 		})
 		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) {
+
+			$scope.views = ['markup', 'css', 'sass'];
+
 			new StyleService($state.params.name)
 				.then(function(style) {
 					$rootScope.$broadcast('styleSelected', style);
-					$scope.contents = style.contents;
+					$scope.contents = style.contents.map(function(content) {
+						content.currentView = 'markup';
+						return content;
+					});
 
 					// Hacked ... make this a directive
 					setTimeout(function() {
@@ -126,7 +141,7 @@
 						codeBlocks.forEach(function(block) {
 							hljs.highlightBlock(block);
 						});
-					}, 100)
+					}, 100);
 				});
 		})
 		.controller('HeadCtrl', function($scope) {
