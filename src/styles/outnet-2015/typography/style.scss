@@ -1,0 +1,91 @@
+$fontDirectory: "/css/fonts/";
+$fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
+
+@each $font in $fontList ***REMOVED***
+	$prefix: $fontDirectory + $font;
+	@font-face ***REMOVED***
+		font-family: $font;
+		src:url($prefix + ".eot"); /* IE9 Compat Modes */
+		src:url($prefix + ".eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */
+			url($prefix + ".woff") format("woff"), /* Modern Browsers */
+			url($prefix + ".ttf") format("truetype"), /* Safari, Android, iOS */
+			url($prefix + ".svg") format("svg");	/* Legacy iOS */
+	***REMOVED***
+***REMOVED***
+
+html,
+body ***REMOVED***
+	font: 100%/1.4 FuturaBook, Arial, sans-serif;
+***REMOVED***
+
+h1,
+h2 ***REMOVED***
+	font-size: 28px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: center;
+***REMOVED***
+h1 + h2 ***REMOVED***
+	color: #777;
+	font-family: FuturaLight;
+	font-size: 17px;
+	line-height: 28px;
+	margin-top: -20px;
+	text-align: center;
+***REMOVED***
+h2 ***REMOVED***
+	letter-spacing: 1px;
+	text-align: left;
+***REMOVED***
+p ***REMOVED***
+	&.credit ***REMOVED***
+		font-family: FuturaDemi;
+		font-size: 11px;
+		line-height: 25px;
+		letter-spacing: 1px;
+		max-width: 600px;
+		padding-left: 20px;
+		padding-right: 20px;
+		text-decoration: none;
+		text-transform: lowercase;
+		span ***REMOVED***
+			font-family: FuturaBook;
+			text-decoration: underline;
+			text-transform: none;
+		***REMOVED***
+		&.credit-image ***REMOVED***
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		***REMOVED***
+	***REMOVED***
+	&.description ***REMOVED***
+		font-family: FuturaLight;
+		font-size: 17px;
+		letter-spacing: 1px;
+	***REMOVED***
+	&.quote ***REMOVED***
+		font-family: FuturaLight;
+		font-size: 25px;
+		letter-spacing: 1px;
+		line-height: 45px;
+		max-width: 600px;
+		padding: 20px;
+		text-align: center;
+		.credit ***REMOVED***
+			@extend p.credit;
+			display: block;
+			font-family: FuturaBook;
+			margin-top: 30px;
+			text-transform: none;
+		***REMOVED***
+	***REMOVED***
+***REMOVED***
+
+// TODO: put into breakpoints style
+// View: mobile
+@media all and (max-width: 480px) ***REMOVED***
+	h1 ***REMOVED***
+		font-size: 24px;
+	***REMOVED***
+***REMOVED***
