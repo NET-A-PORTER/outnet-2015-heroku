@@ -6,8 +6,7 @@ var stylesDir	= base.path('styles');
 // compile app styles
 app.use(function * (next) {
 	yield sass({
-		src: publicDir,
-		debug: true
+		src: publicDir
 	}).bind(sass, this.req, this.res);
 	yield next;
 });
