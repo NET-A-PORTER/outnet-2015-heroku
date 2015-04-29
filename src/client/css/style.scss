@@ -28,6 +28,32 @@ body ***REMOVED***
 		margin-top: 100px;
 	***REMOVED***
 ***REMOVED***
+.preston-content-views ***REMOVED***
+	margin-bottom: 30px;
+	a ***REMOVED***
+		cursor: pointer;
+		color: #000;
+		border-radius: 3px;
+		margin-right: 5px;
+		padding: 1px 3px;
+		text-decoration: none;
+		transition: all 0.1s ease-in;
+		&.selected,
+		&:hover ***REMOVED***
+			color: #fff;
+			background: #000;
+		***REMOVED***
+	***REMOVED***
+***REMOVED***
+.preston-view-css,
+.preston-view-sass,
+.preston-view-markup ***REMOVED***
+	display: none;
+***REMOVED***
+.preston-content-css .preston-view-css ***REMOVED*** display: block; ***REMOVED***
+.preston-content-sass .preston-view-sass ***REMOVED*** display: block; ***REMOVED***
+.preston-content-markup .preston-view-markup ***REMOVED*** display: block; ***REMOVED***
+
 .preston-header ***REMOVED***
 	box-shadow: #ccc 0 10px 10px -10px;
 	border-bottom: #ccc 1px solid;
