@@ -1,72 +1,54 @@
-$black: #000000;
-$white: #FFF;
-$grey: #E6E6E6;
-$dark-grey: #B7B7B7;
-
-@mixin button-dimensions($height) ***REMOVED***
-	line-height: $height;
-	padding: 9px 25px;
-	display: inline-block;
-	box-sizing: border-box;
-***REMOVED***
-
-.btn, .btn-white ***REMOVED***
-	@include button-dimensions(40px);
-	cursor: pointer;
-	text-transform: uppercase;
-	text-decoration: none;
-	white-space: nowrap;
-	vertical-align: middle;
-	text-align: center;
+button,
+input[type=submit],
+.btn ***REMOVED***
+	background: #e6e6e6;
 	border: none;
-	letter-spacing: 1.3px;
-	-webkit-appearance: none;
-	-webkit-border-radius: 0;
-	font-family: "Futura T W01 Medium", Arial, sans-serif;
-	font-size:15px;
-	&[disabled] ***REMOVED***
-		border: none;
-		color: $dark-grey;
-		background-color: $grey;
-		&:hover, &:active ***REMOVED***
-			color: $dark-grey;
-			background-color: $grey;
+	color: #000;
+	cursor: pointer;
+	display: inline-block;
+	font-family: FuturaMedium;
+	font-size: 15px;
+	letter-spacing: 0;
+	line-height: 1.2em;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	max-width: 300px;
+	padding: 11px 20px 8px;
+	text-decoration: none;
+	text-transform: uppercase;
+	&:hover ***REMOVED***
+		background: #b7b7b7;
+		color: #000;
+	***REMOVED***
+	&.btn-small ***REMOVED***
+		font-family: FuturaDemi;
+		font-size: 12px;
+		max-width: 150px;
+		padding: 6px 15px 4px;
+	***REMOVED***
+	&.btn-primary ***REMOVED***
+		background: #000;
+		color: #fff;
+		&:hover ***REMOVED***
+			background: #2a2626;
 		***REMOVED***
 	***REMOVED***
-***REMOVED***
-
-.btn ***REMOVED***
-	color: $white;
-	background-color: $black;
-	&:hover ***REMOVED***
-		background-color: #2A2626;
+	&.btn-white ***REMOVED***
+		background: #fff;
+		color: #000;
+		outline: #000 1px solid;
+		&:hover ***REMOVED***
+			background: #000;
+			color: #fff;
+		***REMOVED***
 	***REMOVED***
-	&:active ***REMOVED***
-		background-color: $black;
-	***REMOVED***
-***REMOVED***
-
-.btn-secondary ***REMOVED***
-	color: $black;
-	background-color: $grey;
-	&:hover ***REMOVED***
-		background-color: $dark-grey;
-	***REMOVED***
-	&:active ***REMOVED***
-		background-color: $grey;
-	***REMOVED***
-***REMOVED***
-
-.btn-white ***REMOVED***
-	border: 1px solid $black;
-	color: $black;
-	background-color: $white;
-	&:hover ***REMOVED***
-		color: $white;
-		background-color: $black;
-	***REMOVED***
-	&:active ***REMOVED***
-		color: $black;
-		background-color: $white;
+	&[disabled],
+	&[disabled]:hover,
+	&.btn-disabled,
+	&.btn-disabled:hover ***REMOVED***
+		background: #e6e6e6;
+		color: #b7b7b7;
+		cursor: default;
+		outline: none;
 	***REMOVED***
 ***REMOVED***
