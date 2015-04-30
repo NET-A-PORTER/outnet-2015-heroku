@@ -1,45 +1,60 @@
-// SECTION: Headers
-{{#markup}}
-<h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>
-{{/markup}}
+{{#section}}
+	{{#sub-section}}
+		{{#markup}}
+<h1>This is a page heading</h1>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section}}
+		{{#markup}}
+<h1>This is a page heading</h1>
+<h2>Followed by a sub-section heading</h2>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section}}
+		{{#markup}}
+<h2>This is a section heading</h2>
+<h3>This is a sub-section heading</h3>
+		{{/markup}}
+	{{/sub-section}}
+{{/section}}
 
-// SUB-SECTION: H2
-<p>Here's a h2 not preceeded by a h1</p>
-{{#markup}}
-<h2>Heading 2</h2>
-{{/markup}}
-
-// SECTION: Paragraph text (descrption)
-{{#markup}}
+{{#section title="Body Text"}}
+	{{#markup}}
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+	{{/markup}}
+	{{#markup}}
 <p class="description">
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </p>
-{{/markup}}
+	{{/markup}}
+{{/section}}
 
-// SECTION: Credits
-{{#markup}}
+{{#section title="Credits"}}
+	{{#markup}}
 <p class="credit">
 	Credit Type <span>Credit source</span>
 	Credit Type <span>Credit source</span>
 	Credit Type <span>Credit source</span>
 </p>
-{{/markup}}
-
-// SUB-SECTION: Image credit
-// TODO: put image here
-{{#markup}}
+	{{/markup}}
+	{{#sub-section title="Centered credits"}}
+		{{{detail "Centered credits should appear under images"}}}
+		{{#markup}}
 <p class="credit credit-image">
 	Credit Type <span>Credit source</span>
 	Credit Type <span>Credit source</span>
 	Credit Type <span>Credit source</span>
 </p>
-{{/markup}}
+		{{/markup}}
+	{{/sub-section}}
+{{/section}}
 
-// SECTION: Quotes
-// WRITE: Alsways use hyphen before source
-<p class="quote">
-	"We are all apprentices in a craft where no one ever becomes a master."
-	<span class="credit">&mdash; Ernest Hemmingway</span>
-</p>
+{{#section title="Quotes"}}
+	{{{detail "Please use a hyphen before quotes"}}}
+	<p class="quote">
+		"We are all apprentices in a craft where no one ever becomes a master."
+		<span class="credit">&mdash; Ernest Hemmingway</span>
+	</p>
+{{/section}}

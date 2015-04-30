@@ -1,55 +1,54 @@
-<div>// SECTION: Default buttons</div>
-{{#markup}}
-<div>
-	<a class="btn" href="#" role="button">Add to Wishlist</a>
-	<input class="btn" type="submit" value="Add to Wishlist" />
-	<button class="btn" disabled>Add to Wishlist</button>
-</div>
-<div>
-	<a class="btn btn-disabled" href="#" role="button">Add to Wishlist</a>
-	<input type="submit" value="Add to Wishlist" disabled />
-	<button disabled>Add to Wishlist</button>
-</div>
-{{/markup}}
+{{#section title="Default buttons"}}
+	{{#sub-section title="Active variations"}}
+		{{#markup}}
+<a class="btn" href="#" role="button">Add to Wishlist</a>
+<input class="btn" type="submit" value="Add to Wishlist" />
+<button class="btn">Add to Wishlist</button>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section title="Inactive variations"}}
+		{{#markup}}
+<a class="btn btn-disabled" href="#" role="button">Add to Wishlist</a>
+<input type="submit" value="Add to Wishlist" disabled />
+<button disabled>Add to Wishlist</button>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section title="Small variations"}}
+		{{#markup}}
+<a class="btn btn-small" href="#" role="button">Add to Wishlist</a>
+<input class="btn btn-small" type="submit" value="Add to Wishlist" />
+<button class="btn btn-small">Add to Wishlist</button>
+		{{/markup}}
+	{{/sub-section}}
+{{/section}}
 
-<div>// SECTION: Primary buttons</div>
-<div>// SUB-SECTION: Black variations (active/inactive)</div>
-{{#markup}}
-<div>
-	<a class="btn btn-primary" href="#" role="button">Proceed to checkout</a>
-	<input class="btn-primary" type="submit" value="Proceed to checkout" />
-	<button class="btn-primary">Proceed to checkout</button>
-</div>
-<div>
-	<a class="btn btn-primary btn-disabled" href="#" role="button">Proceed to checkout</a>
-	<input class="btn-primary" type="submit" value="Proceed to checkout" disabled />
-	<button class="btn-primary" disabled>Proceed to checkout</button>
-</div>
-{{/markup}}
-<div>// SUB-SECTION: White variations</div>
-{{#markup}}
-<div>
-	<a class="btn btn-primary btn-white" href="#" role="button">Proceed to checkout</a>
-	<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" />
-	<button class="btn-primary btn-white">Proceed to checkout</button>
-</div>
-<div>
-	<a class="btn btn-primary btn-white btn-disabled" href="#" role="button">Proceed to checkout</a>
-	<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" disabled />
-	<button class="btn-primary btn-white" disabled>Proceed to checkout</button>
-</div>
-{{/markup}}
-
-<div>// SECTION: Small buttons</div>
-{{#markup}}
-<div>
-	<a class="btn btn-small" href="#" role="button">Add to Wishlist</a>
-	<input class="btn btn-small" type="submit" value="Add to Wishlist" />
-	<button class="btn btn-small" disabled>Add to Wishlist</button>
-</div>
-<div>
-	<a class="btn btn-small btn-disabled" href="#" role="button">Add to Wishlist</a>
-	<input class="btn-small" type="submit" value="Add to Wishlist" disabled />
-	<button class="btn-small" disabled>Add to Wishlist</button>
-</div>
-{{/markup}}
+{{#section title="Primary buttons"}}
+	{{#sub-section title="Black active variations"}}
+		{{#markup}}
+<a class="btn btn-primary" href="#" role="button">Proceed to checkout</a>
+<input class="btn-primary" type="submit" value="Proceed to checkout" />
+<button class="btn-primary">Proceed to checkout</button>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section title="Black inactive variations"}}
+		{{#markup}}
+<a class="btn btn-primary btn-disabled" href="#" role="button">Proceed to checkout</a>
+<input class="btn-primary" type="submit" value="Proceed to checkout" disabled />
+<button class="btn-primary" disabled>Proceed to checkout</button>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section title="White active variations"}}
+		{{#markup}}
+<a class="btn btn-primary btn-white" href="#" role="button">Proceed to checkout</a>
+<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" />
+<button class="btn-primary btn-white">Proceed to checkout</button>
+		{{/markup}}
+	{{/sub-section}}
+	{{#sub-section title="White inactive variations"}}
+		{{#markup}}
+<a class="btn btn-primary btn-white btn-disabled" href="#" role="button">Proceed to checkout</a>
+<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" disabled />
+<button class="btn-primary btn-white" disabled>Proceed to checkout</button>
+		{{/markup}}
+	{{/sub-section}}
+{{/section}}
