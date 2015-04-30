@@ -15,7 +15,8 @@ $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 
 html,
 body {
-	font: 100%/1.4 FuturaBook, Arial, sans-serif;
+	font-family: FuturaBook, Arial, sans-serif;
+	line-height: 1.4em;
 }
 
 h1,
@@ -38,11 +39,11 @@ h2 {
 	text-align: left;
 }
 p {
+	letter-spacing: 1px;
 	&.credit {
 		font-family: FuturaDemi;
 		font-size: 11px;
 		line-height: 25px;
-		letter-spacing: 1px;
 		max-width: 600px;
 		padding-left: 20px;
 		padding-right: 20px;
@@ -62,12 +63,10 @@ p {
 	&.description {
 		font-family: FuturaLight;
 		font-size: 17px;
-		letter-spacing: 1px;
 	}
 	&.quote {
 		font-family: FuturaLight;
 		font-size: 25px;
-		letter-spacing: 1px;
 		line-height: 45px;
 		max-width: 600px;
 		padding: 20px;
