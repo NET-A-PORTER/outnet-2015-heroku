@@ -1,15 +1,6 @@
 var fs		= require('fs');
-var hbs		= require('handlebars');
 var sass	= require('node-sass');
-
-hbs.registerHelper('markup', (opt) => ***REMOVED***
-	var output = opt.fn();
-	var escaped = hbs.Utils.escapeExpression(output)
-		.replace(/(\r\n|\n|\r)/gm, '<br>')
-		.replace(/(\t)/gm, '&nbsp;&nbsp;');
-	var markup = '<code class="html preston-markup">' + escaped + '</code>';
-	return output + markup;
-***REMOVED***);
+var render	= require('./render');
 
 function readFromFile(path) ***REMOVED***
 	return new Promise((resolve, reject) => ***REMOVED***
@@ -30,7 +21,7 @@ function * StyleContent(baseDir) ***REMOVED***
 	this.css = (yield compileSass(baseDir + '/style.scss')).css;
 
 	var markup = yield readFromFile(baseDir + '/markup.hbs');
-	this.markup = hbs.compile(markup)();
+	this.markup = render(markup);
 	return this;
 ***REMOVED***
 
