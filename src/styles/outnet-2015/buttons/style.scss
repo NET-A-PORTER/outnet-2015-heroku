@@ -1,0 +1,54 @@
+button,
+input[type=submit],
+.btn {
+	background: #e6e6e6;
+	border: none;
+	color: #000;
+	cursor: pointer;
+	display: inline-block;
+	font-family: FuturaMedium;
+	font-size: 15px;
+	letter-spacing: 0;
+	line-height: 1.2em;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	max-width: 300px;
+	padding: 11px 20px 8px;
+	text-decoration: none;
+	text-transform: uppercase;
+	&:hover {
+		background: #b7b7b7;
+		color: #000;
+	}
+	&.btn-small {
+		font-family: FuturaDemi;
+		font-size: 12px;
+		max-width: 150px;
+		padding: 6px 15px 4px;
+	}
+	&.btn-primary {
+		background: #000;
+		color: #fff;
+		&:hover {
+			background: #2a2626;
+		}
+	}
+	&.btn-white {
+		background: #fff;
+		color: #000;
+		outline: #000 1px solid;
+		&:hover {
+			background: #000;
+			color: #fff;
+		}
+	}
+	&[disabled],
+	&[disabled]:hover,
+	&.btn-disabled,
+	&.btn-disabled:hover {
+		background: #e6e6e6;
+		color: #b7b7b7;
+		cursor: default;
+		outline: none;
+	}
+}
