@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="preston-container" ui-view></div>
+	<div ui-view></div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/highlight.js"></script>
 	<script src="/js/angular-router.js"></script>
@@ -130,6 +130,7 @@
 			new StyleService($state.params.name)
 				.then(function(style) {
 					$rootScope.$broadcast('styleSelected', style);
+					$scope.title = style.title;
 					$scope.contents = style.contents.map(function(content) {
 						content.currentView = 'markup';
 						return content;

@@ -22,8 +22,8 @@ function sections(type, opt) {
 	return wrapper + content;
 }
 
-hbs.registerHelper('section', opt => sections('h2', opt))
-hbs.registerHelper('sub-section', opt => sections('h3', opt));
+hbs.registerHelper('section', opt => sections('h3', opt))
+hbs.registerHelper('sub-section', opt => sections('h4', opt));
 hbs.registerHelper('detail', opt => sections('p', opt));
 
 module.exports = (markup) => {
