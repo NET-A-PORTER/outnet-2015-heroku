@@ -50,6 +50,8 @@ body ***REMOVED***
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
+
+
 .preston-view-css,
 .preston-view-sass,
 .preston-view-markup ***REMOVED***
@@ -59,60 +61,13 @@ body ***REMOVED***
 .preston-content-sass .preston-view-sass ***REMOVED*** display: block; ***REMOVED***
 .preston-content-markup .preston-view-markup ***REMOVED*** display: block; ***REMOVED***
 
-.preston-header ***REMOVED***
-	box-shadow: $preston-light-color 0 10px 10px -10px;
-	border-bottom: $preston-light-color 1px solid;
-	background: #fff;
-	position: fixed;
-	width: 100%;
-	left: 0;
-	top: 0;
-	.preston-nav ***REMOVED***
-		float: right;
-		> div ***REMOVED***
-			margin-left: 5px;
-		***REMOVED***
-	***REMOVED***
-	.preston-title ***REMOVED***
-		font-size: 14pt;
-		&:first-letter***REMOVED***
-			text-transform: uppercase;
-		***REMOVED***
-	***REMOVED***
-***REMOVED***
+
 .preston-markup ***REMOVED***
 	padding: 20px;
 	margin: 10px 0 20px;
 	.preston-markup-title ***REMOVED***
 		font-family: monospace;
 		margin-bottom: 10px;
-	***REMOVED***
-***REMOVED***
-.preston-nav-item ***REMOVED***
-	color: $preston-dark-color;
-	cursor: pointer;
-	display: inline-block;
-	line-height: 1em;
-	position: relative;
-	text-decoration: none;
-	&:after ***REMOVED***
-		background: $preston-dark-color;
-		transition: all 0.1s ease-out;
-		position: absolute;
-		content: '';
-		height: 1px;
-		width: 100%;
-		bottom: -5px;
-		left: 0;
-		opacity: 0;
-	***REMOVED***
-	&.active:after,
-	&:hover:after ***REMOVED***
-		opacity: 1;
-		bottom: 0;
-	***REMOVED***
-	&.preston-nav-large ***REMOVED***
-		font-size: 36pt;
 	***REMOVED***
 ***REMOVED***
 .preston-p ***REMOVED***
