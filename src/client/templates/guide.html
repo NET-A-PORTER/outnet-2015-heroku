@@ -1,13 +1,15 @@
 <div ng-controller="StyleCtrl">
-	<div ng-repeat="content in contents track by $index" ng-class="'preston-content-' + content.currentView">
-		<div class="preston-content preston-offset-small">
-			<div class="preston-nav-item preston-nav-large" ng-bind="content.name"></div>
-			<div class="preston-content-views">
-				<a
-					ng-repeat="view in views"
+	<div class="preston-guide-heading">
+		<h1 ng-bind="title + ' Style Guide'"></h1>
+	</div>
+	<div class="preston-container" ng-repeat="content in contents track by $index" ng-class="'preston-content-' + content.currentView">
+		<div>
+			<h2 ng-bind="content.name"></h2>
+			<div class="preston-pills">
+				<div ng-repeat="view in views"
 					ng-click="content.currentView=view"
 					ng-class="***REMOVED*** selected: view == content.currentView ***REMOVED***"
-					ng-bind="view"></a>
+					ng-bind="view"></div>
 			</div>
 		</div>
 		<div class="preston-contents preston-view-markup" ng-bind-html="content.markup"></div>
