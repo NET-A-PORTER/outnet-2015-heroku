@@ -1,0 +1,28 @@
+@import '../typography/style';
+
+body {
+	margin: 0;
+	padding: 0;
+}
+.preston-container {
+	max-width: 1160px;
+	margin: 0 auto;
+	padding: 0 10px;
+	.preston-nav-item {
+		font-size: 48pt;
+		padding: 0;
+	}
+}
+.preston-frame {
+	border: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+.preston-heading {
+	@extend .preston-type;
+	font-size: 24pt;
+	margin: 200px 0 -20px;
+}
