@@ -1,4 +1,4 @@
 {
 	"title": "Preston",
-	"contents": ["colours", "navigation", "content", "highlight-js"]
+	"elements": ["navigation"]
 }

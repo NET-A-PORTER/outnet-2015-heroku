@@ -1,8 +1,21 @@
 var Style		= require('./style');
 var Styles		= require('./styles');
-var Content		= require('./content');
 var styleDir	= base.path('styles');
 var styles		= null;
+
+function response(error, name) {
+	console.log(error);
+
+	var message = 'Error retrieving ' + name;
+	var status = 500;
+	if (error.errno === -2) {
+		status = 404;
+		message = name + ' not found';
+	}
+
+	this.status = status;
+	this.body = { message: message };
+}
 
 function * list() {
 	try {
@@ -10,11 +23,7 @@ function * list() {
 		styles = styles || new Styles(styleDir);
 		this.body = yield styles.getAll();
 	} catch(e) {
-		console.log(e);
-		this.status = 500;
-		this.body = {
-			message: 'Error retrieving styles'
-		};
+		response.call(this, e, 'styles');
 	}
 }
 
@@ -24,32 +33,23 @@ function * get() {
 		var style = new Style(styleName, styleDir);
 		this.body = yield style.getDefinition();
 	} catch(e) {
-		console.log(e);
-		this.status = 500;
-		this.body = {
-			message: 'Error retrieving style ' + styleName
-		};
+		response.call(this, e, styleName);
 	}
 }
 
-function * getContents() {
+function * getElement() {
 	try {
+		var elementName = this.params.element;
 		var styleName = this.params.style;
-		var contentName = this.params.content;
-		var baseDir = styleDir + '/' + styleName + '/' + contentName;
-		var content = yield new Content(baseDir);
-		this.body = content.toJSON();
+		var style = new Style(styleName, styleDir);
+		this.body = yield style.getElement(elementName);
 	} catch(e) {
-		console.log(e);
-		this.status = 500;
-		this.body = {
-			message: 'Error retrieving ' + contentName + ' contents'
-		};
+		response.call(this, e, elementName);
 	}
 }
 
 module.exports = {
 	get: get,
-	getContents: getContents,
+	getElement: getElement,
 	list: list
 };
