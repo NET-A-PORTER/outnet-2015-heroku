@@ -2,44 +2,22 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href=":: content.cssPath ::">
+	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
-	<div class="preston-header preston-content" ng-controller="NavCtrl">
-		<div class="preston-container">
-			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
-			<div class="preston-nav">
-				<div class="preston-nav-item"
-					ng-repeat="style in nav"
-					ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"
-					ui-sref-active="active" ng-bind="style.title"></div>
-			</div>
-		</div>
+	<div class="preston-header">
+		<div class="preston-title preston-nav-item">Preston</div>
 	</div>
-	<div ui-view></div>
 	<script src="/js/angular.js"></script>
-	<script src="/js/highlight.js"></script>
 	<script src="/js/angular-router.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
 	<script>
 	angular
 		.module('app', ['ngSanitize', 'ui.router'])
-		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) ***REMOVED***
+		.config(function($interpolateProvider) ***REMOVED***
 			// stop conflicting with handlebars
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
-
-			// routing
-			$urlRouterProvider.otherwise('/');
-			$stateProvider
-				.state('home', ***REMOVED***
-					url: '/',
-					templateUrl: 'templates/home.html'
-				***REMOVED***)
-				.state('guide', ***REMOVED***
-					url: '/style/:name',
-					templateUrl: 'templates/guide.html'
-				***REMOVED***);
 		***REMOVED***)
 		.service('MessageService', function() ***REMOVED***
 			function display(type, message) ***REMOVED***
@@ -82,79 +60,65 @@
 					return api.get().then(function(result) ***REMOVED***
 						return result.data;
 					***REMOVED***);
+				***REMOVED***,
+				getElement: function(style, element) ***REMOVED***
+					return api.get('/' + style + '/' + element).then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
 				***REMOVED***
 			***REMOVED***;
 		***REMOVED***)
-		.service('StyleContentService', function($sce, StylesFactory) ***REMOVED***
-			return function StyleContent(styleName, contentName) ***REMOVED***
-				var self = this;
-				this.style = styleName;
-				this.name = contentName;
-				StylesFactory
-					.get(this.style + '/' + this.name)
-					.then(function(data) ***REMOVED***
-						self.markup = $sce.trustAsHtml(data.markup);
-						self.scss = data.scss
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.css = data.css
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\s\s/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.cssPath = '/css/' + self.style + '/' + self.name + '/style.css';
-					***REMOVED***);
+		.service('StyleElement', function(StylesFactory) ***REMOVED***
+			var StyleElement = function(style, name) ***REMOVED***
+				this.style = style;
+				this.name = name;
 			***REMOVED***;
-		***REMOVED***)
-		.service('StyleService', function(StylesFactory, StyleContentService) ***REMOVED***
-			return function Style(name) ***REMOVED***
-				var self = this;
-				return StylesFactory
-					.get(name)
-					.then(function(data) ***REMOVED***
-						self.title = data.title;
-						self.name = data.name;
-						self.contents = data.contents.map(function(content) ***REMOVED***
-							return new StyleContentService(data.name, content);
-						***REMOVED***);
-						return self;
-					***REMOVED***);
+			StyleElement.prototype = ***REMOVED***
+				getCssPath: function() ***REMOVED***
+					return '/css/' + this.style + '/' + this.name + '/style.css'
+				***REMOVED***,
+				fetch: function() ***REMOVED***
+					var self = this;
+					StylesFactory
+						.getElement(this.style, this.name);
+				***REMOVED***
 			***REMOVED***;
+			return StyleElement;
 		***REMOVED***)
-		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) ***REMOVED***
-
-			$scope.views = ['markup', 'css', 'sass'];
-
-			new StyleService($state.params.name)
-				.then(function(style) ***REMOVED***
-					$rootScope.$broadcast('styleSelected', style);
-					$scope.title = style.title;
-					$scope.contents = style.contents.map(function(content) ***REMOVED***
-						content.currentView = 'markup';
-						return content;
-					***REMOVED***);
-
-					// Hacked ... make this a directive
-					setTimeout(function() ***REMOVED***
-						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
-						codeBlocks.forEach(function(block) ***REMOVED***
-							hljs.highlightBlock(block);
+		.service('Style', function(StylesFactory, StyleElement) ***REMOVED***
+			var Style = function(style, options) ***REMOVED***
+				this.name = style;
+				this.elements = [];
+				this.options = angular.extend(***REMOVED***
+					shallow: false
+				***REMOVED***, options);
+				this.fetch();
+			***REMOVED***;
+			Style.prototype = ***REMOVED***
+				fetch: function() ***REMOVED***
+					var self = this;
+					StylesFactory
+						.get(this.name)
+						.then(function(data) ***REMOVED***
+							self.populateElements(data.elements);
 						***REMOVED***);
-					***REMOVED***, 100);
-				***REMOVED***);
+				***REMOVED***,
+				populateElements: function(elements) ***REMOVED***
+					var self = this;
+					this.elements = elements.map(function(name) ***REMOVED***
+						var element = new StyleElement(self.name, name);
+
+						// only fetch element if shallow option false
+						if (!self.options.shallow) element.fetch();
+						return element;
+					***REMOVED***);
+				***REMOVED***
+			***REMOVED***;
+			return Style;
 		***REMOVED***)
-		.controller('HeadCtrl', function($scope) ***REMOVED***
-			$scope.$on('styleSelected', function(e, style) ***REMOVED***
-				$scope.style = style;
-			***REMOVED***);
-		***REMOVED***)
-		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
-			StylesFactory
-				.getAll()
-				.then(function(result) ***REMOVED***
-					$scope.nav = result;
-				***REMOVED***);
-		***REMOVED***)
+		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
+			$scope.preston = new Style('preston');
+		***REMOVED***);
 	</script>
 </body>
 </html>

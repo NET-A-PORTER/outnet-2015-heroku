@@ -1,56 +1,10 @@
-$preston-dark-color: #111;
-$preston-light-color: #ccc;
-$preston-window-padding: 10px;
-$preston-window-width: 1200px;
-
-.preston-header ***REMOVED***
-	box-shadow: $preston-light-color 0 10px 10px -10px;
-	border-bottom: $preston-light-color 1px solid;
-	background: #fff;
-	position: fixed;
-	width: 100%;
-	left: 0;
-	top: 0;
-	.preston-nav ***REMOVED***
-		float: right;
-		> div ***REMOVED***
-			margin-left: 5px;
-		***REMOVED***
-	***REMOVED***
-	.preston-title ***REMOVED***
-		font-size: 14pt;
-		&:first-letter***REMOVED***
-			text-transform: uppercase;
-		***REMOVED***
-	***REMOVED***
+body ***REMOVED***
+	margin: 0;
+	padding: 0;
 ***REMOVED***
-
-.preston-nav-item ***REMOVED***
-	color: $preston-dark-color;
-	cursor: pointer;
-	display: inline-block;
-	line-height: 1em;
-	position: relative;
-	text-decoration: none;
-	&:after ***REMOVED***
-		background: $preston-dark-color;
-		transition: all 0.1s ease-out;
-		position: absolute;
-		content: '';
-		height: 1px;
-		width: 100%;
-		bottom: -5px;
-		left: 0;
-		opacity: 0;
-	***REMOVED***
-	&.active:after,
-	&:hover:after ***REMOVED***
-		opacity: 1;
-		bottom: 0;
-	***REMOVED***
-	&.preston-nav-large ***REMOVED***
-		display: table;
-		font-size: 36pt;
-		line-height: 1.3em;
+.preston-header ***REMOVED***
+	font-family: Garamond;
+	div ***REMOVED***
+		color: #fff;
 	***REMOVED***
 ***REMOVED***
