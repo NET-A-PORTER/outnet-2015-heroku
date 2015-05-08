@@ -1,22 +1,38 @@
-body ***REMOVED***
-	margin: 0;
-	padding: 0;
-***REMOVED***
+@import '../typography/style';
+
 .preston-header ***REMOVED***
+	@extend .preston-type;
+	background: #fff;
 	border-bottom: #ccc 1px solid;
 	box-shadow: #ccc 0 0 10px;
-	font-family: Garamond;
-	font-size: 14pt;
-	font-variant: small-caps;
-	letter-spacing:0.1em;
-	line-height: 145%;
 	padding: 5px 10px;
-	text-transform: lowercase;
+	position: relative;
+	z-index: 1;
 ***REMOVED***
 .preston-nav ***REMOVED***
 	float: right;
 	> div ***REMOVED***
-		display: inline-block;
-		padding: 1px 3px;
+		@extend .preston-nav-item;
+	***REMOVED***
+***REMOVED***
+.preston-nav-item ***REMOVED***
+	@extend .preston-type;
+	cursor: pointer;
+	display: inline-block;
+	padding: 1px 3px;
+	position: relative;
+	&:after ***REMOVED***
+		border-bottom: #000 1px solid;
+		transition: all 0.1s ease-out;
+		position: absolute;
+		content: '';
+		width: 100%;
+		bottom: -5px;
+		left: 0;
+		opacity: 0;
+	***REMOVED***
+	&:hover:after ***REMOVED***
+		bottom: 0;
+		opacity: 1;
 	***REMOVED***
 ***REMOVED***
