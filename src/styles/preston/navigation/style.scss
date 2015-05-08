@@ -3,8 +3,20 @@ body ***REMOVED***
 	padding: 0;
 ***REMOVED***
 .preston-header ***REMOVED***
+	border-bottom: #ccc 1px solid;
+	box-shadow: #ccc 0 0 10px;
 	font-family: Garamond;
-	div ***REMOVED***
-		color: #fff;
+	font-size: 14pt;
+	font-variant: small-caps;
+	letter-spacing:0.1em;
+	line-height: 145%;
+	padding: 5px 10px;
+	text-transform: lowercase;
+***REMOVED***
+.preston-nav ***REMOVED***
+	float: right;
+	> div ***REMOVED***
+		display: inline-block;
+		padding: 1px 3px;
 	***REMOVED***
 ***REMOVED***

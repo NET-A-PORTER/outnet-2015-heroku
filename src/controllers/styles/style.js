@@ -11,13 +11,13 @@ function Style(name, baseDir) ***REMOVED***
 Style.prototype = ***REMOVED***
 	getDefinition: () => ***REMOVED***
 		var self = this;
-		return utils.readFile(self.path + '/definition.json', (err, result) => ***REMOVED***
-			if (err) return reject(err);
-
-			var parsed = JSON.parse(result);
-			parsed.name = self.name;
-			resolve(parsed);
-		***REMOVED***);
+		return utils
+			.readFile(self.path + '/definition.json')
+			.then((contents) => ***REMOVED***
+				var parsed = JSON.parse(contents);
+				parsed.name = self.name;
+				return parsed;
+			***REMOVED***);
 	***REMOVED***,
 	getElement: function * (name) ***REMOVED***
 		return yield new Element(this.path + '/' + name);

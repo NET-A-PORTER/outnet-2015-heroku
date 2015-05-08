@@ -5,8 +5,11 @@
 	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
-	<div class="preston-header">
-		<div class="preston-title preston-nav-item">Preston</div>
+	<div ng-controller="NavCtrl" class="preston-header">
+		<div class="preston-nav">
+			<div ng-repeat="style in styles" ng-bind="style.title"></div>
+		</div>
+		<div class="preston-title">Preston</div>
 	</div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/angular-router.js"></script>
@@ -115,6 +118,13 @@
 				***REMOVED***
 			***REMOVED***;
 			return Style;
+		***REMOVED***)
+		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
+			StylesFactory
+				.getAll()
+				.then(function(data) ***REMOVED***
+					$scope.styles = data;
+				***REMOVED***);
 		***REMOVED***)
 		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
 			$scope.preston = new Style('preston');
