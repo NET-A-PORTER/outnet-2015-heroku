@@ -20,7 +20,6 @@ function readFile(path) {
 }
 
 function writeFile(path, data) {
-	
 	return new Promise((resolve, reject) => {
 		var pathFragment = path.split('/');
 		pathFragment.pop();
