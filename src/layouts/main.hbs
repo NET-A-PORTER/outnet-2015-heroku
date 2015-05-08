@@ -7,20 +7,32 @@
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
 		<div class="preston-nav">
-			<div ng-repeat="style in styles" ng-bind="style.title"></div>
+			<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide({ name: style.name })"></div>
 		</div>
-		<div class="preston-title">Preston</div>
+		<div class="preston-nav-item" ui-sref="home">Preston</div>
 	</div>
+	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/angular-router.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
 	<script>
 	angular
 		.module('app', ['ngSanitize', 'ui.router'])
-		.config(function($interpolateProvider) {
+		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
 			// stop conflicting with handlebars
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
+
+			$urlRouterProvider.otherwise('/');
+			$stateProvider
+				.state('home', {
+					url: '/',
+					templateUrl: '/tmpl/home.html'
+				})
+				.state('guide', {
+					url: '/style/:name',
+					templateUrl: '/tmpl/guide.html'
+				});
 		})
 		.service('MessageService', function() {
 			function display(type, message) {
@@ -118,6 +130,9 @@
 				}
 			};
 			return Style;
+		})
+		.controller('ContentCtrl', function($scope, $sce) {
+			$scope.url = $sce.trustAsResourceUrl('/tmpl/home.html');
 		})
 		.controller('NavCtrl', function($scope, StylesFactory) {
 			StylesFactory
