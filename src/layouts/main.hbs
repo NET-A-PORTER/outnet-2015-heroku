@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
@@ -31,7 +31,7 @@
 				})
 				.state('guide', {
 					url: '/style/:name',
-					templateUrl: '/tmpl/guide.html'
+					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame"></iframe>'
 				});
 		})
 		.service('MessageService', function() {
@@ -100,22 +100,29 @@
 			};
 			return StyleElement;
 		})
-		.service('Style', function(StylesFactory, StyleElement) {
+		.service('Style', function($rootScope, StylesFactory, StyleElement) {
 			var Style = function(style, options) {
+				this.title = '';
 				this.name = style;
 				this.elements = [];
 				this.options = angular.extend({
 					shallow: false
 				}, options);
 				this.fetch();
+				return this;
 			};
 			Style.prototype = {
 				fetch: function() {
 					var self = this;
-					StylesFactory
+					return StylesFactory
 						.get(this.name)
 						.then(function(data) {
+							self.title = data.title;
 							self.populateElements(data.elements);
+
+							// pub/sub baby
+							$rootScope.$broadcast('style.load', self);
+							return data;
 						});
 				},
 				populateElements: function(elements) {
@@ -131,9 +138,6 @@
 			};
 			return Style;
 		})
-		.controller('ContentCtrl', function($scope, $sce) {
-			$scope.url = $sce.trustAsResourceUrl('/tmpl/home.html');
-		})
 		.controller('NavCtrl', function($scope, StylesFactory) {
 			StylesFactory
 				.getAll()
@@ -142,7 +146,13 @@
 				});
 		})
 		.controller('HeadCtrl', function($scope, Style) {
-			$scope.preston = new Style('preston');
+
+			// load default style
+			$scope.style = new Style('preston', { shallow: true });
+			
+		}).controller('GuideCtrl', function($scope, $state, Style) {
+			$scope.Style = Style;
+			$scope.$state = $state;
 		});
 	</script>
 </body>
