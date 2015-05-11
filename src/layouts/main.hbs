@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
@@ -31,7 +31,7 @@
 				***REMOVED***)
 				.state('guide', ***REMOVED***
 					url: '/style/:name',
-					templateUrl: '/tmpl/guide.html'
+					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame"></iframe>'
 				***REMOVED***);
 		***REMOVED***)
 		.service('MessageService', function() ***REMOVED***
@@ -100,22 +100,29 @@
 			***REMOVED***;
 			return StyleElement;
 		***REMOVED***)
-		.service('Style', function(StylesFactory, StyleElement) ***REMOVED***
+		.service('Style', function($rootScope, StylesFactory, StyleElement) ***REMOVED***
 			var Style = function(style, options) ***REMOVED***
+				this.title = '';
 				this.name = style;
 				this.elements = [];
 				this.options = angular.extend(***REMOVED***
 					shallow: false
 				***REMOVED***, options);
 				this.fetch();
+				return this;
 			***REMOVED***;
 			Style.prototype = ***REMOVED***
 				fetch: function() ***REMOVED***
 					var self = this;
-					StylesFactory
+					return StylesFactory
 						.get(this.name)
 						.then(function(data) ***REMOVED***
+							self.title = data.title;
 							self.populateElements(data.elements);
+
+							// pub/sub baby
+							$rootScope.$broadcast('style.load', self);
+							return data;
 						***REMOVED***);
 				***REMOVED***,
 				populateElements: function(elements) ***REMOVED***
@@ -131,9 +138,6 @@
 			***REMOVED***;
 			return Style;
 		***REMOVED***)
-		.controller('ContentCtrl', function($scope, $sce) ***REMOVED***
-			$scope.url = $sce.trustAsResourceUrl('/tmpl/home.html');
-		***REMOVED***)
 		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
 			StylesFactory
 				.getAll()
@@ -142,7 +146,13 @@
 				***REMOVED***);
 		***REMOVED***)
 		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
-			$scope.preston = new Style('preston');
+
+			// load default style
+			$scope.style = new Style('preston', ***REMOVED*** shallow: true ***REMOVED***);
+			
+		***REMOVED***).controller('GuideCtrl', function($scope, $state, Style) ***REMOVED***
+			$scope.Style = Style;
+			$scope.$state = $state;
 		***REMOVED***);
 	</script>
 </body>

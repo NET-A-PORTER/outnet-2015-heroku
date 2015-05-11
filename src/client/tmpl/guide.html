@@ -1,5 +1,36 @@
-Frame
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="GuideCtrl">
+<head>
+	<title>Preston</title>
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
+</head>
+<body>
+	<div class="" style="padding-top: 100px;text-align: center;border-bottom: #ccc 1px solid;padding-bottom: 80px;">
+		<h1 ng-bind="style.title + ' Style Guide'"></h1>
+	</div>
+	<script src="/js/angular.js"></script>
+	<script src="/js/angular-sanitize.js"></script>
+	<script>
+	var parentScope = window.parent.angular.element(window.frameElement).scope();
+	angular
+		.module('app', ['ngSanitize'])
+		.config(function($interpolateProvider) ***REMOVED***
+			// stop conflicting with handlebars
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+		***REMOVED***)
+		.controller('GuideCtrl', function($scope) ***REMOVED***
+			var Style = parentScope.Style;
+			var $state = parentScope.$state;
+			var currentStyle = $state.params.name;
 
-<!-- <div ng-controller="ContentCtrl">
-	<iframe ng-src=":: url ::" class="preston-frame"></iframe>
-</div> -->
+			$scope.style = new Style(currentStyle);
+
+			// force scope update on load
+			parentScope.$on('style.load', function() ***REMOVED***
+				$scope.$digest();
+			***REMOVED***);
+		***REMOVED***);
+	</script>
+</body>
+</html>
