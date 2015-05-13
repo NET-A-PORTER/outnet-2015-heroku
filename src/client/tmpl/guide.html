@@ -2,6 +2,7 @@
 <html ng-app="app" ng-controller="GuideCtrl">
 <head>
 	<title>Preston</title>
+	<link rel="stylesheet" href="/js/highlightjs.css">
 	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
@@ -28,6 +29,7 @@
 	</div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
+	<script src="/js/highlight.js"></script>
 	<script>
 	var parentScope = window.parent.angular.element(window.frameElement).scope();
 	angular
@@ -38,6 +40,14 @@
 			$interpolateProvider.endSymbol('::');
 		})
 		.service('ElementViewService', function($sce) {
+			var formatForDisplay = function(content) {
+				var output = content
+					.replace(/\n/ig, '<br />')
+					.replace(/\s\s/ig, '\t')
+					.replace(/\t/ig, '&nbsp;&nbsp;&nbsp;&nbsp;');
+				return '<code>' + output + '</code>';
+			};
+
 			var ElementViewService = function(baseElement) {
 				this.base = baseElement;
 				this.name = this.base.name;
@@ -46,19 +56,26 @@
 				return this;
 			};
 			ElementViewService.prototype = {
-				getAssets: function() {
+				addView: function(title, content) {
+					this.views.push({
+						title: title,
+						contents: $sce.trustAsHtml(content)
+					});
+				},
+				createViews: function() {
+					this.views = [];
 					var baseAssets = this.base.assets;
-					var assets = [];
 					for (var name in baseAssets) {
 						var asset = baseAssets[name];
-						if (name === 'markup.hbs') {
-							assets.push({
-								title: 'Markup',
-								contents: $sce.trustAsHtml(asset)
-							});
+						switch (name) {
+							case 'markup.hbs': this.addView('Markup', asset); break;
+							case 'style.scss':
+								this.addView('CSS', formatForDisplay(asset.compiled));
+								this.addView('SASS', formatForDisplay(asset.source));
+								break;
 						}
 					}
-					return assets;
+					return this.views;
 				}
 			};
 
@@ -78,6 +95,14 @@
 					$scope.elements = $scope.style.elements.map(function(element) {
 						return new ElementViewService(element);
 					});
+
+					// TODO: make this a directive
+					window.setTimeout(function() {
+						var blocks = document.querySelectorAll('code');
+						Array.prototype.forEach.call(blocks, function(block) {
+							hljs.highlightBlock(block);
+						});
+					}, 100);
 				}
 				// force scope update on load
 				$scope.$digest();
