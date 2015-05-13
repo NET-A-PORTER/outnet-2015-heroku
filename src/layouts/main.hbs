@@ -95,8 +95,12 @@
 				***REMOVED***,
 				fetch: function() ***REMOVED***
 					var self = this;
-					StylesFactory
-						.getElement(this.style, this.name);
+					return StylesFactory
+						.getElement(this.style, this.name)
+						.then(function(data) ***REMOVED***
+							self.assets = data.assets;
+							return data;
+						***REMOVED***);
 				***REMOVED***
 			***REMOVED***;
 			return StyleElement;
@@ -119,21 +123,34 @@
 						.get(this.name)
 						.then(function(data) ***REMOVED***
 							self.title = data.title;
-							self.populateElements(data.elements);
-
-							// pub/sub baby
-							$rootScope.$broadcast('style.load', self);
+							self.populateElements(data.elements)
+								.then(function() ***REMOVED***
+									// pub/sub baby
+									$rootScope.$broadcast('style.load', self);
+								***REMOVED***);
 							return data;
 						***REMOVED***);
 				***REMOVED***,
 				populateElements: function(elements) ***REMOVED***
 					var self = this;
-					this.elements = elements.map(function(name) ***REMOVED***
-						var element = new StyleElement(self.name, name);
+					return Promise.all(
+						elements.map(function(name) ***REMOVED***
+							return new Promise(function(resolve, reject) ***REMOVED***
+								var element = new StyleElement(self.name, name);
 
-						// only fetch element if shallow option false
-						if (!self.options.shallow) element.fetch();
-						return element;
+								// don't load style elements
+								if (self.options.shallow) ***REMOVED***
+									resolve(element);
+								***REMOVED*** else ***REMOVED***
+									// wait for element to load before resolving
+									element.fetch().then(function() ***REMOVED***
+										resolve(element);
+									***REMOVED***, reject);
+								***REMOVED***
+							***REMOVED***);
+						***REMOVED***)
+					).then(function(elements) ***REMOVED***
+						self.elements = elements;
 					***REMOVED***);
 				***REMOVED***
 			***REMOVED***;
@@ -150,7 +167,7 @@
 
 			// load default style
 			$scope.style = new Style('preston', ***REMOVED*** shallow: true ***REMOVED***);
-			
+
 		***REMOVED***).controller('GuideCtrl', function($scope, $state, Style) ***REMOVED***
 			$scope.Style = Style;
 			$scope.$state = $state;
