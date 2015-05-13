@@ -95,8 +95,12 @@
 				},
 				fetch: function() {
 					var self = this;
-					StylesFactory
-						.getElement(this.style, this.name);
+					return StylesFactory
+						.getElement(this.style, this.name)
+						.then(function(data) {
+							self.assets = data.assets;
+							return data;
+						});
 				}
 			};
 			return StyleElement;
@@ -119,21 +123,34 @@
 						.get(this.name)
 						.then(function(data) {
 							self.title = data.title;
-							self.populateElements(data.elements);
-
-							// pub/sub baby
-							$rootScope.$broadcast('style.load', self);
+							self.populateElements(data.elements)
+								.then(function() {
+									// pub/sub baby
+									$rootScope.$broadcast('style.load', self);
+								});
 							return data;
 						});
 				},
 				populateElements: function(elements) {
 					var self = this;
-					this.elements = elements.map(function(name) {
-						var element = new StyleElement(self.name, name);
+					return Promise.all(
+						elements.map(function(name) {
+							return new Promise(function(resolve, reject) {
+								var element = new StyleElement(self.name, name);
 
-						// only fetch element if shallow option false
-						if (!self.options.shallow) element.fetch();
-						return element;
+								// don't load style elements
+								if (self.options.shallow) {
+									resolve(element);
+								} else {
+									// wait for element to load before resolving
+									element.fetch().then(function() {
+										resolve(element);
+									}, reject);
+								}
+							});
+						})
+					).then(function(elements) {
+						self.elements = elements;
 					});
 				}
 			};
@@ -150,7 +167,7 @@
 
 			// load default style
 			$scope.style = new Style('preston', { shallow: true });
-			
+
 		}).controller('GuideCtrl', function($scope, $state, Style) {
 			$scope.Style = Style;
 			$scope.$state = $state;

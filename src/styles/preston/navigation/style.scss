@@ -36,3 +36,16 @@
 		opacity: 1;
 	}
 }
+.preston-pill {
+	display: inline-block;
+	cursor: pointer;
+	background: #eee;
+	padding: 2px 5px 0;
+	margin-right: 5px;
+	border-radius: 3px;
+	font-size: 13px;
+	&.preston-pill-selected {
+		background: #000;
+		color: #fff;
+	}
+}

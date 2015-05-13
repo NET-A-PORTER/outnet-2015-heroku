@@ -2,11 +2,29 @@
 <html ng-app="app" ng-controller="GuideCtrl">
 <head>
 	<title>Preston</title>
+	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
-	<div class="" style="padding-top: 100px;text-align: center;border-bottom: #ccc 1px solid;padding-bottom: 80px;">
-		<h1 ng-bind="style.title + ' Style Guide'"></h1>
+	<div class="preston-guide-heading">
+		<div class="preston-container">
+			<h1 ng-bind="style.title + ' Style Guide'"></h1>
+		</div>
+	</div>
+	<div class="preston-container">
+		<div class="preston-element" ng-repeat="element in elements">
+			<h2>:: element.name ::</h2>
+			<div class="preston-pill"
+				ng-repeat="view in element.views track by $index"
+				ng-bind="view.title"
+				ng-class="{ 'preston-pill-selected': $index == element.selected }"
+				ng-click="element.selected = $index"></div>
+			<div class="preston-element-view"
+				ng-repeat="view in element.views track by $index"
+				ng-bind-html="view.contents"
+				ng-hide="$index != element.selected"
+				></div>
+		</div>
 	</div>
 	<script src="/js/angular.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
@@ -19,15 +37,49 @@
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 		})
-		.controller('GuideCtrl', function($scope) {
+		.service('ElementViewService', function($sce) {
+			var ElementViewService = function(baseElement) {
+				this.base = baseElement;
+				this.name = this.base.name;
+				this.views = this.createViews();
+				this.selected = 0;
+				return this;
+			};
+			ElementViewService.prototype = {
+				getAssets: function() {
+					var baseAssets = this.base.assets;
+					var assets = [];
+					for (var name in baseAssets) {
+						var asset = baseAssets[name];
+						if (name === 'markup.hbs') {
+							assets.push({
+								title: 'Markup',
+								contents: $sce.trustAsHtml(asset)
+							});
+						}
+					}
+					return assets;
+				}
+			};
+
+			return ElementViewService;
+		})
+		.controller('GuideCtrl', function($scope, ElementViewService) {
 			var Style = parentScope.Style;
 			var $state = parentScope.$state;
 			var currentStyle = $state.params.name;
 
+			$scope.preston = new Style('preston', { shallow: true });
 			$scope.style = new Style(currentStyle);
 
-			// force scope update on load
-			parentScope.$on('style.load', function() {
+			parentScope.$on('style.load', function(e, style) {
+				// don't map elements when preston styles loaded
+				if (style.name !== 'preston') {
+					$scope.elements = $scope.style.elements.map(function(element) {
+						return new ElementViewService(element);
+					});
+				}
+				// force scope update on load
 				$scope.$digest();
 			});
 		});
