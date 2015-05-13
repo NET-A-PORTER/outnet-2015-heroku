@@ -1,7 +1,17 @@
 var fs		= require('fs');
+var glob 	= require('glob');
 var mkdirp	= require('mkdirp');
 
-function readDir(path) {
+function globFunc(pattern, options) {
+	return new Promise((resolve, reject) => {
+		glob(pattern, options, (err, files) => {
+			if (err) return reject(err);
+			resolve(files);
+		});
+	});
+}
+
+function readDir(path, filter) {
 	return new Promise((resolve, reject) => {
 		fs.readdir(path, (err, files) => {
 			if (err) return reject(err);
@@ -33,6 +43,7 @@ function writeFile(path, data) {
 }
 
 module.exports = {
+	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
 	writeFile: writeFile

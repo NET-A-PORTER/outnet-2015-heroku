@@ -1,11 +1,14 @@
 var Compiler		= require('./compiler');
 var HbsCompiler		= require('./compiler.hbs');
 var SassCompiler	= require('./compiler.sass');
+var CopyMethod		= require('./method.copy');
 var utils			= base.require('core/utils');
+var assetPath		= base.path('client');
 var compiler		= new Compiler();
 
-compiler.add('hbs', new HbsCompiler());
-compiler.add('scss', new SassCompiler(), function * (directory, file) {
+compiler.add('.hbs', new HbsCompiler());
+compiler.add('(\.woff|\.ttf|\.svg|\.eot)', new CopyMethod(assetPath));
+compiler.add('.scss', new SassCompiler(), function * (directory, file) {
 	// save to css directory
 	var info = directory.split('/').slice(-2);
 	var basePath = base.path('client/css');
