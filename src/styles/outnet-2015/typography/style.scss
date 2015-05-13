@@ -1,0 +1,90 @@
+$fontDirectory: "/fonts";
+$fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
+
+@each $font in $fontList {
+	$prefix: $fontDirectory + '/' + $font;
+	@font-face {
+		font-family: $font;
+		src:url($prefix + ".eot"); /* IE9 Compat Modes */
+		src:url($prefix + ".eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */
+			url($prefix + ".woff") format("woff"), /* Modern Browsers */
+			url($prefix + ".ttf") format("truetype"), /* Safari, Android, iOS */
+			url($prefix + ".svg") format("svg");	/* Legacy iOS */
+	}
+}
+
+html,
+body {
+	font-family: FuturaBook, Arial, sans-serif;
+	line-height: 1.4em;
+}
+
+h1,
+h2 {
+	font-size: 28px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: center;
+}
+h1 + h2 {
+	color: #777;
+	font-family: FuturaLight;
+	font-size: 17px;
+	line-height: 28px;
+	margin-top: -20px;
+	text-align: center;
+}
+h2 {
+	letter-spacing: 1px;
+	text-align: left;
+}
+p {
+	letter-spacing: 1px;
+	&.credit {
+		font-family: FuturaDemi;
+		font-size: 11px;
+		line-height: 25px;
+		max-width: 600px;
+		padding-left: 20px;
+		padding-right: 20px;
+		text-decoration: none;
+		text-transform: lowercase;
+		span {
+			font-family: FuturaBook;
+			text-decoration: underline;
+			text-transform: none;
+		}
+		&.credit-image {
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	&.description {
+		font-family: FuturaLight;
+		font-size: 17px;
+	}
+	&.quote {
+		font-family: FuturaLight;
+		font-size: 25px;
+		line-height: 45px;
+		max-width: 600px;
+		padding: 20px;
+		text-align: center;
+		.credit {
+			@extend p.credit;
+			display: block;
+			font-family: FuturaBook;
+			margin-top: 30px;
+			text-transform: none;
+		}
+	}
+}
+
+// TODO: put into breakpoints style
+// View: mobile
+@media all and (max-width: 480px) {
+	h1 {
+		font-size: 24px;
+	}
+}
