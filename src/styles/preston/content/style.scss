@@ -55,8 +55,10 @@ body {
 	margin-top: -1px;
 }
 .preston-frame {
-	border: none;
+	transition: all .5s ease-in;
 	position: absolute;
+	border: none;
+	outline: #ccc 1px solid;
 	width: 100%;
 	height: 100%;
 	left: 0;
@@ -118,4 +120,7 @@ body {
   padding: 20px;
   background: #FDFCFB;
   border: #FFC3C3 1px solid;
+}
+.preston-element-view {
+	margin-top: 20px;
 }
