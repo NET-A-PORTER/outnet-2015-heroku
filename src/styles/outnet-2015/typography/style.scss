@@ -1,8 +1,8 @@
-$fontDirectory: "/css/fonts/";
+$fontDirectory: "/fonts";
 $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 
 @each $font in $fontList ***REMOVED***
-	$prefix: $fontDirectory + $font;
+	$prefix: $fontDirectory + '/' + $font;
 	@font-face ***REMOVED***
 		font-family: $font;
 		src:url($prefix + ".eot"); /* IE9 Compat Modes */

@@ -2,25 +2,17 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" href="/css/highlightjs.css">
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href=":: content.cssPath ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
-	<div class="preston-header preston-content" ng-controller="NavCtrl">
-		<div class="preston-container">
-			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
-			<div class="preston-nav">
-				<div class="preston-nav-item"
-					ng-repeat="style in nav"
-					ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"
-					ui-sref-active="active" ng-bind="style.title"></div>
-			</div>
+	<div ng-controller="NavCtrl" class="preston-header">
+		<div class="preston-nav">
+			<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"></div>
 		</div>
+		<div class="preston-nav-item" ui-sref="home">Preston</div>
 	</div>
 	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
-	<script src="/js/highlight.js"></script>
 	<script src="/js/angular-router.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
 	<script>
@@ -31,16 +23,15 @@
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 
-			// routing
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 				.state('home', ***REMOVED***
 					url: '/',
-					templateUrl: 'templates/home.html'
+					templateUrl: '/tmpl/home.html'
 				***REMOVED***)
 				.state('guide', ***REMOVED***
 					url: '/style/:name',
-					templateUrl: 'templates/guide.html'
+					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame"></iframe>'
 				***REMOVED***);
 		***REMOVED***)
 		.service('MessageService', function() ***REMOVED***
@@ -84,78 +75,103 @@
 					return api.get().then(function(result) ***REMOVED***
 						return result.data;
 					***REMOVED***);
+				***REMOVED***,
+				getElement: function(style, element) ***REMOVED***
+					return api.get('/' + style + '/' + element).then(function(result) ***REMOVED***
+						return result.data;
+					***REMOVED***);
 				***REMOVED***
 			***REMOVED***;
 		***REMOVED***)
-		.service('StyleContentService', function($sce, StylesFactory) ***REMOVED***
-			return function StyleContent(styleName, contentName) ***REMOVED***
-				var self = this;
-				this.style = styleName;
-				this.name = contentName;
-				StylesFactory
-					.get(this.style + '/' + this.name)
-					.then(function(data) ***REMOVED***
-						self.markup = $sce.trustAsHtml(data.markup);
-						self.scss = data.scss
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.css = data.css
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\s\s/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.cssPath = '/css/' + self.style + '/' + self.name + '/style.css';
-					***REMOVED***);
+		.service('StyleElement', function(StylesFactory) ***REMOVED***
+			var StyleElement = function(style, name) ***REMOVED***
+				this.style = style;
+				this.name = name;
+				this.assets = ***REMOVED******REMOVED***;
 			***REMOVED***;
-		***REMOVED***)
-		.service('StyleService', function(StylesFactory, StyleContentService) ***REMOVED***
-			return function Style(name) ***REMOVED***
-				var self = this;
-				return StylesFactory
-					.get(name)
-					.then(function(data) ***REMOVED***
-						self.title = data.title;
-						self.name = data.name;
-						self.contents = data.contents.map(function(content) ***REMOVED***
-							return new StyleContentService(data.name, content);
+			StyleElement.prototype = ***REMOVED***
+				getCssPath: function() ***REMOVED***
+					return '/css/' + this.style + '/' + this.name + '/style.css'
+				***REMOVED***,
+				fetch: function() ***REMOVED***
+					var self = this;
+					return StylesFactory
+						.getElement(this.style, this.name)
+						.then(function(data) ***REMOVED***
+							self.assets = data.assets;
+							return data;
 						***REMOVED***);
-						return self;
-					***REMOVED***);
+				***REMOVED***
 			***REMOVED***;
+			return StyleElement;
 		***REMOVED***)
-		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) ***REMOVED***
-
-			$scope.views = ['markup', 'css', 'sass'];
-
-			new StyleService($state.params.name)
-				.then(function(style) ***REMOVED***
-					$rootScope.$broadcast('styleSelected', style);
-					$scope.contents = style.contents.map(function(content) ***REMOVED***
-						content.currentView = 'markup';
-						return content;
-					***REMOVED***);
-
-					// Hacked ... make this a directive
-					setTimeout(function() ***REMOVED***
-						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
-						codeBlocks.forEach(function(block) ***REMOVED***
-							hljs.highlightBlock(block);
+		.service('Style', function($rootScope, StylesFactory, StyleElement) ***REMOVED***
+			var Style = function(style, options) ***REMOVED***
+				this.title = '';
+				this.name = style;
+				this.elements = [];
+				this.options = angular.extend(***REMOVED***
+					shallow: false
+				***REMOVED***, options);
+				this.fetch();
+				return this;
+			***REMOVED***;
+			Style.prototype = ***REMOVED***
+				fetch: function() ***REMOVED***
+					var self = this;
+					return StylesFactory
+						.get(this.name)
+						.then(function(data) ***REMOVED***
+							self.title = data.title;
+							self.populateElements(data.elements)
+								.then(function() ***REMOVED***
+									// pub/sub baby
+									$rootScope.$broadcast('style.load', self);
+								***REMOVED***);
+							return data;
 						***REMOVED***);
-					***REMOVED***, 100);
-				***REMOVED***);
-		***REMOVED***)
-		.controller('HeadCtrl', function($scope) ***REMOVED***
-			$scope.$on('styleSelected', function(e, style) ***REMOVED***
-				$scope.style = style;
-			***REMOVED***);
+				***REMOVED***,
+				populateElements: function(elements) ***REMOVED***
+					var self = this;
+					return Promise.all(
+						elements.map(function(name) ***REMOVED***
+							return new Promise(function(resolve, reject) ***REMOVED***
+								var element = new StyleElement(self.name, name);
+
+								// don't load style elements
+								if (self.options.shallow) ***REMOVED***
+									resolve(element);
+								***REMOVED*** else ***REMOVED***
+									// wait for element to load before resolving
+									element.fetch().then(function() ***REMOVED***
+										resolve(element);
+									***REMOVED***, reject);
+								***REMOVED***
+							***REMOVED***);
+						***REMOVED***)
+					).then(function(elements) ***REMOVED***
+						self.elements = elements;
+					***REMOVED***);
+				***REMOVED***
+			***REMOVED***;
+			return Style;
 		***REMOVED***)
 		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
 			StylesFactory
 				.getAll()
-				.then(function(result) ***REMOVED***
-					$scope.nav = result;
+				.then(function(data) ***REMOVED***
+					$scope.styles = data;
 				***REMOVED***);
 		***REMOVED***)
+		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
+
+			// load default style
+			$scope.style = new Style('preston', ***REMOVED*** shallow: true ***REMOVED***);
+
+		***REMOVED***).controller('GuideCtrl', function($scope, $state, Style) ***REMOVED***
+			$scope.Style = Style;
+			$scope.$state = $state;
+		***REMOVED***);
 	</script>
 </body>
 </html>

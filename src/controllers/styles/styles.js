@@ -1,5 +1,5 @@
-var fs		= require('fs');
 var Style	= require('./style');
+var utils 	= base.require('core/utils');
 var Styles	= (baseDir) => ***REMOVED***
 	if (!baseDir) throw new Error('No base directory specified');
 	this.baseDir = baseDir;
@@ -8,16 +8,13 @@ var Styles	= (baseDir) => ***REMOVED***
 // TODO: caching of loaded style directories
 Styles.prototype.getAll = function * () ***REMOVED***
 	var baseDir = this.baseDir;
-	return new Promise((resolve, reject) => ***REMOVED***
-		// read style directory
-		fs.readdir(baseDir, (err, projects) => ***REMOVED***
-			if (err) return reject(err);
-			return Promise.all(
-				// get defintion of each style
-				projects.map(project => new Style(project, baseDir).getDefinition())
-			).then(resolve, reject);
-		***REMOVED***);
-	***REMOVED***);
+	var projects = yield utils.glob('*', ***REMOVED*** cwd: baseDir ***REMOVED***);
+
+	// read style directory
+	return Promise.all(
+		// get defintion of each style
+		projects.map(project => new Style(project, baseDir).getDefinition())
+	);
 ***REMOVED***;
 
 module.exports = Styles;
