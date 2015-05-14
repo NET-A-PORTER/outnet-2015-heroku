@@ -55,8 +55,10 @@ body ***REMOVED***
 	margin-top: -1px;
 ***REMOVED***
 .preston-frame ***REMOVED***
-	border: none;
+	transition: all .5s ease-in;
 	position: absolute;
+	border: none;
+	outline: #ccc 1px solid;
 	width: 100%;
 	height: 100%;
 	left: 0;
@@ -118,4 +120,7 @@ body ***REMOVED***
   padding: 20px;
   background: #FDFCFB;
   border: #FFC3C3 1px solid;
+***REMOVED***
+.preston-element-view ***REMOVED***
+	margin-top: 20px;
 ***REMOVED***
