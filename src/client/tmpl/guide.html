@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="GuideCtrl">
+<head>
+	<title>Preston</title>
+	<link rel="stylesheet" href="/js/highlightjs.css">
+	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getCssPath() ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
+</head>
+<body>
+	<div class="preston-guide-heading">
+		<div class="preston-container">
+			<h1 ng-bind="style.title + ' Style Guide'"></h1>
+		</div>
+	</div>
+	<div class="preston-container">
+		<div class="preston-element" ng-repeat="element in elements">
+			<h2>:: element.name ::</h2>
+			<div class="preston-pill"
+				ng-repeat="view in element.views track by $index"
+				ng-bind="view.title"
+				ng-class="{ 'preston-pill-selected': $index == element.selected }"
+				ng-click="element.selected = $index"></div>
+			<div class="preston-element-view"
+				ng-repeat="view in element.views track by $index"
+				ng-bind-html="view.contents"
+				ng-hide="$index != element.selected"
+				></div>
+		</div>
+	</div>
+	<script src="/js/angular.js"></script>
+	<script src="/js/angular-sanitize.js"></script>
+	<script src="/js/highlight.js"></script>
+	<script>
+	var parentScope = window.parent.angular.element(window.frameElement).scope();
+	angular
+		.module('app', ['ngSanitize'])
+		.config(function($interpolateProvider) {
+			// stop conflicting with handlebars
+			$interpolateProvider.startSymbol('::');
+			$interpolateProvider.endSymbol('::');
+		})
+		.service('ElementViewService', function($sce) {
+			var formatForDisplay = function(content) {
+				var output = content
+					.replace(/\n/ig, '<br />')
+					.replace(/\s\s/ig, '\t')
+					.replace(/\t/ig, '&nbsp;&nbsp;&nbsp;&nbsp;');
+				return '<code>' + output + '</code>';
+			};
+
+			var ElementViewService = function(baseElement) {
+				this.base = baseElement;
+				this.name = this.base.name;
+				this.views = this.createViews();
+				this.selected = 0;
+				return this;
+			};
+			ElementViewService.prototype = {
+				addView: function(title, content) {
+					this.views.push({
+						title: title,
+						contents: $sce.trustAsHtml(content)
+					});
+				},
+				createViews: function() {
+					this.views = [];
+					var baseAssets = this.base.assets;
+					for (var name in baseAssets) {
+						var asset = baseAssets[name];
+						switch (name) {
+							case 'markup.hbs': this.addView('Markup', asset); break;
+							case 'style.scss':
+								this.addView('CSS', formatForDisplay(asset.compiled));
+								this.addView('SASS', formatForDisplay(asset.source));
+								break;
+						}
+					}
+					return this.views;
+				}
+			};
+
+			return ElementViewService;
+		})
+		.controller('GuideCtrl', function($scope, ElementViewService) {
+			var Style = parentScope.Style;
+			var $state = parentScope.$state;
+			var currentStyle = $state.params.name;
+
+			$scope.preston = new Style('preston', { shallow: true });
+			$scope.style = new Style(currentStyle);
+
+			parentScope.$on('style.load', function(e, style) {
+				// don't map elements when preston styles loaded
+				if (style.name !== 'preston') {
+					$scope.elements = $scope.style.elements.map(function(element) {
+						return new ElementViewService(element);
+					});
+
+					// TODO: make this a directive
+					window.setTimeout(function() {
+						var blocks = document.querySelectorAll('code');
+						Array.prototype.forEach.call(blocks, function(block) {
+							hljs.highlightBlock(block);
+						});
+					}, 100);
+				}
+				// force scope update on load
+				$scope.$digest();
+			});
+		});
+	</script>
+</body>
+</html>

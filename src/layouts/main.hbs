@@ -2,25 +2,17 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" href="/css/highlightjs.css">
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" ng-repeat="content in style.contents" ng-href=":: content.cssPath ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
 </head>
 <body>
-	<div class="preston-header preston-content" ng-controller="NavCtrl">
-		<div class="preston-container">
-			<div class="preston-title preston-nav-item" ui-sref="home">Preston</div>
-			<div class="preston-nav">
-				<div class="preston-nav-item"
-					ng-repeat="style in nav"
-					ui-sref="guide({ name: style.name })"
-					ui-sref-active="active" ng-bind="style.title"></div>
-			</div>
+	<div ng-controller="NavCtrl" class="preston-header">
+		<div class="preston-nav">
+			<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide({ name: style.name })"></div>
 		</div>
+		<div class="preston-nav-item" ui-sref="home">Preston</div>
 	</div>
 	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
-	<script src="/js/highlight.js"></script>
 	<script src="/js/angular-router.js"></script>
 	<script src="/js/angular-sanitize.js"></script>
 	<script>
@@ -31,16 +23,15 @@
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 
-			// routing
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
 				.state('home', {
 					url: '/',
-					templateUrl: 'templates/home.html'
+					templateUrl: '/tmpl/home.html'
 				})
 				.state('guide', {
 					url: '/style/:name',
-					templateUrl: 'templates/guide.html'
+					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame"></iframe>'
 				});
 		})
 		.service('MessageService', function() {
@@ -84,78 +75,103 @@
 					return api.get().then(function(result) {
 						return result.data;
 					});
+				},
+				getElement: function(style, element) {
+					return api.get('/' + style + '/' + element).then(function(result) {
+						return result.data;
+					});
 				}
 			};
 		})
-		.service('StyleContentService', function($sce, StylesFactory) {
-			return function StyleContent(styleName, contentName) {
-				var self = this;
-				this.style = styleName;
-				this.name = contentName;
-				StylesFactory
-					.get(this.style + '/' + this.name)
-					.then(function(data) {
-						self.markup = $sce.trustAsHtml(data.markup);
-						self.scss = data.scss
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.css = data.css
-							.replace(/(\n|\r)/g, '<br />')
-							.replace(/\s\s/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-						self.cssPath = '/css/' + self.style + '/' + self.name + '/style.css';
-					});
+		.service('StyleElement', function(StylesFactory) {
+			var StyleElement = function(style, name) {
+				this.style = style;
+				this.name = name;
+				this.assets = {};
 			};
-		})
-		.service('StyleService', function(StylesFactory, StyleContentService) {
-			return function Style(name) {
-				var self = this;
-				return StylesFactory
-					.get(name)
-					.then(function(data) {
-						self.title = data.title;
-						self.name = data.name;
-						self.contents = data.contents.map(function(content) {
-							return new StyleContentService(data.name, content);
+			StyleElement.prototype = {
+				getCssPath: function() {
+					return '/css/' + this.style + '/' + this.name + '/style.css'
+				},
+				fetch: function() {
+					var self = this;
+					return StylesFactory
+						.getElement(this.style, this.name)
+						.then(function(data) {
+							self.assets = data.assets;
+							return data;
 						});
-						return self;
-					});
+				}
 			};
+			return StyleElement;
 		})
-		.controller('StyleCtrl', function($rootScope, $scope, $state, StyleService) {
-
-			$scope.views = ['markup', 'css', 'sass'];
-
-			new StyleService($state.params.name)
-				.then(function(style) {
-					$rootScope.$broadcast('styleSelected', style);
-					$scope.contents = style.contents.map(function(content) {
-						content.currentView = 'markup';
-						return content;
-					});
-
-					// Hacked ... make this a directive
-					setTimeout(function() {
-						var codeBlocks = Array.prototype.slice.call(document.querySelectorAll('code'));
-						codeBlocks.forEach(function(block) {
-							hljs.highlightBlock(block);
+		.service('Style', function($rootScope, StylesFactory, StyleElement) {
+			var Style = function(style, options) {
+				this.title = '';
+				this.name = style;
+				this.elements = [];
+				this.options = angular.extend({
+					shallow: false
+				}, options);
+				this.fetch();
+				return this;
+			};
+			Style.prototype = {
+				fetch: function() {
+					var self = this;
+					return StylesFactory
+						.get(this.name)
+						.then(function(data) {
+							self.title = data.title;
+							self.populateElements(data.elements)
+								.then(function() {
+									// pub/sub baby
+									$rootScope.$broadcast('style.load', self);
+								});
+							return data;
 						});
-					}, 100);
-				});
-		})
-		.controller('HeadCtrl', function($scope) {
-			$scope.$on('styleSelected', function(e, style) {
-				$scope.style = style;
-			});
+				},
+				populateElements: function(elements) {
+					var self = this;
+					return Promise.all(
+						elements.map(function(name) {
+							return new Promise(function(resolve, reject) {
+								var element = new StyleElement(self.name, name);
+
+								// don't load style elements
+								if (self.options.shallow) {
+									resolve(element);
+								} else {
+									// wait for element to load before resolving
+									element.fetch().then(function() {
+										resolve(element);
+									}, reject);
+								}
+							});
+						})
+					).then(function(elements) {
+						self.elements = elements;
+					});
+				}
+			};
+			return Style;
 		})
 		.controller('NavCtrl', function($scope, StylesFactory) {
 			StylesFactory
 				.getAll()
-				.then(function(result) {
-					$scope.nav = result;
+				.then(function(data) {
+					$scope.styles = data;
 				});
 		})
+		.controller('HeadCtrl', function($scope, Style) {
+
+			// load default style
+			$scope.style = new Style('preston', { shallow: true });
+
+		}).controller('GuideCtrl', function($scope, $state, Style) {
+			$scope.Style = Style;
+			$scope.$state = $state;
+		});
 	</script>
 </body>
 </html>

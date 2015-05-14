@@ -1,4 +1,5 @@
 var hbs		= require('handlebars');
+var utils	= base.require('core/utils');
 
 // TODO: take helpers out of server, place client side
 hbs.registerHelper('markup', (opt) => {
@@ -6,7 +7,7 @@ hbs.registerHelper('markup', (opt) => {
 	var escaped = hbs.Utils.escapeExpression(output)
 		.replace(/(\r\n|\n|\r)/gm, '<br>')
 		.replace(/(\t)/gm, '&nbsp;&nbsp;');
-	var markup = '<code class="html preston-markup">' + escaped + '</code>';
+	var markup = '<code class="html">' + escaped + '</code>';
 	return output + markup;
 });
 
@@ -22,10 +23,16 @@ function sections(type, opt) {
 	return wrapper + content;
 }
 
-hbs.registerHelper('section', opt => sections('h2', opt))
-hbs.registerHelper('sub-section', opt => sections('h3', opt));
+hbs.registerHelper('section', opt => sections('h3', opt))
+hbs.registerHelper('sub-section', opt => sections('h4', opt));
 hbs.registerHelper('detail', opt => sections('p', opt));
 
-module.exports = (markup) => {
-	return hbs.compile(markup)();
-};
+function HandlebarsCompiler() {
+	return function * (directory, file) {
+		var path = directory + '/' + file;
+		var markup = yield utils.readFile(path);
+		return hbs.compile(markup)();
+	};
+}
+
+module.exports = HandlebarsCompiler;

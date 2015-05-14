@@ -1,0 +1,51 @@
+@import '../typography/style';
+
+.preston-header {
+	@extend .preston-type;
+	background: #fff;
+	border-bottom: #ccc 1px solid;
+	box-shadow: #ccc 0 0 10px;
+	padding: 5px 10px;
+	position: relative;
+	z-index: 1;
+}
+.preston-nav {
+	float: right;
+	> div {
+		@extend .preston-nav-item;
+	}
+}
+.preston-nav-item {
+	@extend .preston-type;
+	cursor: pointer;
+	display: inline-block;
+	padding: 1px 3px;
+	position: relative;
+	&:after {
+		border-bottom: #000 1px solid;
+		transition: all 0.1s ease-out;
+		position: absolute;
+		content: '';
+		width: 100%;
+		bottom: -5px;
+		left: 0;
+		opacity: 0;
+	}
+	&:hover:after {
+		bottom: 0;
+		opacity: 1;
+	}
+}
+.preston-pill {
+	display: inline-block;
+	cursor: pointer;
+	background: #eee;
+	padding: 2px 5px 0;
+	margin-right: 5px;
+	border-radius: 3px;
+	font-size: 13px;
+	&.preston-pill-selected {
+		background: #000;
+		color: #fff;
+	}
+}

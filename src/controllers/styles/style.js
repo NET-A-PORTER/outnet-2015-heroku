@@ -1,4 +1,6 @@
-var fs = require('fs');
+var utils		= base.require('core/utils');
+var Element		= require('./element');
+
 
 function Style(name, baseDir) {
 	this.name = name;
@@ -6,22 +8,20 @@ function Style(name, baseDir) {
 	return this;
 }
 
-Style.prototype.getDefinition = () => {
-	var self = this;
-	return new Promise((resolve, reject) => {
-		fs.readFile(self.path + '/definition.json', (err, result) => {
-			if (err) return reject(err);
-
-			var output = { name: self.name };
-			var parsed = JSON.parse(result);
-			for (var i in parsed) {
-				// name of style cannot be overridden to ensure
-				// reading of style directory is maintained
-				if (i != 'name') output[i] = parsed[i];
-			}
-			resolve(output);
-		});
-	});
+Style.prototype = {
+	getDefinition: () => {
+		var self = this;
+		return utils
+			.readFile(self.path + '/definition.json')
+			.then((contents) => {
+				var parsed = JSON.parse(contents);
+				parsed.name = self.name;
+				return parsed;
+			});
+	},
+	getElement: function * (name) {
+		return yield new Element(this.path + '/' + name);
+	}
 };
 
 module.exports = Style;
