@@ -15,6 +15,8 @@ OMG, I'm ready
 2. Install node modules: `cd preston && npm i`
 3. Start it up: `node --harmony src/server.js`
 
+**Note:** for Outnet 2015 styles, `src/client/fonts` directory needs to be created manually
+
 
 ## Technical overview
 - App runs from `src` directory
@@ -58,3 +60,6 @@ OMG, I'm ready
 - Display SASS & compiled contents in line with markup
 - Separation of base, component and module styles
 - Download/generate style functionality
+### Bugs
+- Client/fonts folder not generating
+- SVG files not being copied
