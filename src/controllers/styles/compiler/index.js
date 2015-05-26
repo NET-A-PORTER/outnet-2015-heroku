@@ -7,7 +7,7 @@ var assetPath		= base.path('client');
 var compiler		= new Compiler();
 
 compiler.add('.hbs', new HbsCompiler());
-compiler.add('(\.woff|\.ttf|\.svg|\.eot)', new CopyMethod(assetPath));
+compiler.add('(\.woff|\.ttf|\.eot|\.svg|\.png)', new CopyMethod(assetPath));
 compiler.add('.scss', new SassCompiler(), function * (directory, file) {
 	// save to css directory
 	var info = directory.split('/').slice(-2);
