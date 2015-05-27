@@ -1,0 +1,12 @@
+.grid-12, .grid-mobile-12 {
+	&> div {
+		span {
+			display: block;
+			border: 1px solid black;
+			padding: 10px;
+		}
+		> .grid-12, .grid-mobile-12 {
+			outline: 10px solid lightgrey;
+		}
+	}
+}
