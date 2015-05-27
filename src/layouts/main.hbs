@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head ng-controller="HeadCtrl">
 	<title>Preston</title>
-	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getCssPath() ::">
+	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
@@ -90,8 +90,8 @@
 				this.assets = ***REMOVED******REMOVED***;
 			***REMOVED***;
 			StyleElement.prototype = ***REMOVED***
-				getCssPath: function() ***REMOVED***
-					return '/css/' + this.style + '/' + this.name + '/style.css'
+				getAssetPath: function(type, name) ***REMOVED***
+					return '/' + type + '/' + this.style + '/' + this.name + '/' + name;
 				***REMOVED***,
 				fetch: function() ***REMOVED***
 					var self = this;
