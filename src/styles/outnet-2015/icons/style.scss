@@ -1,0 +1,43 @@
+$iconDimension: 12px;
+$spriteWidth: 14px;
+$spriteHeight: 238px;
+
+$blackIcons: (arrow-down: 0px, arrow-left: -28px, arrow-right: -56px, arrow-up: -98px, cross: -126px, minus: -154px, plus: -182px, search: -210px);
+$greyIcons: (arrow-down: -14px, arrow-left: -42px, arrow-right: -70px, arrow-up: -112px, cross: -140px, minus: -168px, plus: -196px, search: -224px);
+$whiteIcons: (arrow-right: -84px);
+
+.icon {
+  &:before {
+    content: "";
+    display: block;
+    background-image: url("/images/icons.png");
+    // background-image: none, url("/images/icons.svg");
+    background-repeat: no-repeat;
+    width: $iconDimension;
+    height: $iconDimension;
+    margin: -1px 0 0 0;
+    background-size: 110%;
+  }
+}
+
+// Expects coordinates from the top-left corner, as you would for normal background-position usage
+// This will turn the coordinates into percentages, allowing icons to scale using width and height properties
+@mixin sprite_location($x, $y) {
+  background-position-x: ($x / $spriteWidth * 100%) * -1;
+  background-position-y: ($y / ($spriteHeight - $iconDimension) * 100%) * -1;
+}
+
+@mixin create_icons($colour, $icons) {
+  @each $icon, $y in $icons {
+    .icon-#{$icon}-#{$colour} {
+      @extend .icon;
+      &:before {
+        @include sprite_location(-2px, $y);
+      }
+    }
+  }
+}
+
+@include create_icons(black, $blackIcons);
+@include create_icons(grey, $greyIcons);
+@include create_icons(white, $whiteIcons);
