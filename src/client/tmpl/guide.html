@@ -42,11 +42,7 @@
 		})
 		.service('ElementViewService', function($sce) {
 			var formatForDisplay = function(content) {
-				var output = content
-					.replace(/\n/ig, '<br />')
-					.replace(/\s\s/ig, '\t')
-					.replace(/\t/ig, '&nbsp;&nbsp;&nbsp;&nbsp;');
-				return '<code>' + output + '</code>';
+				return '<pre><code>' + content + '</code></pre>';
 			};
 
 			var ElementViewService = function(baseElement) {
@@ -100,6 +96,9 @@
 					// TODO: make this a directive
 					window.setTimeout(function() {
 						var blocks = document.querySelectorAll('code');
+						hljs.configure({
+							languages: ['html', 'css', 'scss']
+						})
 						Array.prototype.forEach.call(blocks, function(block) {
 							hljs.highlightBlock(block);
 						});
