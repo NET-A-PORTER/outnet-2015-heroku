@@ -1,0 +1,43 @@
+.breadcrumbs ***REMOVED***
+	font-size: 13px;
+	text-align: center;
+	> * ***REMOVED***
+		display: inline-block;
+		position: relative;
+		margin-right: 15px;
+		color: #777;
+		text-decoration: none;
+		letter-spacing: 0.3px;
+		&:after ***REMOVED***
+			content: ' > ';
+			position: absolute;
+			right: -13px;
+			top: 0;
+		***REMOVED***
+		&:last-child:after ***REMOVED***
+			display: none;
+		***REMOVED***
+	***REMOVED***
+	a ***REMOVED***
+		position: relative;
+		&:before ***REMOVED***
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 1px;
+			bottom: 5px;
+			left: 0;
+			background-color: #777;
+			visibility: hidden;
+			-webkit-transform: scaleX(0);
+			transform: scaleX(0);
+			-webkit-transition: all 0.4s ease-in-out;
+			transition: all 0.5s ease-in-out;
+		***REMOVED***
+		&:hover:before ***REMOVED***
+			-webkit-transform: scaleX(1);
+			transform: scaleX(1);
+			visibility: visible;
+		***REMOVED***
+	***REMOVED***
+***REMOVED***
