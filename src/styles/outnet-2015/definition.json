@@ -1,4 +1,4 @@
 {
 	"title": "Outnet 2015",
-	"elements": ["base", "typography", "buttons", "icons", "grid"]
+	"elements": ["base", "typography", "buttons", "breadcrumbs", "icons", "grid"]
 }
