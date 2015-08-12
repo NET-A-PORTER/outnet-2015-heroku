@@ -6,7 +6,7 @@ body {
 }
 .preston-container {
 	max-width: 1160px;
-	margin: 0 auto;
+	margin: 0 auto 100px;
 	padding: 0 10px;
 	.preston-nav-item {
 		display: table;
@@ -33,10 +33,6 @@ body {
 	margin-bottom: 50px;
 	padding: 100px 0 0;
 	text-align: center;
-}
-.preston-container {
-	margin: 0 auto 100px;
-	width: 1200px;
 }
 .preston-element-view {
 	margin-top: 20px;
