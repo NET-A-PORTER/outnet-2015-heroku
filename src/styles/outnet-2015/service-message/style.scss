@@ -1,0 +1,82 @@
+.service-message ***REMOVED***
+	position: relative;
+	text-align: center;
+	padding: 40px;
+	margin: 30px 0;
+	&:before,
+	&:after ***REMOVED***
+		background-image: radial-gradient(circle, #000 1px, transparent 3px);
+		background-size: 50px 10px;
+		content: '';
+		position: absolute;
+		height: 10px;
+		width: 100%;
+		left: 0;
+	***REMOVED***
+	&:before ***REMOVED***
+		top: 0;
+	***REMOVED***
+	&:after ***REMOVED***
+		bottom: 0;
+	***REMOVED***
+	&.service-message-notify ***REMOVED***
+		padding: 30px;
+		&:before,
+		&:after ***REMOVED***
+			background-image: radial-gradient(circle, #000 0.5px, transparent 2.3px);
+			background-size: 20px 10px;
+		***REMOVED***
+	***REMOVED***
+	&.service-message-service ***REMOVED***
+		padding: 20px;
+		&:before,
+		&:after ***REMOVED***
+			background-image: radial-gradient(circle, #000 1px, transparent 1.6px);
+			background-size: 8px 10px;
+		***REMOVED***
+		.service-message-head ***REMOVED***
+			font-size: 24px;
+			line-height: 30px;
+		***REMOVED***
+		.service-message-sell ***REMOVED***
+			margin-bottom: -10px;
+		***REMOVED***
+	***REMOVED***
+	.service-message-asterisk ***REMOVED***
+		position: relative;
+		display: inline-block;
+		&:before ***REMOVED***
+			font-family: FuturaLight;
+			content: '*';
+			position: absolute;
+			font-size: 15px;
+			top: -4px;
+			right: -16px;
+			width: 25px;
+			height: 25px;
+		***REMOVED***
+	***REMOVED***
+	.service-message-asterisk-copy ***REMOVED***
+		font-family: FuturaBook;
+		font-size: 11px;
+		letter-spacing: 0.8px;
+		margin-bottom: -25px;
+		margin-top: 15px;
+	***REMOVED***
+	.service-message-head,
+	.service-message-sell ***REMOVED***
+		letter-spacing: 0.8px;
+		line-height: 40px;
+		text-transform: uppercase;
+	***REMOVED***
+	.service-message-head ***REMOVED***
+		font-size: 28px;
+		
+	***REMOVED***
+	.service-message-sell ***REMOVED***
+		font-size: 15px;
+		b ***REMOVED***
+			font-family: FuturaDemi;
+		***REMOVED***
+	***REMOVED***
+***REMOVED***

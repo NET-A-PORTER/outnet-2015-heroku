@@ -13,9 +13,13 @@ $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 	***REMOVED***
 ***REMOVED***
 
+@mixin fontFamily($name) ***REMOVED***
+	font-family: $name, Arial, sans-serif;
+***REMOVED***
+
 html,
 body ***REMOVED***
-	font-family: FuturaBook, Arial, sans-serif;
+	@include fontFamily(FuturaBook);
 	line-height: 1.4em;
 ***REMOVED***
 
@@ -27,8 +31,8 @@ h2 ***REMOVED***
 	text-align: center;
 ***REMOVED***
 h1 + h2 ***REMOVED***
+	@include fontFamily(FuturaLight);
 	color: #777;
-	font-family: FuturaLight;
 	font-size: 17px;
 	line-height: 28px;
 	margin-top: -20px;
@@ -38,10 +42,32 @@ h2 ***REMOVED***
 	letter-spacing: 1px;
 	text-align: left;
 ***REMOVED***
+h3.slug ***REMOVED***
+	@include fontFamily(FuturaBook);
+	font-size: 17px;
+	letter-spacing: 0.8px;
+	margin: 25px 0;
+	padding: 0 15px;
+	position: relative;
+	text-align: center;
+	&:after ***REMOVED***
+		background: #d3d3d3;
+		content: "";
+		display: block;
+		height: 2px;
+		margin: 7px auto;
+		text-transform: capitalize;
+		width: 50px;
+	***REMOVED***
+***REMOVED***
+a ***REMOVED***
+	color: #000;
+	text-decoration: underline;
+***REMOVED***
 p ***REMOVED***
 	letter-spacing: 1px;
 	&.credit ***REMOVED***
-		font-family: FuturaDemi;
+		@include fontFamily(FuturaDemi);
 		font-size: 11px;
 		line-height: 25px;
 		max-width: 600px;
@@ -50,7 +76,7 @@ p ***REMOVED***
 		text-decoration: none;
 		text-transform: lowercase;
 		span ***REMOVED***
-			font-family: FuturaBook;
+			@include fontFamily(FuturaBook);
 			text-decoration: underline;
 			text-transform: none;
 		***REMOVED***
@@ -61,7 +87,7 @@ p ***REMOVED***
 		***REMOVED***
 	***REMOVED***
 	&.description ***REMOVED***
-		font-family: FuturaLight;
+		@include fontFamily(FuturaLight);
 		font-size: 17px;
 	***REMOVED***
 	&.quote ***REMOVED***
@@ -72,19 +98,11 @@ p ***REMOVED***
 		padding: 20px;
 		text-align: center;
 		.credit ***REMOVED***
+			@include fontFamily(FuturaBook);
 			@extend p.credit;
 			display: block;
-			font-family: FuturaBook;
 			margin-top: 30px;
 			text-transform: none;
 		***REMOVED***
-	***REMOVED***
-***REMOVED***
-
-// TODO: put into breakpoints style
-// View: mobile
-@media all and (max-width: 480px) ***REMOVED***
-	h1 ***REMOVED***
-		font-size: 24px;
 	***REMOVED***
 ***REMOVED***
