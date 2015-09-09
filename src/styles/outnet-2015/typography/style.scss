@@ -13,9 +13,13 @@ $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 	}
 }
 
+@mixin fontFamily($name) {
+	font-family: $name, Arial, sans-serif;
+}
+
 html,
 body {
-	font-family: FuturaBook, Arial, sans-serif;
+	@include fontFamily(FuturaBook);
 	line-height: 1.4em;
 }
 
@@ -27,8 +31,8 @@ h2 {
 	text-align: center;
 }
 h1 + h2 {
+	@include fontFamily(FuturaLight);
 	color: #777;
-	font-family: FuturaLight;
 	font-size: 17px;
 	line-height: 28px;
 	margin-top: -20px;
@@ -38,10 +42,32 @@ h2 {
 	letter-spacing: 1px;
 	text-align: left;
 }
+h3.slug {
+	@include fontFamily(FuturaBook);
+	font-size: 17px;
+	letter-spacing: 0.8px;
+	margin: 25px 0;
+	padding: 0 15px;
+	position: relative;
+	text-align: center;
+	&:after {
+		background: #d3d3d3;
+		content: "";
+		display: block;
+		height: 2px;
+		margin: 7px auto;
+		text-transform: capitalize;
+		width: 50px;
+	}
+}
+a {
+	color: #000;
+	text-decoration: underline;
+}
 p {
 	letter-spacing: 1px;
 	&.credit {
-		font-family: FuturaDemi;
+		@include fontFamily(FuturaDemi);
 		font-size: 11px;
 		line-height: 25px;
 		max-width: 600px;
@@ -50,7 +76,7 @@ p {
 		text-decoration: none;
 		text-transform: lowercase;
 		span {
-			font-family: FuturaBook;
+			@include fontFamily(FuturaBook);
 			text-decoration: underline;
 			text-transform: none;
 		}
@@ -61,7 +87,7 @@ p {
 		}
 	}
 	&.description {
-		font-family: FuturaLight;
+		@include fontFamily(FuturaLight);
 		font-size: 17px;
 	}
 	&.quote {
@@ -72,19 +98,11 @@ p {
 		padding: 20px;
 		text-align: center;
 		.credit {
+			@include fontFamily(FuturaBook);
 			@extend p.credit;
 			display: block;
-			font-family: FuturaBook;
 			margin-top: 30px;
 			text-transform: none;
 		}
-	}
-}
-
-// TODO: put into breakpoints style
-// View: mobile
-@media all and (max-width: 480px) {
-	h1 {
-		font-size: 24px;
 	}
 }

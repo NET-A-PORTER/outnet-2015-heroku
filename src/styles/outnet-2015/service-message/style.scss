@@ -1,0 +1,82 @@
+.service-message {
+	position: relative;
+	text-align: center;
+	padding: 40px;
+	margin: 30px 0;
+	&:before,
+	&:after {
+		background-image: radial-gradient(circle, #000 1px, transparent 3px);
+		background-size: 50px 10px;
+		content: '';
+		position: absolute;
+		height: 10px;
+		width: 100%;
+		left: 0;
+	}
+	&:before {
+		top: 0;
+	}
+	&:after {
+		bottom: 0;
+	}
+	&.service-message-notify {
+		padding: 30px;
+		&:before,
+		&:after {
+			background-image: radial-gradient(circle, #000 0.5px, transparent 2.3px);
+			background-size: 20px 10px;
+		}
+	}
+	&.service-message-service {
+		padding: 20px;
+		&:before,
+		&:after {
+			background-image: radial-gradient(circle, #000 1px, transparent 1.6px);
+			background-size: 8px 10px;
+		}
+		.service-message-head {
+			font-size: 24px;
+			line-height: 30px;
+		}
+		.service-message-sell {
+			margin-bottom: -10px;
+		}
+	}
+	.service-message-asterisk {
+		position: relative;
+		display: inline-block;
+		&:before {
+			font-family: FuturaLight;
+			content: '*';
+			position: absolute;
+			font-size: 15px;
+			top: -4px;
+			right: -16px;
+			width: 25px;
+			height: 25px;
+		}
+	}
+	.service-message-asterisk-copy {
+		font-family: FuturaBook;
+		font-size: 11px;
+		letter-spacing: 0.8px;
+		margin-bottom: -25px;
+		margin-top: 15px;
+	}
+	.service-message-head,
+	.service-message-sell {
+		letter-spacing: 0.8px;
+		line-height: 40px;
+		text-transform: uppercase;
+	}
+	.service-message-head {
+		font-size: 28px;
+		
+	}
+	.service-message-sell {
+		font-size: 15px;
+		b {
+			font-family: FuturaDemi;
+		}
+	}
+}
