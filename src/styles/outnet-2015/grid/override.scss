@@ -1,12 +1,14 @@
-.grid-12, .grid-mobile-12 ***REMOVED***
-	&> div ***REMOVED***
-		span ***REMOVED***
-			display: block;
-			border: 1px solid black;
-			padding: 10px;
-		***REMOVED***
-		> .grid-12, .grid-mobile-12 ***REMOVED***
-			outline: 10px solid lightgrey;
+.preston-element-grid ***REMOVED***
+	.grid-12, .grid-mobile-12 ***REMOVED***
+		&> div ***REMOVED***
+			span ***REMOVED***
+				display: block;
+				border: 1px solid black;
+				padding: 10px;
+			***REMOVED***
+			> .grid-12, .grid-mobile-12 ***REMOVED***
+				outline: 10px solid lightgrey;
+			***REMOVED***
 		***REMOVED***
 	***REMOVED***
 ***REMOVED***
