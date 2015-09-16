@@ -1,3 +1,5 @@
+@import "../typography/style";
+
 .service-message {
 	position: relative;
 	text-align: center;
@@ -46,7 +48,7 @@
 		position: relative;
 		display: inline-block;
 		&:before {
-			font-family: FuturaLight;
+			@include fontFamily(FuturaLight);
 			content: '*';
 			position: absolute;
 			font-size: 15px;
@@ -57,7 +59,7 @@
 		}
 	}
 	.service-message-asterisk-copy {
-		font-family: FuturaBook;
+		@include fontFamily(FuturaBook);
 		font-size: 11px;
 		letter-spacing: 0.8px;
 		margin-bottom: -25px;
@@ -71,12 +73,27 @@
 	}
 	.service-message-head {
 		font-size: 28px;
-		
+
 	}
 	.service-message-sell {
 		font-size: 15px;
 		b {
-			font-family: FuturaDemi;
+			@include fontFamily(FuturaDemi);
 		}
+	}
+}
+
+.ribbon {
+	@include fontFamily(FuturaBook);
+	background: #e6e6e6;
+	font-size: 15px;
+	letter-spacing: 0.8px;
+	text-align: center;
+	padding: 8px 10px 3px;
+	span {
+		@include fontFamily(FuturaDemi);
+	}
+	@media screen and (max-width: 640px) {
+		letter-spacing: 0.8px;
 	}
 }
