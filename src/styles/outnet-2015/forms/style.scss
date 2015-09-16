@@ -1,0 +1,49 @@
+@import "../typography/style";
+
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="text"],
+input[type="tel"],
+input[type="url"] ***REMOVED***
+  border: #d3d3d3 1px solid;
+  border-radius: 6px;
+  color: #b7b7b7;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  padding: 10px;
+  width: 100%;
+  outline: none;
+  &:active,
+  &:focus,
+  &.input-active ***REMOVED***
+    border-color: #000;
+    color: #000;
+***REMOVED***
+  &.input-error ***REMOVED***
+    border-color: #e52a2b;
+    color: #b7b7b7;
+    &:focus ***REMOVED***
+      color: #000;
+***REMOVED***
+***REMOVED***
+***REMOVED***
+
+label ***REMOVED***
+  span ***REMOVED***
+    @include fontFamily(FuturaDemi);
+    display: block;
+    font-size: 12px;
+    margin: 12px 0 2px;
+    padding-left: 2px;
+    letter-spacing: 0.5px;
+***REMOVED***
+***REMOVED***
+
+.input-error ***REMOVED***
+  color: #e52a2b;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding-left: 2px;
+***REMOVED***
