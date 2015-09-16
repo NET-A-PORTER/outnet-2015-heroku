@@ -14,7 +14,9 @@
 		</div>
 	</div>
 	<div class="preston-container">
-		<div class="preston-element" ng-repeat="element in elements">
+		<div class="preston-element"
+			ng-repeat="element in elements"
+			ng-class="'preston-element-' + element.name">
 			<h2>:: element.name ::</h2>
 			<div class="preston-pill"
 				ng-repeat="view in element.views track by $index"
