@@ -21,6 +21,7 @@ html,
 body {
 	@include fontFamily(FuturaBook);
 	line-height: 1.4em;
+	font-size: 13px;
 }
 
 h1,
