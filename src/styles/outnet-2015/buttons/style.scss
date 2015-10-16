@@ -6,7 +6,7 @@ input[type=submit],
 	color: #000;
 	cursor: pointer;
 	display: inline-block;
-	font-family: FuturaMedium;
+	font-family: FuturaBook;
 	font-size: 15px;
 	letter-spacing: 1.3px;
 	line-height: 1.2em;
@@ -14,17 +14,19 @@ input[type=submit],
 	margin-top: 5px;
 	max-width: 300px;
 	padding: 11px 20px 8px;
+	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
+	vertical-align: middle;
+	white-space: initial;
 	&:hover {
 		background: #b7b7b7;
 		color: #000;
 	}
 	&.btn-small {
-		font-family: FuturaDemi;
-		font-size: 12px;
+		font-size: 13px;
 		max-width: 150px;
-		padding: 6px 15px 4px;
+		padding: 8px 15px 7px;
 	}
 	&.btn-primary {
 		background: #000;
@@ -32,6 +34,36 @@ input[type=submit],
 		&:hover {
 			background: #2a2626;
 		}
+	}
+	&.btn-selector-multi,
+	&.btn-selector-single-1,
+	&.btn-selector-single-2 {
+		@extend .btn-small;
+		background: #fff;
+		border: #d3d3d3 1px solid;
+		max-width: inherit;
+		text-transform: none;
+	}
+	&.btn-selector-single-1:hover,
+	&.btn-selector-single-2:hover {
+		background: #e6e6e6;
+	}
+	&.btn-selector-active {
+		&.btn-selector-multi {
+			border: 2px solid #b7b7b7;
+		}
+		&.btn-selector-single-1 {
+			background: #000;
+			border-color: #000;
+			color: #fff;
+		}
+		&.btn-selector-single-2 {
+			background: #e6e6e6;
+			color: #000;
+		}
+	}
+	&.btn-selector-multi:hover {
+		@extend .btn-selector-active.btn-selector-multi;
 	}
 	&.btn-white {
 		background: #fff;

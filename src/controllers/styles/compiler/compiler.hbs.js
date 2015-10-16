@@ -1,37 +1,49 @@
 var hbs		= require('handlebars');
 var utils	= base.require('core/utils');
 
-// TODO: take helpers out of server, place client side
-hbs.registerHelper('markup', (opt) => {
-	var output = opt.fn();
-	var escaped = hbs.Utils.escapeExpression(output)
-		.replace(/(\r\n|\n|\r)/gm, '<br>')
-		.replace(/(\t)/gm, '&nbsp;&nbsp;');
-	var markup = '<code class="html">' + escaped + '</code>';
-	return output + markup;
-});
-
 // NOTE: this function caters for wrapped block helpers or inline helpers
 // Use 1: {{#helper-method}} ... {{/helper-method}}
 // Use 2: {{{helper-method "some text entered here"}}}
 function sections(type, opt) {
 	var content = opt.fn && opt.fn() || '';
-	var title = opt.hash ? opt.hash.title : opt;
-	var wrapper = title
-		? '<' + type + '>' + title + '</' + type + '>'
-		: '';
-	return wrapper + content;
+
+	// do I want to present it?
+	if (opt.data && opt.data.root === true) {
+		var title = opt.hash ? opt.hash.title : opt;
+		var wrapper = title
+			? '<' + type + '>' + title + '</' + type + '>'
+			: '';
+
+		content = '<div class="preston-' + type + '">' + wrapper + content + '</div>'
+	} else {
+		// has content already been escaped?
+		if (content.indexOf('&lt;') === -1) {
+			// display raw html (without helper formatting)
+			content = hbs.Utils.escapeExpression(content)
+			.replace(/(\r\n|\n|\r)/gm, '<br>')
+			.replace(/(\t)/gm, '&nbsp;&nbsp;');
+		}
+	}
+
+	return content;
 }
 
-hbs.registerHelper('section', opt => sections('h3', opt))
-hbs.registerHelper('sub-section', opt => sections('h4', opt));
-hbs.registerHelper('detail', opt => sections('p', opt));
+[
+	{ name: 'section', element: 'h3'},
+	{ name: 'sub-section', element: 'h4'},
+	{ name: 'detail', element: 'p'}
+].forEach((item) => {
+	hbs.registerHelper(item.name, opt => sections(item.element, opt));
+});
 
 function HandlebarsCompiler() {
 	return function * (directory, file) {
 		var path = directory + '/' + file;
 		var markup = yield utils.readFile(path);
-		return hbs.compile(markup)();
+		return {
+			markup: hbs.compile(markup)(true),
+			html: hbs.compile(markup)(false)
+		}
 	};
 }
 

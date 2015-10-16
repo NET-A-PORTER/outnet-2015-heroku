@@ -5,8 +5,7 @@ body {
 	padding: 0;
 }
 .preston-container {
-	max-width: 1160px;
-	margin: 0 auto 100px;
+	margin: 0 auto 0;
 	padding: 0 10px;
 	.preston-nav-item {
 		display: table;
@@ -29,11 +28,25 @@ body {
 	margin: 200px 0 -20px;
 }
 .preston-guide-heading {
-	border-bottom: #ccc 1px solid;
 	margin-bottom: 50px;
-	padding: 100px 0 0;
+	padding: 100px 0;
 	text-align: center;
 }
 .preston-element-view {
-	margin-top: 20px;
+	border-top: #B0C1C7 1px solid;
+	margin-top: -1px;
+}
+.preston-h3 {
+  margin: -10px;
+  padding: 10px;
+	h3 {
+	  margin-bottom: 0;
+	}
+}
+.preston-h4 h4 {
+	margin-bottom: 0;
+}
+.preston-p {
+	color: #FF3E3E;
+  max-width: 640px;
 }

@@ -6,28 +6,33 @@
 	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-if="element.assets['override.scss']" ng-href=":: element.getAssetPath('css', 'override.css') ::">
+	<style>
+	pre { white-space: pre-wrap; }
+	</style>
 </head>
 <body>
-	<div class="preston-guide-heading">
+	<div class="preston-guide-heading" style="margin-bottom: 0;">
 		<div class="preston-container">
 			<h1 ng-bind="style.title + ' Style Guide'"></h1>
 		</div>
 	</div>
-	<div class="preston-container">
-		<div class="preston-element"
-			ng-repeat="element in elements"
-			ng-class="'preston-element-' + element.name">
-			<h2>:: element.name ::</h2>
-			<div class="preston-pill"
-				ng-repeat="view in element.views track by $index"
-				ng-bind="view.title"
-				ng-class="{ 'preston-pill-selected': $index == element.selected }"
-				ng-click="element.selected = $index"></div>
-			<div class="preston-element-view"
-				ng-repeat="view in element.views track by $index"
-				ng-bind-html="view.contents"
-				ng-hide="$index != element.selected"
-				></div>
+	<div class="preston-container" style="padding:0;">
+		<div class="preston-element" ng-repeat="element in elements" ng-class="'preston-element-' + element.name" style="background: #fff; display: table; width: 100%;">
+			<div class="preston-element-examples" style="display:table-cell;padding: 10px;vertical-align:top;">
+				<h2 class="preston-element-title" ng-bind="element.name"></h2>
+				<div ng-repeat="view in element.views | filter:view.title='Markup'" ng-bind-html="view.contents"></div>
+			</div>
+			<div style="  border-left: #959FA3 1px solid; background: #CDD5D8;width: 600px;display: table-cell;padding: 20px;">
+				<div class="preston-pill"
+					ng-repeat="view in element.views track by $index"
+					ng-bind="view.title"
+					ng-class="{ 'preston-pill-selected': $index == element.selected }"
+					ng-click="element.selected = $index"
+					ng-hide="view.title == 'Markup'"></div>
+				<div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Markup' || $index != element.selected" >
+					<div ng-bind-html="view.contents"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script src="/js/angular.js"></script>
@@ -66,9 +71,13 @@
 					var baseAssets = this.base.assets;
 					for (var name in baseAssets) {
 						var asset = baseAssets[name];
-						switch (name) {
-							case 'markup.hbs': this.addView('Markup', asset); break;
-							case 'style.scss':
+						var extenstion = name.split('.').pop();
+						switch (extenstion) {
+							case 'hbs':
+								this.addView('HTML', formatForDisplay(asset.html));
+								this.addView('Markup', asset.markup);
+								break;
+							case 'scss':
 								this.addView('CSS', formatForDisplay(asset.compiled));
 								this.addView('SASS', formatForDisplay(asset.source));
 								break;
@@ -97,11 +106,10 @@
 
 					// TODO: make this a directive
 					window.setTimeout(function() {
-						var blocks = document.querySelectorAll('code');
 						hljs.configure({
 							languages: ['html', 'css', 'scss']
-						})
-						Array.prototype.forEach.call(blocks, function(block) {
+						});
+						[].forEach.call(document.querySelectorAll('code'), function(block) {
 							hljs.highlightBlock(block);
 						});
 					}, 100);

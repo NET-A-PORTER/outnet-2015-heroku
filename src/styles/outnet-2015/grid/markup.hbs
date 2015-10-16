@@ -1,87 +1,76 @@
 {{#section title="Overview"}}
-	{{#sub-section}}
-		{{{detail "The grid has a maximum of 12 columns, allowing you to create flexible layouts like the following."}}}
-		{{#markup}}
-<div class="grid-12 gutter-10">
-	<div class="span-6"><span>.span-6</span></div>
-	<div class="span-6"><span>.span-6</span></div>
-</div>
-		{{/markup}}
-		{{#markup}}
-<div class="grid-12 gutter-10">
-	<div class="span-4"><span>.span-4</span></div>
-	<div class="span-4"><span>.span-4</span></div>
-	<div class="span-4"><span>.span-4</span></div>
-</div>
-		{{/markup}}
-		{{#markup}}
-<div class="grid-12 gutter-10">
-	<div class="span-3"><span>.span-3</span></div>
-	<div class="span-3"><span>.span-3</span></div>
-	<div class="span-3"><span>.span-3</span></div>
-	<div class="span-3"><span>.span-3</span></div>
-</div>
-		{{/markup}}
-	{{/sub-section}}
-{{/section}}
-
-{{#section title="Columns"}}
-	{{#sub-section}}
-		{{{detail "Direct children of your grid can span multiple columns. n can range from 1 to 12."}}}
-		{{#markup}}
-<div class="grid-12 gutter-10">
-	<div class="span-6"><span>.span-6</span></div>
-	<div class="span-4"><span>.span-4</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-</div>
-		{{/markup}}
-	{{/sub-section}}
-{{/section}}
-
-{{#section title="Gutters"}}
-	{{#sub-section}}
-		{{{detail "Columns in a grid can be spaced apart using the gutter-n class. Possible values for n are 10 or 20 pixels."}}}
-		{{#markup}}
-<div class="grid-12 gutter-20">
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-</div>
-		{{/markup}}
-	{{/sub-section}}
-{{/section}}
-
-{{#section title="Nesting Grids"}}
-	{{#sub-section}}
-		{{{detail "For even more flexible layouts, you can nest grids."}}}
-		{{#markup}}
-<div class="grid-12 gutter-20">
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-2"><span>.span-2</span></div>
-	<div class="span-8">
-		<div class="grid-12 gutter-20">
+		{{#detail}}
+			The grid has a maximum of 12 columns, allowing you to create flexible
+			layouts like the following.
+		{{/detail}}
+		<div class="grid-12 gutter-10">
+			<div class="span-6"><span>.span-6</span></div>
+			<div class="span-6"><span>.span-6</span></div>
+		</div>
+		<div class="grid-12 gutter-10">
 			<div class="span-4"><span>.span-4</span></div>
 			<div class="span-4"><span>.span-4</span></div>
 			<div class="span-4"><span>.span-4</span></div>
 		</div>
-	</div>
-</div>
-		{{/markup}}
-	{{/sub-section}}
+		<div class="grid-12 gutter-10">
+			<div class="span-3"><span>.span-3</span></div>
+			<div class="span-3"><span>.span-3</span></div>
+			<div class="span-3"><span>.span-3</span></div>
+			<div class="span-3"><span>.span-3</span></div>
+		</div>
+{{/section}}
+
+{{#section title="Columns"}}
+		{{#detail}}
+			Direct children of your grid can span multiple columns.
+			n can range from 1 to 12.
+		{{/detail}}
+		<div class="grid-12 gutter-10">
+			<div class="span-6"><span>.span-6</span></div>
+			<div class="span-4"><span>.span-4</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+		</div>
+{{/section}}
+
+{{#section title="Gutters"}}
+		{{#detail}}
+			Columns in a grid can be spaced apart using the gutter-n class.
+			Possible values for n are 10 or 20 pixels.
+		{{/detail}}
+		<div class="grid-12 gutter-20">
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+		</div>
+{{/section}}
+
+{{#section title="Nesting Grids"}}
+		{{{detail "For even more flexible layouts, you can nest grids."}}}
+		<div class="grid-12 gutter-20">
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-2"><span>.span-2</span></div>
+			<div class="span-8">
+				<div class="grid-12 gutter-20">
+					<div class="span-4"><span>.span-4</span></div>
+					<div class="span-4"><span>.span-4</span></div>
+					<div class="span-4"><span>.span-4</span></div>
+				</div>
+			</div>
+		</div>
 {{/section}}
 
 {{#section title="Mobile Grids"}}
-	{{#sub-section}}
-		{{{detail "On a device with a width less than 460px, the default grid will stack the columns. If you want to keep the specified layout on mobile, use grid-mobile-12 instead."}}}
-		{{#markup}}
-<div class="grid-mobile-12 gutter-10">
-	<div class="span-4"><span>.span-4</span></div>
-	<div class="span-4"><span>.span-4</span></div>
-	<div class="span-4"><span>.span-4</span></div>
-</div>
-		{{/markup}}
-	{{/sub-section}}
+	{{#detail}}
+		On a device with a width less than 460px, the default grid will
+		stack the columns. If you want to keep the specified layout on mobile,
+		use grid-mobile-12 instead.
+	{{/detail}}
+	<div class="grid-mobile-12 gutter-10">
+		<div class="span-4"><span>.span-4</span></div>
+		<div class="span-4"><span>.span-4</span></div>
+		<div class="span-4"><span>.span-4</span></div>
+	</div>
 {{/section}}
