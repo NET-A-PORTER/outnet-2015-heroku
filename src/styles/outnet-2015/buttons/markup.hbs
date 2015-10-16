@@ -2,49 +2,58 @@
 	All call to actions should aim for copy to be displayed on a single line
 {{/detail}}
 
-{{#section title="Default buttons"}}
-	{{#sub-section title="Active variations"}}
-		<a class="btn" href="#" role="button">Add to Wishlist</a>
-		<input class="btn" type="submit" value="Add to Wishlist" />
-		<button class="btn">Add to Wishlist</button>
-	{{/sub-section}}
-	{{#sub-section title="Inactive variations"}}
-		<a class="btn btn-disabled" href="#" role="button">Add to Wishlist</a>
-		<input type="submit" value="Add to Wishlist" disabled />
-		<button disabled>Add to Wishlist</button>
-	{{/sub-section}}
-	{{#sub-section title="Small variations"}}
-		<a class="btn btn-small" href="#" role="button">Add to Wishlist</a>
-		<input class="btn btn-small" type="submit" value="Add to Wishlist" />
-		<button class="btn btn-small">Add to Wishlist</button>
+{{#section title="Primary buttons"}}
+	{{#sub-section title="Black, white and inactive variations"}}
+		<div>
+			<a class="btn btn-primary" href="#" role="button">Anchor</a>
+			<input class="btn-primary" type="submit" value="Input Submit" />
+			<button class="btn-primary">Button</button>
+		</div>
+		<div>
+			<a class="btn btn-primary btn-white" href="#" role="button">Anchor</a>
+			<input class="btn-primary btn-white" type="submit" value="Input Submit" />
+			<button class="btn-primary btn-white">Button</button>
+		</div>
+		<div>
+			<a class="btn btn-primary btn-disabled" href="#" role="button">Anchor</a>
+			<input class="btn-primary" type="submit" value="Input Submit" disabled />
+			<button class="btn-primary" disabled>Button</button>
+		</div>
 	{{/sub-section}}
 {{/section}}
 
-{{#section title="Primary buttons"}}
-	{{#sub-section title="Black active variations"}}
-		<a class="btn btn-primary" href="#" role="button">Proceed to checkout</a>
-		<input class="btn-primary" type="submit" value="Proceed to checkout" />
-		<button class="btn-primary">Proceed to checkout</button>
+{{#section title="Default buttons"}}
+	{{#sub-section title="Active and inactive variations"}}
+		<div>
+			<a class="btn" href="#" role="button">Anchor</a>
+			<input type="submit" value="Input Submit" />
+			<button>Button</button>
+		</div>
+		<div>
+			<a class="btn btn-disabled" href="#" role="button">Anchor</a>
+			<input type="submit" value="Input Submit" disabled />
+			<button disabled>Button</button>
+		</div>
 	{{/sub-section}}
-	{{#sub-section title="Black inactive variations"}}
-		<a class="btn btn-primary btn-disabled" href="#" role="button">Proceed to checkout</a>
-		<input class="btn-primary" type="submit" value="Proceed to checkout" disabled />
-		<button class="btn-primary" disabled>Proceed to checkout</button>
-	{{/sub-section}}
-	{{#sub-section title="White active variations"}}
-		<a class="btn btn-primary btn-white" href="#" role="button">Proceed to checkout</a>
-		<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" />
-		<button class="btn-primary btn-white">Proceed to checkout</button>
-	{{/sub-section}}
-	{{#sub-section title="White inactive variations"}}
-		<a class="btn btn-primary btn-white btn-disabled" href="#" role="button">Proceed to checkout</a>
-		<input class="btn-primary btn-white" type="submit" value="Proceed to checkout" disabled />
-		<button class="btn-primary btn-white" disabled>Proceed to checkout</button>
-	{{/sub-section}}
-	{{#sub-section title="Small active variations"}}
-		<a class="btn btn-primary btn-small" href="#" role="button">Proceed</a>
-		<input class="btn-primary btn-small" type="submit" value="Proceed" />
-		<button class="btn-primary btn-small">Proceed</button>
+{{/section}}
+
+{{#section title="Small Variations"}}
+	{{#sub-section title="Primary, default and inactive buttons"}}
+	<div>
+		<a class="btn btn-primary btn-small" href="#" role="button">Anchor</a>
+		<input class="btn-primary btn-small" type="submit" value="Input Submit" />
+		<button class="btn-primary btn-small">Button</button>
+	</div>
+		<div>
+			<a class="btn btn-small" href="#" role="button">Anchor</a>
+			<input class="btn-small" type="submit" value="Input Submit" />
+			<button class="btn-small">Button</button>
+		</div>
+		<div>
+			<a class="btn btn-small btn-disabled" href="#" role="button">Anchor</a>
+			<input class="btn-small" type="submit" value="Input Submit" disabled />
+			<button class="btn-small" disabled>Button</button>
+		</div>
 	{{/sub-section}}
 {{/section}}
 
