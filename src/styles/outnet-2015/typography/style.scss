@@ -28,15 +28,16 @@ h1,
 h2 ***REMOVED***
 	font-size: 28px;
 	letter-spacing: 2px;
+	line-height: normal;
 	text-transform: uppercase;
 	text-align: center;
 ***REMOVED***
 h1 + h2 ***REMOVED***
-	@include fontFamily(FuturaLight);
+	@include fontFamily(FuturaBook);
 	color: #777;
-	font-size: 17px;
+	font-size: 15px;
 	line-height: 28px;
-	margin-top: -20px;
+	margin-top: -16px;
 	text-align: center;
 ***REMOVED***
 h2 ***REMOVED***

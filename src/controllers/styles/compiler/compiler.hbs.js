@@ -1,37 +1,49 @@
 var hbs		= require('handlebars');
 var utils	= base.require('core/utils');
 
-// TODO: take helpers out of server, place client side
-hbs.registerHelper('markup', (opt) => ***REMOVED***
-	var output = opt.fn();
-	var escaped = hbs.Utils.escapeExpression(output)
-		.replace(/(\r\n|\n|\r)/gm, '<br>')
-		.replace(/(\t)/gm, '&nbsp;&nbsp;');
-	var markup = '<code class="html">' + escaped + '</code>';
-	return output + markup;
-***REMOVED***);
-
 // NOTE: this function caters for wrapped block helpers or inline helpers
 // Use 1: ***REMOVED******REMOVED***#helper-method***REMOVED******REMOVED*** ... ***REMOVED******REMOVED***/helper-method***REMOVED******REMOVED***
 // Use 2: ***REMOVED******REMOVED******REMOVED***helper-method "some text entered here"***REMOVED******REMOVED******REMOVED***
 function sections(type, opt) ***REMOVED***
 	var content = opt.fn && opt.fn() || '';
-	var title = opt.hash ? opt.hash.title : opt;
-	var wrapper = title
-		? '<' + type + '>' + title + '</' + type + '>'
-		: '';
-	return wrapper + content;
+
+	// do I want to present it?
+	if (opt.data && opt.data.root === true) ***REMOVED***
+		var title = opt.hash ? opt.hash.title : opt;
+		var wrapper = title
+			? '<' + type + '>' + title + '</' + type + '>'
+			: '';
+
+		content = '<div class="preston-' + type + '">' + wrapper + content + '</div>'
+	***REMOVED*** else ***REMOVED***
+		// has content already been escaped?
+		if (content.indexOf('&lt;') === -1) ***REMOVED***
+			// display raw html (without helper formatting)
+			content = hbs.Utils.escapeExpression(content)
+			.replace(/(\r\n|\n|\r)/gm, '<br>')
+			.replace(/(\t)/gm, '&nbsp;&nbsp;');
+		***REMOVED***
+	***REMOVED***
+
+	return content;
 ***REMOVED***
 
-hbs.registerHelper('section', opt => sections('h3', opt))
-hbs.registerHelper('sub-section', opt => sections('h4', opt));
-hbs.registerHelper('detail', opt => sections('p', opt));
+[
+	***REMOVED*** name: 'section', element: 'h3'***REMOVED***,
+	***REMOVED*** name: 'sub-section', element: 'h4'***REMOVED***,
+	***REMOVED*** name: 'detail', element: 'p'***REMOVED***
+].forEach((item) => ***REMOVED***
+	hbs.registerHelper(item.name, opt => sections(item.element, opt));
+***REMOVED***);
 
 function HandlebarsCompiler() ***REMOVED***
 	return function * (directory, file) ***REMOVED***
 		var path = directory + '/' + file;
 		var markup = yield utils.readFile(path);
-		return hbs.compile(markup)();
+		return ***REMOVED***
+			markup: hbs.compile(markup)(true),
+			html: hbs.compile(markup)(false)
+		***REMOVED***
 	***REMOVED***;
 ***REMOVED***
 
