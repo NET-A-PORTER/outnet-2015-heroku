@@ -1,0 +1,11 @@
+$colours: (
+  primary: #272590
+);
+
+@function get-colour($name) ***REMOVED***
+  @if map-has-key($colours, $name) ***REMOVED***
+    @return map-get($colours, $name);
+***REMOVED***
+  @warn "Unknown `#***REMOVED***$name***REMOVED***` in $colours.";
+  @return null;
+***REMOVED***

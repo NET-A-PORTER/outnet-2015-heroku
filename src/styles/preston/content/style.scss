@@ -1,4 +1,7 @@
+@import '../colours/style';
 @import '../typography/style';
+
+$colour-primary: get-colour("primary");
 
 body ***REMOVED***
 	margin: 0;
@@ -6,13 +9,34 @@ body ***REMOVED***
 ***REMOVED***
 .preston-container ***REMOVED***
 	margin: 0 auto 0;
-	padding: 0 10px;
+	padding: 0;
 	.preston-nav-item ***REMOVED***
 		display: table;
 		margin: 0 0 -20px;
 		font-size: 48pt;
 		padding: 0;
 	***REMOVED***
+***REMOVED***
+.preston-element-examples ***REMOVED***
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 5px 20px 20px;
+***REMOVED***
+.preston-element-title ***REMOVED***
+	background: $colour-primary;
+  box-shadow: $colour-primary 0 7px 8px -6px;
+	border-bottom: #fff 1px solid;
+  padding: 10px;
+  margin: 0 -20px 30px;
+  font-size: 16px;
+  display: inline-block;
+  color: #fff;
+  width: 300px;
+	text-transform: uppercase;
+***REMOVED***
+.preston-element-view ***REMOVED***
+	border-top: #B0C1C7 1px solid;
+	margin-top: -1px;
 ***REMOVED***
 .preston-frame ***REMOVED***
 	border: none;
@@ -22,31 +46,53 @@ body ***REMOVED***
 	left: 0;
 	top: 0;
 ***REMOVED***
+.preston-guide-heading ***REMOVED***
+	border-bottom: #bbb 1px solid;
+	margin-bottom: 50px;
+	padding: 100px 0 70px;
+	text-align: center;
+***REMOVED***
+.preston-h3 ***REMOVED***
+  margin: -10px;
+  padding: 10px;
+	> h3:first-child ***REMOVED***
+		color: $colour-primary;
+		text-transform: uppercase;
+		~ .preston-p ***REMOVED***
+			margin-top: -10px;
+		***REMOVED***
+	***REMOVED***
+***REMOVED***
+.preston-h4 h4 ***REMOVED***
+	color: $colour-primary;
+	margin-bottom: 0;
+	text-transform: uppercase;
+***REMOVED***
 .preston-heading ***REMOVED***
 	@extend .preston-type;
 	font-size: 24pt;
 	margin: 200px 0 -20px;
 ***REMOVED***
-.preston-guide-heading ***REMOVED***
-	margin-bottom: 50px;
-	padding: 100px 0;
-	text-align: center;
-***REMOVED***
-.preston-element-view ***REMOVED***
-	border-top: #B0C1C7 1px solid;
-	margin-top: -1px;
-***REMOVED***
-.preston-h3 ***REMOVED***
-  margin: -10px;
-  padding: 10px;
-	h3 ***REMOVED***
-	  margin-bottom: 0;
-	***REMOVED***
-***REMOVED***
-.preston-h4 h4 ***REMOVED***
-	margin-bottom: 0;
-***REMOVED***
 .preston-p ***REMOVED***
-	color: #FF3E3E;
+	color: $colour-primary;
   max-width: 640px;
+	margin-bottom: 10px;
+***REMOVED***
+.preston-pill-container ***REMOVED***
+	float: right;
+	margin-right: -10px;
+***REMOVED***
+.preston-pill ***REMOVED***
+	display: inline-block;
+  cursor: pointer;
+  padding: 2px 10px 0;
+  font-size: 13px;
+  line-height: 36px;
+  margin: -10px 0;
+	transition: all .1s ease-in;
+	&:hover,
+	&.preston-pill-selected ***REMOVED***
+		background: #0E0D4D;
+		color: #fff;
+	***REMOVED***
 ***REMOVED***
