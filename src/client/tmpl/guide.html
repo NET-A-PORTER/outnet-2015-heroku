@@ -11,25 +11,27 @@
 	</style>
 </head>
 <body>
-	<div class="preston-guide-heading" style="border-bottom: #bbb 1px solid; padding-bottom: 70px;">
+	<div class="preston-guide-heading">
 		<div class="preston-container">
 			<h1 ng-bind="style.title + ' Style Guide'"></h1>
 		</div>
 	</div>
-	<div class="preston-container" style="padding:0;">
+	<div class="preston-container">
 		<div class="preston-element" ng-repeat="element in elements" ng-class="'preston-element-' + element.name">
-			<div class="preston-element-examples" style="margin: 20px auto; max-width: 800px; padding: 5px 20px 20px; box-shadow: #bbb 0 0 2px 0px, #333 0 35px 25px -40px;">
-				<div style="margin-top: 8px; float:right;">
-					<div class="preston-pill"
-						ng-repeat="view in element.views track by $index"
-						ng-bind="view.title"
-						ng-class="{ 'preston-pill-selected': $index == element.selected }"
-						ng-click="element.selected = $index"
-						ng-hide="view.title == 'Markup'"></div>
+			<div class="preston-element-examples">
+				<div class="preston-element-title">
+					<div class="preston-pill-container">
+						<div class="preston-pill"
+							ng-repeat="view in element.views track by $index"
+							ng-bind="view.title"
+							ng-class="{ 'preston-pill-selected': $index == element.selected }"
+							ng-click="element.selected = $index"
+							ng-hide="view.title == 'Markup'"></div>
+					</div>
+					<div ng-bind="element.name"></div>
 				</div>
-				<h2 class="preston-element-title" ng-bind="element.name" style="border-bottom: #bbb 1px solid; padding: 10px; margin: 0 -20px 30px; font-size: 16px;"></h2>
 				<div ng-repeat="view in element.views | filter:view.title='Markup'" ng-bind-html="view.contents"></div>
-				<div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Markup' || $index != element.selected" ng-bind-html="view.contents"></div>
+				<!-- <div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Markup' || $index != element.selected" ng-bind-html="view.contents"></div> -->
 			</div>
 		</div>
 	</div>
