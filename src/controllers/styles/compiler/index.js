@@ -6,9 +6,9 @@ var utils			= base.require('core/utils');
 var assetPath		= base.path('client');
 var compiler		= new Compiler();
 
-compiler.add('.hbs', new HbsCompiler());
-compiler.add('(\.woff|\.ttf|\.eot|\.svg|\.png)', new CopyMethod(assetPath));
-compiler.add('.scss', new SassCompiler(), function * (directory, file) ***REMOVED***
+compiler.add(/\.hbs/ig, new HbsCompiler());
+compiler.add(/(\.woff|\.ttf|\.eot|\.svg|\.png)/ig, new CopyMethod(assetPath));
+compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) ***REMOVED***
 	// save to css directory
 	var info = directory.split('/').slice(-2);
 	var basePath = base.path('client/css');
