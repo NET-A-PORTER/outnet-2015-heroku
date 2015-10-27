@@ -40,9 +40,10 @@ function HandlebarsCompiler() ***REMOVED***
 	return function * (directory, file) ***REMOVED***
 		var path = directory + '/' + file;
 		var markup = yield utils.readFile(path);
+		var compiled = hbs.compile(markup);
 		return ***REMOVED***
-			markup: hbs.compile(markup)(true),
-			html: hbs.compile(markup)(false)
+			markup: compiled(true),
+			html: compiled(false)
 		***REMOVED***
 	***REMOVED***;
 ***REMOVED***
