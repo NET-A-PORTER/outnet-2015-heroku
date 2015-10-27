@@ -1,0 +1,11 @@
+$colours: (
+  primary: #272590
+);
+
+@function get-colour($name) {
+  @if map-has-key($colours, $name) {
+    @return map-get($colours, $name);
+  }
+  @warn "Unknown `#{$name}` in $colours.";
+  @return null;
+}
