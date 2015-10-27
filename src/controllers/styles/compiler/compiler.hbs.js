@@ -40,9 +40,10 @@ function HandlebarsCompiler() {
 	return function * (directory, file) {
 		var path = directory + '/' + file;
 		var markup = yield utils.readFile(path);
+		var compiled = hbs.compile(markup);
 		return {
-			markup: hbs.compile(markup)(true),
-			html: hbs.compile(markup)(false)
+			markup: compiled(true),
+			html: compiled(false)
 		}
 	};
 }
