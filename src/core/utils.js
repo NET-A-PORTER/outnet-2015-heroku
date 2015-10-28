@@ -42,9 +42,27 @@ function writeFile(path, data) {
 	});
 }
 
+function yield(gen) {
+  var it = gen();
+
+  (function iterate(val){
+    var nextGen = it.next( val );
+    if (!nextGen.done) {
+      if ("then" in nextGen.value) {
+        nextGen.value.then( iterate );
+      } else {
+        setTimeout( function(){
+          iterate( nextGen.value );
+        }, 0 );
+      }
+    }
+  })();
+}
+
 module.exports = {
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
-	writeFile: writeFile
+	writeFile: writeFile,
+  yield: yield
 };
