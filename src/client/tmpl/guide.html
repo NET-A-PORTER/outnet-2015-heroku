@@ -25,13 +25,13 @@
 							ng-repeat="view in element.views track by $index"
 							ng-bind="view.title"
 							ng-class="{ 'preston-pill-selected': $index == element.selected }"
-							ng-click="element.selected = $index"
-							ng-hide="view.title == 'Markup'"></div>
+							ng-click="element.selected = (element.selected == $index ? -1 : $index)"
+							ng-hide="view.title == 'Details'"></div>
 					</div>
 					<div ng-bind="element.name"></div>
 				</div>
-				<div ng-repeat="view in element.views | filter:view.title='Markup'" ng-bind-html="view.contents"></div>
-				<!-- <div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Markup' || $index != element.selected" ng-bind-html="view.contents"></div> -->
+				<div ng-repeat="view in element.views | filter:view.title='Details'" ng-bind-html="view.contents"></div>
+				<div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Details' || $index != element.selected" ng-bind-html="view.contents"></div>
 			</div>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 				this.base = baseElement;
 				this.name = this.base.name;
 				this.views = this.createViews();
-				this.selected = 0;
+				this.selected = -1;
 				return this;
 			};
 			ElementViewService.prototype = {
@@ -73,9 +73,11 @@
 						var asset = baseAssets[name];
 						var extenstion = name.split('.').pop();
 						switch (extenstion) {
-							case 'hbs':
-								this.addView('HTML', formatForDisplay(asset.html));
-								this.addView('Markup', asset.markup);
+							case 'yml':
+								var title = asset.title && '<h3>' + asset.title + '</h3>' || '';
+								var details = title + '<p>' + asset.detail + '</p>';
+								this.addView('Details', details);
+								this.addView('HTML', formatForDisplay(asset.markup));
 								break;
 							case 'scss':
 								this.addView('CSS', formatForDisplay(asset.compiled));
