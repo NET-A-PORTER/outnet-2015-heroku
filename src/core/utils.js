@@ -42,9 +42,27 @@ function writeFile(path, data) ***REMOVED***
 	***REMOVED***);
 ***REMOVED***
 
+function yield(gen) ***REMOVED***
+  var it = gen();
+
+  (function iterate(val)***REMOVED***
+    var nextGen = it.next( val );
+    if (!nextGen.done) ***REMOVED***
+      if ("then" in nextGen.value) ***REMOVED***
+        nextGen.value.then( iterate );
+  ***REMOVED*** else ***REMOVED***
+        setTimeout( function()***REMOVED***
+          iterate( nextGen.value );
+    ***REMOVED***, 0 );
+  ***REMOVED***
+***REMOVED***
+***REMOVED***)();
+***REMOVED***
+
 module.exports = ***REMOVED***
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
-	writeFile: writeFile
+	writeFile: writeFile,
+  yield: yield
 ***REMOVED***;
