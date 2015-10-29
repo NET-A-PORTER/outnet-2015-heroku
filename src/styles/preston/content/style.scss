@@ -2,13 +2,14 @@
 @import '../typography/style';
 
 $colour-primary: get-colour("primary");
+$colour-secondary: get-colour("secondary");
 
 body ***REMOVED***
 	margin: 0;
 	padding: 0;
 ***REMOVED***
 .preston-container ***REMOVED***
-	margin: 0 auto 0;
+	margin: 0 50px;
 	padding: 0;
 	.preston-nav-item ***REMOVED***
 		display: table;
@@ -34,6 +35,20 @@ body ***REMOVED***
 	max-width: 400px;
   width: 100%;
 	text-transform: uppercase;
+	~ div[ng-repeat] > h3:first-child ***REMOVED***
+		margin-top: 0;
+	***REMOVED***
+***REMOVED***
+.preston-element-section-title ***REMOVED***
+	background: $colour-secondary;
+  box-shadow: $colour-secondary 0 7px 8px -6px;
+  border-bottom: #fff 1px solid;
+	display: inline-table;
+  padding: 5px 10px;
+  margin: 30px 0;
+  font-size: 14px;
+  color: #fff;
+  text-transform: uppercase;
 ***REMOVED***
 .preston-element-view ***REMOVED***
 	border-top: #B0C1C7 1px solid;
