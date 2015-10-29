@@ -16,6 +16,8 @@
   "author": "The Outnet Team",
   "license": "MIT",
   "dependencies": ***REMOVED***
+    "etc": "^0.5.1",
+    "etc-yaml": "0.0.5",
     "glob": "^5.0.6",
     "handlebars": "^3.0.2",
     "koa": "^0.19.0",

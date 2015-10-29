@@ -25,13 +25,11 @@
 							ng-repeat="view in element.views track by $index"
 							ng-bind="view.title"
 							ng-class="***REMOVED*** 'preston-pill-selected': $index == element.selected ***REMOVED***"
-							ng-click="element.selected = $index"
-							ng-hide="view.title == 'Markup'"></div>
+							ng-click="element.selected = (element.selected == $index ? -1 : $index)"></div>
 					</div>
 					<div ng-bind="element.name"></div>
 				</div>
-				<div ng-repeat="view in element.views | filter:view.title='Markup'" ng-bind-html="view.contents"></div>
-				<!-- <div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Markup' || $index != element.selected" ng-bind-html="view.contents"></div> -->
+				<div ng-repeat="view in element.views track by $index" ng-hide="$index != element.selected" ng-bind-html="view.contents"></div>
 			</div>
 		</div>
 	</div>
@@ -50,6 +48,17 @@
 		.service('ElementViewService', function($sce) ***REMOVED***
 			var formatForDisplay = function(content) ***REMOVED***
 				return '<pre><code>' + content + '</code></pre>';
+			***REMOVED***;
+
+			var formatDocument = function(doc, callback) ***REMOVED***
+				return doc.reduce(function(prev, section) ***REMOVED***
+					var detail = section.detail && '<p>' + section.detail + '</p>' || '';
+					var title = section.title && '<h3 class="preston-element-section-title">' + section.title + '</h3>' || '';
+					var markup = section.markup && '<div class="preston-element-markup">' + section.markup + '</div>' || '';
+					var details = title + detail + markup;
+					if (callback) details += callback(section);
+					return prev += details;
+				***REMOVED***, '');
 			***REMOVED***;
 
 			var ElementViewService = function(baseElement) ***REMOVED***
@@ -71,15 +80,31 @@
 					var baseAssets = this.base.assets;
 					for (var name in baseAssets) ***REMOVED***
 						var asset = baseAssets[name];
-						var extenstion = name.split('.').pop();
-						switch (extenstion) ***REMOVED***
-							case 'hbs':
-								this.addView('HTML', formatForDisplay(asset.html));
-								this.addView('Markup', asset.markup);
+						var extension = name.split('.').pop();
+						switch (extension) ***REMOVED***
+							case 'yml':
+								var html = formatDocument(asset, function(section) ***REMOVED***
+									if (section.markupEscaped) ***REMOVED***
+										// make the code legible mate
+										var formatted = section.markupEscaped
+											.replace(/(\r\n|\n|\r)/gm, '<br>')
+											.replace(/(\t)/gm, '&nbsp;&nbsp;');
+										return formatForDisplay(formatted);
+									***REMOVED***
+									return '';
+								***REMOVED***);
+								this.addView('Details', formatDocument(asset));
+								this.addView('HTML', html);
 								break;
 							case 'scss':
-								this.addView('CSS', formatForDisplay(asset.compiled));
-								this.addView('SASS', formatForDisplay(asset.source));
+								/* TODO:
+								 * if UI navigation of each element improves
+								 * enable the view of multiple sass files
+								*/
+								if (name == 'style.scss') ***REMOVED***
+									this.addView('CSS', formatForDisplay(asset.compiled));
+									this.addView('SASS', formatForDisplay(asset.source));
+								***REMOVED***
 								break;
 						***REMOVED***
 					***REMOVED***
