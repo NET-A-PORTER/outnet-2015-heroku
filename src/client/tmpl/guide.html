@@ -53,8 +53,8 @@
 			var formatDocument = function(doc, callback) {
 				return doc.reduce(function(prev, section) {
 					var detail = section.detail && '<p>' + section.detail + '</p>' || '';
-					var title = section.title && '<h3>' + section.title + '</h3>' || '';
-					var markup = section.markup && section.markup || '';
+					var title = section.title && '<h3 class="preston-element-section-title">' + section.title + '</h3>' || '';
+					var markup = section.markup && '<div class="preston-element-markup">' + section.markup + '</div>' || '';
 					var details = title + detail + markup;
 					if (callback) details += callback(section);
 					return prev += details;
