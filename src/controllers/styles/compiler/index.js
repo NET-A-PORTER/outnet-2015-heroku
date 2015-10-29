@@ -1,12 +1,11 @@
-var Compiler			= require('./compiler');
-var YamlCompiler	= require('./compiler.yml');
-var SassCompiler	= require('./compiler.sass');
-var CopyMethod		= require('./method.copy');
-var utils					= base.require('core/utils');
-var assetPath			= base.path('client');
-var compiler			= new Compiler();
+var compiler					= require('./compiler');
+var DocumentCompiler	= require('./compiler.doc');
+var SassCompiler			= require('./compiler.sass');
+var CopyMethod				= require('./method.copy');
+var utils							= base.require('core/utils');
+var assetPath					= base.path('client');
 
-compiler.add(/\.yml/ig, new YamlCompiler());
+compiler.add(/document\.yml/ig, new DocumentCompiler());
 compiler.add(/(\.woff|\.ttf|\.eot|\.svg|\.png)/ig, new CopyMethod(assetPath));
 compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) ***REMOVED***
 	// save to css directory
