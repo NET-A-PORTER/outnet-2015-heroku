@@ -71,17 +71,28 @@
 					var baseAssets = this.base.assets;
 					for (var name in baseAssets) {
 						var asset = baseAssets[name];
-						var extenstion = name.split('.').pop();
-						switch (extenstion) {
+						var extension = name.split('.').pop();
+						switch (extension) {
 							case 'yml':
-								var title = asset.title && '<h3>' + asset.title + '</h3>' || '';
-								var details = title + '<p>' + asset.detail + '</p>';
-								this.addView('Details', details);
-								this.addView('HTML', formatForDisplay(asset.markup));
+								var output = asset.reduce(function(prev, section) {
+									var detail = section.detail && '<p>' + section.detail + '</p>' || '';
+									var title = section.title && '<h3>' + section.title + '</h3>' || '';
+									var markup = section.markup && section.markup || '';
+									var details = title + detail + markup;
+									return prev += details;
+								}, '');
+								this.addView('Details', output);
+								// this.addView('HTML', formatForDisplay(asset.markupEscaped));
 								break;
 							case 'scss':
-								this.addView('CSS', formatForDisplay(asset.compiled));
-								this.addView('SASS', formatForDisplay(asset.source));
+								/* TODO:
+								 * if UI navigation of each element improves
+								 * enable the view of multiple sass files
+								*/
+								if (name == 'style.scss') {
+									this.addView('CSS', formatForDisplay(asset.compiled));
+									this.addView('SASS', formatForDisplay(asset.source));
+								}
 								break;
 						}
 					}
