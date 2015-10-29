@@ -20,9 +20,10 @@ function readDir(path, filter) ***REMOVED***
 	***REMOVED***);
 ***REMOVED***
 
-function readFile(path) ***REMOVED***
+function readFile(path, options) ***REMOVED***
+  options = options || ***REMOVED*** encoding: 'utf-8' ***REMOVED***;
 	return new Promise((resolve, reject) => ***REMOVED***
-		fs.readFile(path, ***REMOVED*** encoding: 'utf-8' ***REMOVED***, (err, contents) => ***REMOVED***
+		fs.readFile(path, options, (err, contents) => ***REMOVED***
 			if (err) return reject(err);
 			resolve(contents);
 		***REMOVED***);
