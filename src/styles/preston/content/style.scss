@@ -2,13 +2,14 @@
 @import '../typography/style';
 
 $colour-primary: get-colour("primary");
+$colour-secondary: get-colour("secondary");
 
 body {
 	margin: 0;
 	padding: 0;
 }
 .preston-container {
-	margin: 0 auto 0;
+	margin: 0 50px;
 	padding: 0;
 	.preston-nav-item {
 		display: table;
@@ -31,8 +32,23 @@ body {
   font-size: 16px;
   display: inline-block;
   color: #fff;
-  width: 300px;
+	max-width: 400px;
+  width: 100%;
 	text-transform: uppercase;
+	~ div[ng-repeat] > h3:first-child {
+		margin-top: 0;
+	}
+}
+.preston-element-section-title {
+	background: $colour-secondary;
+  box-shadow: $colour-secondary 0 7px 8px -6px;
+  border-bottom: #fff 1px solid;
+	display: inline-table;
+  padding: 5px 10px;
+  margin: 30px 0;
+  font-size: 14px;
+  color: #fff;
+  text-transform: uppercase;
 }
 .preston-element-view {
 	border-top: #B0C1C7 1px solid;
@@ -95,4 +111,11 @@ body {
 		background: #0E0D4D;
 		color: #fff;
 	}
+}
+
+.hljs {
+  box-shadow: #eee 0 0 10px;
+  padding: 20px;
+  background: #FDFCFB;
+  border: #FFC3C3 1px solid;
 }

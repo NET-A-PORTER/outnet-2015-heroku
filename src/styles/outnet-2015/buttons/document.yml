@@ -1,0 +1,72 @@
+document:
+- detail: All call to actions should aim for copy to be displayed on a single line
+- title: Primary buttons
+  detail: Black, white and inactive variations
+  markup: |
+    <div>
+      <a class="btn btn-primary" href="#" role="button">Anchor</a>
+      <input class="btn-primary" type="submit" value="Input Submit" />
+      <button class="btn-primary">Button</button>
+    </div>
+    <div>
+      <a class="btn btn-primary btn-white" href="#" role="button">Anchor</a>
+      <input class="btn-primary btn-white" type="submit" value="Input Submit" />
+      <button class="btn-primary btn-white">Button</button>
+    </div>
+    <div>
+      <a class="btn btn-primary btn-disabled" href="#" role="button">Anchor</a>
+      <input class="btn-primary" type="submit" value="Input Submit" disabled />
+      <button class="btn-primary" disabled>Button</button>
+    </div>
+- title: Default buttons
+  detail: Active and inactive variations
+  markup: |
+    <div>
+      <a class="btn" href="#" role="button">Anchor</a>
+      <input type="submit" value="Input Submit" />
+      <button>Button</button>
+    </div>
+    <div>
+      <a class="btn btn-disabled" href="#" role="button">Anchor</a>
+      <input type="submit" value="Input Submit" disabled />
+      <button disabled>Button</button>
+    </div>
+- title: Small variations
+  detail: Primary, default and inactive buttons
+  markup: |
+    <div>
+      <a class="btn btn-primary btn-small" href="#" role="button">Anchor</a>
+      <input class="btn-primary btn-small" type="submit" value="Input Submit" />
+      <button class="btn-primary btn-small">Button</button>
+    </div>
+    <div>
+      <a class="btn btn-small" href="#" role="button">Anchor</a>
+      <input class="btn-small" type="submit" value="Input Submit" />
+      <button class="btn-small">Button</button>
+    </div>
+    <div>
+      <a class="btn btn-small btn-disabled" href="#" role="button">Anchor</a>
+      <input class="btn-small" type="submit" value="Input Submit" disabled />
+      <button class="btn-small" disabled>Button</button>
+    </div>
+- title: Single selectors (2 styles)
+  detail: To be used where only one option can be selected
+  markup: |
+    <div class="grid-12 gutter-10">
+      <div class="span-6">
+          <a class="btn btn-selector-single-1" href="#" role="button">Filter 1</a>
+          <a class="btn btn-selector-single-1 btn-selector-active" href="#" role="button">Selected</a>
+          <a class="btn btn-selector-single-1" href="#" role="button">Filter 3</a>
+      </div>
+      <div class="span-6">
+        <a class="btn btn-selector-single-2" href="#" role="button">Filter 1</a>
+        <a class="btn btn-selector-single-2 btn-selector-active" href="#" role="button">Selected</a>
+        <a class="btn btn-selector-single-2" href="#" role="button">Filter 3</a>
+      </div>
+    </div>
+- title: Multi-select options
+  detail: This style should be used where multiple options can be selected, e.g. filters
+  markup: |
+    <a class="btn btn-selector-multi btn-selector-active" href="#" role="button">Filter 1</a>
+    <a class="btn btn-selector-multi btn-selector-active" href="#" role="button">Filter 2</a>
+    <a class="btn btn-selector-multi" href="#" role="button">Filter 3</a>

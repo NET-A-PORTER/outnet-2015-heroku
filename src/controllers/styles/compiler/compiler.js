@@ -1,10 +1,7 @@
-function Compiler() {
-	this.processors = [];
-}
-
-Compiler.prototype = {
+module.exports = {
+	processors: [],
 	add: (pattern) => {
-		var tasks = Array.prototype.slice.call(arguments, 1);
+		var tasks = [].slice.call(arguments, 1);
 		this.processors.push({
 			pattern: pattern,
 			tasks: tasks
@@ -46,6 +43,3 @@ Compiler.prototype = {
 		return processed;
 	}
 };
-
-
-module.exports = Compiler;

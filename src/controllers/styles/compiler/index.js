@@ -1,12 +1,11 @@
-var Compiler		= require('./compiler');
-var HbsCompiler		= require('./compiler.hbs');
-var SassCompiler	= require('./compiler.sass');
-var CopyMethod		= require('./method.copy');
-var utils			= base.require('core/utils');
-var assetPath		= base.path('client');
-var compiler		= new Compiler();
+var compiler					= require('./compiler');
+var DocumentCompiler	= require('./compiler.doc');
+var SassCompiler			= require('./compiler.sass');
+var CopyMethod				= require('./method.copy');
+var utils							= base.require('core/utils');
+var assetPath					= base.path('client');
 
-compiler.add(/\.hbs/ig, new HbsCompiler());
+compiler.add(/document\.yml/ig, new DocumentCompiler());
 compiler.add(/(\.woff|\.ttf|\.eot|\.svg|\.png)/ig, new CopyMethod(assetPath));
 compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) {
 	// save to css directory
