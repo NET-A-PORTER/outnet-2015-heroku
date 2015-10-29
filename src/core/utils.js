@@ -20,9 +20,10 @@ function readDir(path, filter) {
 	});
 }
 
-function readFile(path) {
+function readFile(path, options) {
+  options = options || { encoding: 'utf-8' };
 	return new Promise((resolve, reject) => {
-		fs.readFile(path, { encoding: 'utf-8' }, (err, contents) => {
+		fs.readFile(path, options, (err, contents) => {
 			if (err) return reject(err);
 			resolve(contents);
 		});

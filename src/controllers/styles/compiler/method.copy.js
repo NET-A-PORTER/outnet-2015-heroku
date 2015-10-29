@@ -1,12 +1,13 @@
 var fs = require('fs');
+var utils	= base.require('core/utils');
 
 function copyMethod(targetPath) {
 	return function * (directory, file) {
 		var src = directory + '/' + file;
 		var target = targetPath + '/' + file;
 
-		fs.createReadStream(src)
-			.pipe(fs.createWriteStream(target));
+    var contents = yield utils.readFile(src, {encoding: null});
+    yield utils.writeFile(target, contents);
 
 		return targetPath;
 	};
