@@ -25,13 +25,11 @@
 							ng-repeat="view in element.views track by $index"
 							ng-bind="view.title"
 							ng-class="***REMOVED*** 'preston-pill-selected': $index == element.selected ***REMOVED***"
-							ng-click="element.selected = (element.selected == $index ? -1 : $index)"
-							ng-hide="view.title == 'Details'"></div>
+							ng-click="element.selected = (element.selected == $index ? -1 : $index)"></div>
 					</div>
 					<div ng-bind="element.name"></div>
 				</div>
-				<div ng-repeat="view in element.views | filter:view.title='Details'" ng-bind-html="view.contents"></div>
-				<div ng-repeat="view in element.views track by $index" ng-hide="view.title == 'Details' || $index != element.selected" ng-bind-html="view.contents"></div>
+				<div ng-repeat="view in element.views track by $index" ng-hide="$index != element.selected" ng-bind-html="view.contents"></div>
 			</div>
 		</div>
 	</div>
@@ -52,11 +50,22 @@
 				return '<pre><code>' + content + '</code></pre>';
 			***REMOVED***;
 
+			var formatDocument = function(doc, callback) ***REMOVED***
+				return doc.reduce(function(prev, section) ***REMOVED***
+					var detail = section.detail && '<p>' + section.detail + '</p>' || '';
+					var title = section.title && '<h3>' + section.title + '</h3>' || '';
+					var markup = section.markup && section.markup || '';
+					var details = title + detail + markup;
+					if (callback) details += callback(section);
+					return prev += details;
+				***REMOVED***, '');
+			***REMOVED***;
+
 			var ElementViewService = function(baseElement) ***REMOVED***
 				this.base = baseElement;
 				this.name = this.base.name;
 				this.views = this.createViews();
-				this.selected = -1;
+				this.selected = 0;
 				return this;
 			***REMOVED***;
 			ElementViewService.prototype = ***REMOVED***
@@ -74,15 +83,18 @@
 						var extension = name.split('.').pop();
 						switch (extension) ***REMOVED***
 							case 'yml':
-								var output = asset.reduce(function(prev, section) ***REMOVED***
-									var detail = section.detail && '<p>' + section.detail + '</p>' || '';
-									var title = section.title && '<h3>' + section.title + '</h3>' || '';
-									var markup = section.markup && section.markup || '';
-									var details = title + detail + markup;
-									return prev += details;
-								***REMOVED***, '');
-								this.addView('Details', output);
-								// this.addView('HTML', formatForDisplay(asset.markupEscaped));
+								var html = formatDocument(asset, function(section) ***REMOVED***
+									if (section.markupEscaped) ***REMOVED***
+										// make the code legible mate
+										var formatted = section.markupEscaped
+											.replace(/(\r\n|\n|\r)/gm, '<br>')
+											.replace(/(\t)/gm, '&nbsp;&nbsp;');
+										return formatForDisplay(formatted);
+									***REMOVED***
+									return '';
+								***REMOVED***);
+								this.addView('Details', formatDocument(asset));
+								this.addView('HTML', html);
 								break;
 							case 'scss':
 								/* TODO:

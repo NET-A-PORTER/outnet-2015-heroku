@@ -2,7 +2,7 @@ document:
 - detail: All call to actions should aim for copy to be displayed on a single line
 - title: Primary buttons
   detail: Black, white and inactive variations
-  markup: >-
+  markup: |
     <div>
       <a class="btn btn-primary" href="#" role="button">Anchor</a>
       <input class="btn-primary" type="submit" value="Input Submit" />
@@ -20,7 +20,7 @@ document:
     </div>
 - title: Default buttons
   detail: Active and inactive variations
-  markup: >-
+  markup: |
     <div>
       <a class="btn" href="#" role="button">Anchor</a>
       <input type="submit" value="Input Submit" />
@@ -33,7 +33,7 @@ document:
     </div>
 - title: Small variations
   detail: Primary, default and inactive buttons
-  markup: >-
+  markup: |
     <div>
       <a class="btn btn-primary btn-small" href="#" role="button">Anchor</a>
       <input class="btn-primary btn-small" type="submit" value="Input Submit" />
@@ -51,7 +51,7 @@ document:
     </div>
 - title: Single selectors (2 styles)
   detail: To be used where only one option can be selected
-  markup: >-
+  markup: |
     <div class="grid-12 gutter-10">
       <div class="span-6">
           <a class="btn btn-selector-single-1" href="#" role="button">Filter 1</a>
@@ -66,7 +66,7 @@ document:
     </div>
 - title: Multi-select options
   detail: This style should be used where multiple options can be selected, e.g. filters
-  markup: >-
+  markup: |
     <a class="btn btn-selector-multi btn-selector-active" href="#" role="button">Filter 1</a>
     <a class="btn btn-selector-multi btn-selector-active" href="#" role="button">Filter 2</a>
     <a class="btn btn-selector-multi" href="#" role="button">Filter 3</a>
