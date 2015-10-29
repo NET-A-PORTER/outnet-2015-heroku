@@ -1,6 +1,6 @@
 document:
 - title: Black icons
-  markup: >-
+  markup: |
     <a class="icon-arrow-down-black btn"></a>
     <a class="icon-arrow-left-black btn"/></a>
     <a class="icon-arrow-right-black btn"/></a>
@@ -10,7 +10,7 @@ document:
     <a class="icon-plus-black btn"/></a>
     <a class="icon-search-black btn"/></a>
 - title: Grey icons
-  markup: >-
+  markup: |
     <a class="icon-arrow-down-grey btn btn-disabled"></a>
     <a class="icon-arrow-left-grey btn btn-disabled"/></a>
     <a class="icon-arrow-right-grey btn btn-disabled"/></a>

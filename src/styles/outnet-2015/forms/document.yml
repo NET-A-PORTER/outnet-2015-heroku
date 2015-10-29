@@ -2,7 +2,7 @@ document:
 - title: Input Boxes
   detail: >
     Styles here apply for the following input types: text, password, number, tel, email, and url
-- markup: >-
+- markup: |
     <div class="grid-12 gutter-10">
       <div class="span-4">
         <label>

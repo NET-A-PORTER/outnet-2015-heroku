@@ -1,7 +1,7 @@
 document:
 - title: Overview
   detail: The grid has a maximum of 12 columns, allowing you to create flexible layouts like the following.
-  markup: >-
+  markup: |
     <div class="grid-12 gutter-10">
       <div class="span-6"><span>.span-6</span></div>
       <div class="span-6"><span>.span-6</span></div>
@@ -19,7 +19,7 @@ document:
     </div>
 - title: Columns
   detail: Direct children of your grid can span multiple columns. n can range from 1 to 12.
-  markup: >-
+  markup: |
     <div class="grid-12 gutter-10">
       <div class="span-6"><span>.span-6</span></div>
       <div class="span-4"><span>.span-4</span></div>
@@ -27,7 +27,7 @@ document:
     </div>
 - title: Gutters
   detail: Columns in a grid can be spaced apart using the gutter-n class. Possible values for n are 10 or 20 pixels.
-  markup: >-
+  markup: |
     <div class="grid-12 gutter-20">
       <div class="span-2"><span>.span-2</span></div>
       <div class="span-2"><span>.span-2</span></div>
@@ -38,7 +38,7 @@ document:
     </div>
 - title: Nested grids
   detail: For even more flexible layouts, you can nest grids.
-  markup: >-
+  markup: |
     <div class="grid-12 gutter-20">
       <div class="span-2"><span>.span-2</span></div>
       <div class="span-2"><span>.span-2</span></div>
@@ -51,11 +51,11 @@ document:
       </div>
     </div>
 - title: Mobile grids
-  detail: >-
+  detail: |
     On a device with a width less than 460px, the default grid will
     stack the columns. If you want to keep the specified layout on mobile,
     use grid-mobile-12 instead.
-  markup: >-
+  markup: |
     <div class="grid-mobile-12 gutter-10">
       <div class="span-4"><span>.span-4</span></div>
       <div class="span-4"><span>.span-4</span></div>

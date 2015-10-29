@@ -31,7 +31,8 @@ body {
   font-size: 16px;
   display: inline-block;
   color: #fff;
-  width: 300px;
+	max-width: 400px;
+  width: 100%;
 	text-transform: uppercase;
 }
 .preston-element-view {
@@ -95,4 +96,11 @@ body {
 		background: #0E0D4D;
 		color: #fff;
 	}
+}
+
+.hljs {
+  box-shadow: #eee 0 0 10px;
+  padding: 20px;
+  background: #FDFCFB;
+  border: #FFC3C3 1px solid;
 }
