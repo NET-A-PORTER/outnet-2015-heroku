@@ -20,7 +20,7 @@ Style.prototype = ***REMOVED***
 			***REMOVED***);
 	***REMOVED***,
 	getElement: function * (name) ***REMOVED***
-		return yield new Element(this.path + '/' + name);
+		return yield * new Element(this.path + '/' + name);
 	***REMOVED***
 ***REMOVED***;
 

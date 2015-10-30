@@ -9,9 +9,8 @@ var Styles	= (baseDir) => ***REMOVED***
 Styles.prototype.getAll = function * () ***REMOVED***
 	var baseDir = this.baseDir;
 	var projects = yield utils.glob('*', ***REMOVED*** cwd: baseDir ***REMOVED***);
-
 	// read style directory
-	return Promise.all(
+  return yield Promise.all(
 		// get defintion of each style
 		projects.map(project => new Style(project, baseDir).getDefinition())
 	);

@@ -34,7 +34,7 @@ module.exports = ***REMOVED***
 					// process each task and pass result
 					// onto next function through body object
 					for (var taskIndex in process.tasks) ***REMOVED***
-						result = yield process.tasks[taskIndex].call(***REMOVED*** body: result ***REMOVED***, directory, file);
+						result = yield * process.tasks[taskIndex].call(***REMOVED*** body: result ***REMOVED***, directory, file);
 					***REMOVED***
 					processed[file] = result;
 				***REMOVED***

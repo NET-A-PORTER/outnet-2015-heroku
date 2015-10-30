@@ -20,9 +20,10 @@ function readDir(path, filter) ***REMOVED***
 	***REMOVED***);
 ***REMOVED***
 
-function readFile(path) ***REMOVED***
+function readFile(path, options) ***REMOVED***
+  options = options || ***REMOVED*** encoding: 'utf-8' ***REMOVED***;
 	return new Promise((resolve, reject) => ***REMOVED***
-		fs.readFile(path, ***REMOVED*** encoding: 'utf-8' ***REMOVED***, (err, contents) => ***REMOVED***
+		fs.readFile(path, options, (err, contents) => ***REMOVED***
 			if (err) return reject(err);
 			resolve(contents);
 		***REMOVED***);
@@ -42,9 +43,27 @@ function writeFile(path, data) ***REMOVED***
 	***REMOVED***);
 ***REMOVED***
 
+function yield(gen) ***REMOVED***
+  var it = gen();
+
+  (function iterate(val)***REMOVED***
+    var nextGen = it.next( val );
+    if (!nextGen.done) ***REMOVED***
+      if ("then" in nextGen.value) ***REMOVED***
+        nextGen.value.then( iterate );
+  ***REMOVED*** else ***REMOVED***
+        setTimeout( function()***REMOVED***
+          iterate( nextGen.value );
+    ***REMOVED***, 0 );
+  ***REMOVED***
+***REMOVED***
+***REMOVED***)();
+***REMOVED***
+
 module.exports = ***REMOVED***
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
-	writeFile: writeFile
+	writeFile: writeFile,
+  yield: yield
 ***REMOVED***;
