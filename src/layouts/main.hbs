@@ -6,8 +6,11 @@
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
-		<div class="preston-views">
-			<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="***REMOVED*** selected: view === selected ***REMOVED***"></div>
+		<div class="preston-views" ng-if="views.length > 1" ng-class="***REMOVED*** 'preston-views-display': showViews ***REMOVED***">
+			<div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
+			<div class="preston-view-options">
+				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="***REMOVED*** selected: view === selected ***REMOVED***" ng-bind="view.name"></div>
+			</div>
 		</div>
 		<div class="preston-nav-item" ui-sref="home">Preston</div>
 	</div>
@@ -123,6 +126,7 @@
 						.get(this.name)
 						.then(function(data) ***REMOVED***
 							self.title = data.title;
+							self.views = data.views;
 							self.populateElements(data.elements)
 								.then(function() ***REMOVED***
 									// pub/sub baby
@@ -200,17 +204,17 @@
 					$scope.styles = data;
 				***REMOVED***);
 
-			$scope.views = [
-				new StyleView('Default', '100%', '100%'),
-				new StyleView('iPad 3/4', '1024px', '768px'),
-				new StyleView('iPhone 5', '320px', '480px'),
-				new StyleView('iPhone 6', '375px', '667px'),
-				new StyleView('iPhone 6+', '414px', '736px'),
-				new StyleView('Samsung Galaxy S4', '360px', '640px'),
-				new StyleView('Desktop 1024x768', '1024px', '768px'),
-				new StyleView('Desktop 1280x960', '1280px', '960px'),
-				new StyleView('Desktop 1366x768', '1366px', '768px')
-			];
+			var views = [new StyleView('Default', '100%', '100%')];
+
+			$rootScope.$on('style.load', function(e, style) ***REMOVED***
+				$scope.views = views.concat(
+					style.views && style.views.map(function(view) ***REMOVED***
+						return new StyleView(view.title, view.width, view.height);
+					***REMOVED***) || []
+				);
+				$scope.$digest();
+			***REMOVED***);
+
 			$scope.selectView = function(view) ***REMOVED***
 				$scope.selected = view;
 				$rootScope.$broadcast('viewSelected', view);
