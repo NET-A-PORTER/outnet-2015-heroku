@@ -1,4 +1,4 @@
 {
 	"title": "Preston",
-	"elements": ["colours", "typography", "navigation", "content"]
+	"elements": ["base", "colours", "typography", "navigation", "content"]
 }
