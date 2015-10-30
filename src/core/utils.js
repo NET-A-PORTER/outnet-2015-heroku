@@ -20,9 +20,10 @@ function readDir(path, filter) {
 	});
 }
 
-function readFile(path) {
+function readFile(path, options) {
+  options = options || { encoding: 'utf-8' };
 	return new Promise((resolve, reject) => {
-		fs.readFile(path, { encoding: 'utf-8' }, (err, contents) => {
+		fs.readFile(path, options, (err, contents) => {
 			if (err) return reject(err);
 			resolve(contents);
 		});
@@ -42,9 +43,27 @@ function writeFile(path, data) {
 	});
 }
 
+function yield(gen) {
+  var it = gen();
+
+  (function iterate(val){
+    var nextGen = it.next( val );
+    if (!nextGen.done) {
+      if ("then" in nextGen.value) {
+        nextGen.value.then( iterate );
+      } else {
+        setTimeout( function(){
+          iterate( nextGen.value );
+        }, 0 );
+      }
+    }
+  })();
+}
+
 module.exports = {
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
-	writeFile: writeFile
+	writeFile: writeFile,
+  yield: yield
 };

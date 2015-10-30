@@ -61,5 +61,4 @@ OMG, I'm ready
 - Separation of base, component and module styles
 - Download/generate style functionality
 ### Bugs
-- Client/fonts folder not generating
 - SVG files not being copied

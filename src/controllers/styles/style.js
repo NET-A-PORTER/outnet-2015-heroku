@@ -20,7 +20,7 @@ Style.prototype = {
 			});
 	},
 	getElement: function * (name) {
-		return yield new Element(this.path + '/' + name);
+		return yield * new Element(this.path + '/' + name);
 	}
 };
 
