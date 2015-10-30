@@ -6,8 +6,11 @@
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
-		<div class="preston-nav">
-			<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)"></div>
+		<div class="preston-views" ng-if="views.length > 1" ng-class="***REMOVED*** 'preston-views-display': showViews ***REMOVED***">
+			<div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
+			<div class="preston-view-options">
+				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="***REMOVED*** selected: view === selected ***REMOVED***" ng-bind="view.name"></div>
+			</div>
 		</div>
 		<div class="preston-nav-item" ui-sref="home">Preston</div>
 	</div>
@@ -31,7 +34,7 @@
 				***REMOVED***)
 				.state('guide', ***REMOVED***
 					url: '/style/:name',
-					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame"></iframe>'
+					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame" ng-style="view"></iframe>'
 				***REMOVED***);
 		***REMOVED***)
 		.service('MessageService', function() ***REMOVED***
@@ -123,6 +126,7 @@
 						.get(this.name)
 						.then(function(data) ***REMOVED***
 							self.title = data.title;
+							self.views = data.views;
 							self.populateElements(data.elements)
 								.then(function() ***REMOVED***
 									// pub/sub baby
@@ -156,12 +160,65 @@
 			***REMOVED***;
 			return Style;
 		***REMOVED***)
-		.controller('NavCtrl', function($scope, StylesFactory) ***REMOVED***
+		.service('StyleView', function() ***REMOVED***
+			function StyleView(name, width, height) ***REMOVED***
+				this.name = name;
+				this.style = this.getStyle(width, height);
+			***REMOVED***
+
+			StyleView.prototype.getStyle = function(width, height) ***REMOVED***
+				var style = ***REMOVED***
+					// specified dimensions
+					width: width,
+					height: height
+				***REMOVED***;
+
+				// center align if pixels specified
+				if (!!~width.indexOf('px')) ***REMOVED***
+
+					// offset margin to align
+					var parsedHeight = parseInt(height, 10);
+					var parsedWidth = parseInt(width, 10);
+					var marginLeft = '-' + parsedWidth * 0.5 + 'px';
+					var marginTop = '-' + parsedHeight * 0.5 + 'px';
+
+					style = angular.extend(***REMOVED***
+						left: '50%',
+						top: '50%',
+						'margin-left': marginLeft,
+						'margin-top': marginTop
+					***REMOVED***, style);
+				***REMOVED***
+
+				return style;
+			***REMOVED***;
+
+			return StyleView;
+		***REMOVED***)
+		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView) ***REMOVED***
+
+			// loads list of styles for entire app
 			StylesFactory
 				.getAll()
 				.then(function(data) ***REMOVED***
 					$scope.styles = data;
 				***REMOVED***);
+
+			var views = [new StyleView('Default', '100%', '100%')];
+
+			$rootScope.$on('style.load', function(e, style) ***REMOVED***
+				$scope.views = views.concat(
+					style.views && style.views.map(function(view) ***REMOVED***
+						return new StyleView(view.title, view.width, view.height);
+					***REMOVED***) || []
+				);
+				$scope.$digest();
+			***REMOVED***);
+
+			$scope.selectView = function(view) ***REMOVED***
+				$scope.selected = view;
+				$rootScope.$broadcast('viewSelected', view);
+			***REMOVED***;
 		***REMOVED***)
 		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
 
@@ -171,6 +228,9 @@
 		***REMOVED***).controller('GuideCtrl', function($scope, $state, Style) ***REMOVED***
 			$scope.Style = Style;
 			$scope.$state = $state;
+			$scope.$on('viewSelected', function(e, view) ***REMOVED***
+				$scope.view = view.style;
+			***REMOVED***);
 		***REMOVED***);
 	</script>
 </body>
