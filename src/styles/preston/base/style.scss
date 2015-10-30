@@ -1,0 +1,19 @@
+@mixin hover-effect {
+	cursor: pointer;
+	position: relative;
+	&:after {
+		border-bottom: #000 1px solid;
+		transition: all 0.1s ease-out;
+		position: absolute;
+		content: '';
+		width: 100%;
+		bottom: -5px;
+		left: 0;
+		opacity: 0;
+	}
+	&.selected,
+	&:hover:after {
+		bottom: 0;
+		opacity: 1;
+	}
+}
