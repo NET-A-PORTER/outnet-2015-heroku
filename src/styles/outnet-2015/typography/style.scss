@@ -17,6 +17,11 @@ $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 	font-family: $name, Arial, sans-serif;
 ***REMOVED***
 
+b ***REMOVED***
+  @include fontFamily(FuturaDemi);
+  font-weight: normal;
+***REMOVED***
+
 html,
 body ***REMOVED***
 	@include fontFamily(FuturaBook);
