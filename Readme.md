@@ -71,6 +71,6 @@ Install the Heroku CLI to make a new release.
 ## TODO
 - Display SASS & compiled contents in line with markup
 - Separation of base, component and module styles
-- Heroku configuration details
+- Release tasks
 ### Bugs
 - SVG files not being copied
