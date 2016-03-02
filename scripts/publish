@@ -1,0 +1,36 @@
+#!/usr/bin/env node --harmony
+
+require('../src/global');
+
+var cli = require('commander');
+var publish = base.require('core/publish');
+
+var files;
+
+cli
+  .arguments('<files...>')
+  .action(function (arg) {
+     files = arg;
+  });
+
+cli.parse(process.argv);
+
+if (typeof files === 'undefined') {
+   console.error('no files given!');
+   process.exit(1);
+}
+
+var buildDir = 'build';
+
+files = files.map(function(arg) {
+  if(arg.indexOf(buildDir + '/') !== -1)
+    return arg.replace(buildDir + '/', '');
+});
+
+publish(buildDir, files)
+  .then(function() {
+    console.log('Published', files);
+  })
+  .catch(function(error) {
+    console.error('Failed to publish. Error:', error);
+  });;

@@ -1,3 +1,5 @@
+#!/usr/bin/env node --harmony
+
 require('../src/global');
 var utils = base.require('core/utils');
 var SassCompiler = base.require('controllers/styles/compiler/compiler.sass');

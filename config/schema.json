@@ -1,0 +1,29 @@
+{
+  "env": {
+    "doc": "The applicaton environment.",
+    "format": ["production", "development", "test"],
+    "default": "development",
+    "env": "NODE_ENV"
+  },
+  "aws": {
+    "s3": {
+      "accessKeyID": {
+        "doc": "Username of S3 account for publishing" 
+      },
+      "secretAccessKey": {
+        "doc": "Password/secret of S3 account for publishing" 
+      },
+      "bucket": {
+        "doc": "Name of S3 bucket to publish to" 
+      },
+      "region": {
+        "doc": "Region to publish assets to. Consider latency when setting this",
+        "default": "eu-west-1"
+      },
+      "timeout": {
+        "doc": "Time to wait for publishing before returning an error",
+        "default": 5000
+      }
+    }
+  }
+}
