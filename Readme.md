@@ -58,10 +58,10 @@ OMG, I'm ready
 ### Build and Publish
 
 There are scripts which allow you to build locally and publish styles. These can be found in `scripts/`.
-***Note:*** you can run these using `npm`, for example, `npm run-script build`.
+***Note:*** you can run these using `npm`, for example, `npm run-script build outnet-2015`.
 
-`./scripts/build` - Builds assets within `/build` directory.
-`./scripts/publish` - Publishes built assets to S3. Make sure you run this after `./scripts/build`
+`./scripts/build <styles...>` - Builds assets within `/build` directory.
+`./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`
 
 ## Releasing
 

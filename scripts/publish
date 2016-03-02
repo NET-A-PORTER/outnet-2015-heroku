@@ -5,26 +5,25 @@ require('../src/global');
 var cli = require('commander');
 var publish = base.require('core/publish');
 
-var files;
+var styles;
 
 cli
-  .arguments('<files...>')
+  .arguments('<styles...>')
   .action(function (arg) {
-     files = arg;
+     styles = arg;
   });
 
 cli.parse(process.argv);
 
-if (typeof files === 'undefined') {
-   console.error('no files given!');
+if (typeof styles === 'undefined') {
+   console.error('no styles given!');
    process.exit(1);
 }
 
 var buildDir = 'build';
 
-files = files.map(function(arg) {
-  if(arg.indexOf(buildDir + '/') !== -1)
-    return arg.replace(buildDir + '/', '');
+files = styles.map(function(style) {
+  return buildDir + '/', style + '.css';
 });
 
 publish(buildDir, files)
