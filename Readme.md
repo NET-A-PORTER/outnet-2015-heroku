@@ -61,7 +61,10 @@ There are scripts which allow you to build locally and publish styles. These can
 ***Note:*** you can run these using `npm`, for example, `npm run-script build outnet-2015`.
 
 `./scripts/build <styles...>` - Builds assets within `/build` directory.
-`./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`
+`./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`. Publishes to development by default.
+
+To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production ./scripts/publish outnet-2015`.
+Make sure you have a config file for that environment within `config/`. See `config/schema.json` for how to create a config file for an environment.
 
 ## Releasing
 
@@ -72,5 +75,3 @@ Install the Heroku CLI to make a new release.
 - Display SASS & compiled contents in line with markup
 - Separation of base, component and module styles
 - Release tasks
-### Bugs
-- SVG files not being copied
