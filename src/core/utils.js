@@ -47,7 +47,7 @@ function yield(gen) ***REMOVED***
   var it = gen();
   var value;
 
-  return (function iterate(val)***REMOVED***
+  (function iterate(val)***REMOVED***
     var nextGen = it.next( val );
     if (!nextGen.done) ***REMOVED***
       value = nextGen.value;
