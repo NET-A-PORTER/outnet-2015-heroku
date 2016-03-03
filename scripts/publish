@@ -28,8 +28,8 @@ files = styles.map(function(style) ***REMOVED***
 
 publish(buildDir, files)
   .then(function() ***REMOVED***
-    console.log('Published', files);
+    console.log('Finished publishing.');
 ***REMOVED***)
   .catch(function(error) ***REMOVED***
     console.error('Failed to publish. Error:', error);
-***REMOVED***);;
+***REMOVED***);
