@@ -13,9 +13,10 @@ var publisher = new Publisher({
 function Publish(directory, files) {
   return Promise.all(
     files.map( (file) => {
-      utils.readFile(directory + '/' + file)
+      return utils.readFile(directory + '/' + file)
         .then(function(data) {
           publisher.upload(file, data);
+          console.log('Uploaded ' + file + '.');
         });
     })
   );
