@@ -47,7 +47,7 @@ function yield(gen) {
   var it = gen();
   var value;
 
-  return (function iterate(val){
+  (function iterate(val){
     var nextGen = it.next( val );
     if (!nextGen.done) {
       value = nextGen.value;
