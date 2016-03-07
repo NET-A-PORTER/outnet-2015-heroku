@@ -17,6 +17,9 @@ function Publish(directory, files) ***REMOVED***
         .then(function(data) ***REMOVED***
           publisher.upload(file, data);
           console.log('Uploaded ' + file + '.');
+    ***REMOVED***)
+        .catch(function(err) ***REMOVED***
+          console.error('Failed to upload ' + file + '.');
     ***REMOVED***);
 ***REMOVED***)
   );
