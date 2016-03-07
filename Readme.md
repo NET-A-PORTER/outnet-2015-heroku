@@ -60,7 +60,7 @@ OMG, I'm ready
 There are scripts which allow you to build locally and publish styles. These can be found in `scripts/`.
 ***Note:*** you can run these using `npm`, for example, `npm run-script build outnet-2015`.
 
-`./scripts/build <styles...>` - Builds assets within `/build` directory.
+`./scripts/build <styles...>` - Builds assets within `/src/client` directory.
 `./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`. Publishes to development by default.
 
 To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production ./scripts/publish outnet-2015`.
