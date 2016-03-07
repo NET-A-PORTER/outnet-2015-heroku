@@ -4,9 +4,8 @@ require('../src/global');
 
 var cli = require('commander');
 var utils = base.require('core/utils');
-var SassCompiler = base.require('controllers/styles/compiler/compiler.sass');
+var Style = base.require('controllers/styles/style');
 
-var sass = new SassCompiler();
 var styles;
 
 cli
@@ -23,11 +22,13 @@ if (typeof styles === 'undefined') {
 }
 
 utils.yield(function * main() {
-  for(var style of styles) {
-    var css = (yield * sass('src/styles/' + style, '/styles.scss')).compiled;
-    var fileName = 'build/' + style + '.css';
-    yield utils.writeFile(fileName, css);
-    console.log('Generated', fileName);
-  };
+  var styleDir	= base.path('styles');
+  for (styleDetails of styles) {
+    var style = new Style(styleDetails, styleDir);
+    yield * style.build();
+    for (elementName of (yield style.getDefinition()).elements) {
+      yield * style.getElement(elementName);
+    }
+    console.log('Generated', styleDetails);
+  }
 });
-
