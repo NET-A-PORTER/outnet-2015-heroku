@@ -3,6 +3,7 @@
 require('../src/global');
 
 var cli = require('commander');
+var utils = base.require('core/utils');
 var publish = base.require('core/publish');
 
 var styles;
@@ -20,13 +21,20 @@ if (typeof styles === 'undefined') {
    process.exit(1);
 }
 
-var buildDir = 'src/client/css/styles';
+var buildDir = 'src/client';
 
-files = styles.map(function(style) {
+var css = styles.map(function(style) {
   return style + '/styles.css';
 });
 
-publish(buildDir, files)
+
+publish(buildDir + '/css/styles', css)
+  .then(function() {
+    return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
+  })
+  .then(function(images) {
+    return publish(buildDir, images);
+  })
   .then(function() {
     console.log('Finished publishing.');
   })
