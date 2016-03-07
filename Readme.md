@@ -17,18 +17,6 @@ OMG, I'm ready
 
 **Note:** for Outnet 2015 styles, `src/client/fonts` directory needs to be created manually
 
-
-## Technical overview
-- App runs from `src` directory
-- Style guides stored in `src/styles/***REMOVED***project***REMOVED***/`
-- Styles compiled by **node-sass** middleware at runtime
-	- App styles compiled to `src/client/css/`
-	- Style guides compiled to `src/client/css/***REMOVED***guide-name***REMOVED***`
-- Built on top of API
-	- API routes should be defined in `src/routes/`
-	- Try hitting **/api/1.0/styles**
-
-
 ## Functional overview
 ### Create a style guide
 - Create a directory in `src/styles/***REMOVED***project-name***REMOVED***`
@@ -46,7 +34,7 @@ OMG, I'm ready
 	- Your styles.scss will be compiled and requested by the client
 - That's it really
 
-### NOTES
+### Guidelines
 - Keep names **url/css friendly** - just to make dev easier, e.g. *my-super-awesome-styleguide*
 - If you want some code in your **markup.hbs** to be displayed in the client, wrap it with the **markup helper**, e.g.
 
@@ -56,9 +44,34 @@ OMG, I'm ready
 ***REMOVED******REMOVED***/markup***REMOVED******REMOVED***
 ```
 
+## Technical overview
+- App runs from `src` directory
+- Style guides stored in `src/styles/***REMOVED***project***REMOVED***/`
+- Styles compiled by **node-sass** middleware at runtime
+	- App styles compiled to `src/client/css/`
+	- Style guides compiled to `src/client/css/***REMOVED***guide-name***REMOVED***`
+- Built on top of API
+	- API routes should be defined in `src/routes/`
+	- Try hitting **/api/1.0/styles**
+- Builds and deploys to S3 via CLI
+
+### Build and Publish
+
+There are scripts which allow you to build locally and publish styles. These can be found in `scripts/`.
+***Note:*** you can run these using `npm`, for example, `npm run-script build outnet-2015`.
+
+`./scripts/build <styles...>` - Builds assets within `/build` directory.
+`./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`. Publishes to development by default.
+
+To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production ./scripts/publish outnet-2015`.
+Make sure you have a config file for that environment within `config/`. See `config/schema.json` for how to create a config file for an environment.
+
+## Releasing
+
+Preston is hosted as a service on http://preston-nap.herokuapp.com.
+Install the Heroku CLI to make a new release.
+
 ## TODO
 - Display SASS & compiled contents in line with markup
 - Separation of base, component and module styles
-- Download/generate style functionality
-### Bugs
-- SVG files not being copied
+- Release tasks

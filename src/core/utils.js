@@ -45,17 +45,21 @@ function writeFile(path, data) ***REMOVED***
 
 function yield(gen) ***REMOVED***
   var it = gen();
+  var value;
 
   (function iterate(val)***REMOVED***
     var nextGen = it.next( val );
     if (!nextGen.done) ***REMOVED***
-      if ("then" in nextGen.value) ***REMOVED***
-        nextGen.value.then( iterate );
+      value = nextGen.value;
+      if ("then" in value) ***REMOVED***
+        value.then( iterate );
   ***REMOVED*** else ***REMOVED***
         setTimeout( function()***REMOVED***
-          iterate( nextGen.value );
+          iterate( value );
     ***REMOVED***, 0 );
   ***REMOVED***
+***REMOVED*** else ***REMOVED***
+      return value;
 ***REMOVED***
 ***REMOVED***)();
 ***REMOVED***

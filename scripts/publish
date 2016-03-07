@@ -1,0 +1,35 @@
+#!/usr/bin/env node --harmony
+
+require('../src/global');
+
+var cli = require('commander');
+var publish = base.require('core/publish');
+
+var styles;
+
+cli
+  .arguments('<styles...>')
+  .action(function (arg) ***REMOVED***
+     styles = arg;
+***REMOVED***);
+
+cli.parse(process.argv);
+
+if (typeof styles === 'undefined') ***REMOVED***
+   console.error('no styles given!');
+   process.exit(1);
+***REMOVED***
+
+var buildDir = 'build';
+
+files = styles.map(function(style) ***REMOVED***
+  return buildDir + '/', style + '.css';
+***REMOVED***);
+
+publish(buildDir, files)
+  .then(function() ***REMOVED***
+    console.log('Finished publishing.');
+***REMOVED***)
+  .catch(function(error) ***REMOVED***
+    console.error('Failed to publish. Error:', error);
+***REMOVED***);

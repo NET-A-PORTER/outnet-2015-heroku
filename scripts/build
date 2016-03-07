@@ -1,0 +1,33 @@
+#!/usr/bin/env node --harmony
+
+require('../src/global');
+
+var cli = require('commander');
+var utils = base.require('core/utils');
+var SassCompiler = base.require('controllers/styles/compiler/compiler.sass');
+
+var sass = new SassCompiler();
+var styles;
+
+cli
+  .arguments('<styles...>')
+  .action(function (arg) ***REMOVED***
+    styles = arg
+***REMOVED***);
+
+cli.parse(process.argv);
+
+if (typeof styles === 'undefined') ***REMOVED***
+   console.error('no styles given!');
+   process.exit(1);
+***REMOVED***
+
+utils.yield(function * main() ***REMOVED***
+  for(var style of styles) ***REMOVED***
+    var css = (yield * sass('src/styles/' + style, '/styles.scss')).compiled;
+    var fileName = 'build/' + style + '.css';
+    yield utils.writeFile(fileName, css);
+    console.log('Generated', fileName);
+***REMOVED***;
+***REMOVED***);
+
