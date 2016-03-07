@@ -20,10 +20,10 @@ if (typeof styles === 'undefined') ***REMOVED***
    process.exit(1);
 ***REMOVED***
 
-var buildDir = 'build';
+var buildDir = 'src/client/css/styles';
 
 files = styles.map(function(style) ***REMOVED***
-  return buildDir + '/', style + '.css';
+  return style + '/styles.css';
 ***REMOVED***);
 
 publish(buildDir, files)
