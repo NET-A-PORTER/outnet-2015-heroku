@@ -4,7 +4,9 @@
   "description": "Style guide generator for the rich and famous",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --harmony src/server.js",
+    "build": "./scripts/build",
+    "publish": "./scripts/publish"
   },
   "repository": {
     "type": "git",
@@ -25,11 +27,14 @@
     "koa-router": "^4.3.2",
     "koa-static": "^1.4.9",
     "mkdirp": "^0.5.0",
-    "node-sass": "^2.1.1"
+    "node-sass": "^2.1.1",
+    "out-publish": "^1.1.2"
   },
-  "scripts": {
-    "start": "node --harmony src/server.js"
+  "engines": {
+    "node": ">=0.12.7"
   },
-  "engines" : { "node" : "0.12.7" }
-
+  "devDependencies": {
+    "commander": "^2.9.0",
+    "convict": "^1.1.2"
+  }
 }

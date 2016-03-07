@@ -1,0 +1,12 @@
+{
+  "env": "development",
+  "aws": {
+    "s3": {
+      "accessKeyID": "AKIAJKZKKEGR3FGTIWJQ",
+      "secretAccessKey": "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",
+      "region": "eu-west-1",
+      "bucket": "preston-assets-dev",
+      "timeout": 2000
+    }
+  }
+}
