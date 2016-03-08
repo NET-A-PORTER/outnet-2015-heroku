@@ -48,8 +48,21 @@ function * getElement() ***REMOVED***
 	***REMOVED***
 ***REMOVED***
 
+function * build(styles) ***REMOVED***
+  var styleDir	= base.path('styles');
+  var list = styles ? styles : yield * new Styles(styleDir).getAll();
+  for (styleDetails of list) ***REMOVED***
+    var style = new Style(styleDetails.name, styleDir);
+    yield * style.build();
+    for (elementName of (yield style.getDefinition()).elements) ***REMOVED***
+      yield * style.getElement(elementName);
+***REMOVED***
+***REMOVED***
+***REMOVED***
+
 module.exports = ***REMOVED***
 	get: get,
 	getElement: getElement,
-	list: list
+	list: list,
+  build: build
 ***REMOVED***;

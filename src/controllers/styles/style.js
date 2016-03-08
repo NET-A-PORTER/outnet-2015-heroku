@@ -20,8 +20,11 @@ Style.prototype = ***REMOVED***
 			***REMOVED***);
 	***REMOVED***,
 	getElement: function * (name) ***REMOVED***
-		return yield * new Element(this.path + '/' + name);
-	***REMOVED***
+		return yield * new Element(***REMOVED***dir: this.path + '/' + name***REMOVED***);
+	***REMOVED***,
+  build: function * () ***REMOVED***
+    yield * new Element(***REMOVED***dir: this.path, files: ['styles.scss']***REMOVED***);
+***REMOVED***
 ***REMOVED***;
 
 module.exports = Style;

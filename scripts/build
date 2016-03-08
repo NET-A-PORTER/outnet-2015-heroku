@@ -4,9 +4,8 @@ require('../src/global');
 
 var cli = require('commander');
 var utils = base.require('core/utils');
-var SassCompiler = base.require('controllers/styles/compiler/compiler.sass');
+var build = base.require('controllers/styles').build;
 
-var sass = new SassCompiler();
 var styles;
 
 cli
@@ -23,11 +22,9 @@ if (typeof styles === 'undefined') ***REMOVED***
 ***REMOVED***
 
 utils.yield(function * main() ***REMOVED***
-  for(var style of styles) ***REMOVED***
-    var css = (yield * sass('src/styles/' + style, '/styles.scss')).compiled;
-    var fileName = 'build/' + style + '.css';
-    yield utils.writeFile(fileName, css);
-    console.log('Generated', fileName);
-***REMOVED***;
+  var list = yield styles.map(function(style) ***REMOVED***
+    return ***REMOVED*** name: style ***REMOVED***
 ***REMOVED***);
-
+  yield * build(list);
+  console.log('Generated', styles);
+***REMOVED***);
