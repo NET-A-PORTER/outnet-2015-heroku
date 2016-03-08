@@ -1,9 +1,11 @@
+@import '../mixins/colours';
+
 button,
 input[type=submit],
 .btn {
-	background: #e6e6e6;
+	background: $greySelected;
 	border: none;
-	color: #000;
+	color: $black;
 	cursor: pointer;
 	display: inline-block;
 	font-family: FuturaBook;
@@ -46,7 +48,7 @@ input[type=submit],
 	}
 	&.btn-selector-single-1:hover,
 	&.btn-selector-single-2:hover {
-		background: #e6e6e6;
+		background: $greySelected;
 	}
 	&.btn-selector-active {
 		&.btn-selector-multi {
@@ -58,7 +60,7 @@ input[type=submit],
 			color: #fff;
 		}
 		&.btn-selector-single-2 {
-			background: #e6e6e6;
+			background: $greySelected;
 			color: #000;
 		}
 	}
@@ -78,7 +80,7 @@ input[type=submit],
 	&[disabled]:hover,
 	&.btn-disabled,
 	&.btn-disabled:hover {
-		background: #e6e6e6;
+		background: $greySelected;
 		color: #b7b7b7;
 		cursor: default;
 		outline: none;
