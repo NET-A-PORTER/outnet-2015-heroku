@@ -1,9 +1,12 @@
 var compiler	= require('./compiler');
 var utils 		= base.require('core/utils');
 
-function * StyleElement(baseDir) {
-	var assets = yield utils.glob('**', { cwd: baseDir });
-	this.assets = yield * compiler.process(baseDir, assets);
+function * StyleElement(opts) {
+  var files = opts.files;
+  var dir = opts.dir;
+  if(files) files = '*(' + files.join('|') + ')';
+	var assets = yield utils.glob(files || '**', { cwd: dir });
+	this.assets = yield * compiler.process(dir, assets);
 	return this;
 }
 

@@ -20,8 +20,11 @@ Style.prototype = {
 			});
 	},
 	getElement: function * (name) {
-		return yield * new Element(this.path + '/' + name);
-	}
+		return yield * new Element({dir: this.path + '/' + name});
+	},
+  build: function * () {
+    yield * new Element({dir: this.path, files: ['styles.scss']});
+  }
 };
 
 module.exports = Style;
