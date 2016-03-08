@@ -1,0 +1,34 @@
+$spriteDimensions: (
+  "iconDimension": 12px,
+  "spriteWidth": 14px,
+  "spriteHeight": 238px
+);
+
+$iconsMap: (
+  'black': (arrow-down: 0px, arrow-left: -28px, arrow-right: -56px, arrow-up: -98px, cross: -126px, minus: -154px, plus: -182px, search: -210px),
+  'grey': (arrow-down: -14px, arrow-left: -42px, arrow-right: -70px, arrow-up: -112px, cross: -140px, minus: -168px, plus: -196px, search: -224px),
+  'white': (arrow-right: -84px),
+);
+
+$iconColours: map-keys($iconsMap);
+
+// Expects coordinates from the top-left corner, as you would for normal background-position usage
+// This will turn the coordinates into percentages, allowing icons to scale using width and height properties
+@mixin sprite_location($x, $y, $spriteDimensions) ***REMOVED***
+  $spriteWidth: map_get($spriteDimensions, "spriteWidth");
+  $spriteHeight: map_get($spriteDimensions, "spriteHeight");
+  $iconDimension: map_get($spriteDimensions, "iconDimension");
+
+  background-position: (($x / $spriteWidth * 100%) * -1) (($y / ($spriteHeight - $iconDimension) * 100%) * -1);
+***REMOVED***
+
+@mixin create_icons($colour) ***REMOVED***
+  @each $icon, $y in map-get($iconsMap, '#***REMOVED***$colour***REMOVED***') ***REMOVED***
+    .icon-#***REMOVED***$icon***REMOVED***-#***REMOVED***$colour***REMOVED*** ***REMOVED***
+      &:before ***REMOVED***
+        @content;
+        @include sprite_location(0px, $y, $spriteDimensions);
+  ***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***

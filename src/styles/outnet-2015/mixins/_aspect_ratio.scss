@@ -1,0 +1,17 @@
+@mixin setImageHeight($aspect-ratio: (1, 1)) ***REMOVED***
+  position: relative;
+  &:after ***REMOVED***
+    $height: nth($aspect-ratio, 2);
+    $width: nth($aspect-ratio, 1);
+    padding-bottom: $height/$width * 100%;
+    display: block;
+    content: '';
+***REMOVED***
+  img ***REMOVED***
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+***REMOVED***
+***REMOVED***
