@@ -42,7 +42,7 @@ function * getElement() ***REMOVED***
 		var elementName = this.params.element;
 		var styleName = this.params.style;
 		var style = new Style(styleName, styleDir);
-		this.body = yield style.getElement(***REMOVED***dir: elementName***REMOVED***);
+		this.body = yield style.getElement(elementName);
 	***REMOVED*** catch(e) ***REMOVED***
 		response.call(this, e, elementName);
 	***REMOVED***
