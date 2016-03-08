@@ -32,8 +32,8 @@ publish(buildDir + '/css/styles', css)
   .then(function() {
     return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
   })
-  .then(function(images) {
-    return publish(buildDir, images);
+  .then(function(files) {
+    return publish(buildDir, files);
   })
   .then(function() {
     console.log('Finished publishing.');

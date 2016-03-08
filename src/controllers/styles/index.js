@@ -48,8 +48,21 @@ function * getElement() {
 	}
 }
 
+function * build(styles) {
+  var styleDir	= base.path('styles');
+  var list = styles ? styles : yield * new Styles(styleDir).getAll();
+  for (styleDetails of list) {
+    var style = new Style(styleDetails.name, styleDir);
+    yield * style.build();
+    for (elementName of (yield style.getDefinition()).elements) {
+      yield * style.getElement(elementName);
+    }
+  }
+}
+
 module.exports = {
 	get: get,
 	getElement: getElement,
-	list: list
+	list: list,
+  build: build
 };

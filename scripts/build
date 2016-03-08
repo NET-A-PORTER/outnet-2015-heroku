@@ -4,7 +4,7 @@ require('../src/global');
 
 var cli = require('commander');
 var utils = base.require('core/utils');
-var Style = base.require('controllers/styles/style');
+var build = base.require('controllers/styles').build;
 
 var styles;
 
@@ -22,13 +22,9 @@ if (typeof styles === 'undefined') {
 }
 
 utils.yield(function * main() {
-  var styleDir	= base.path('styles');
-  for (styleDetails of styles) {
-    var style = new Style(styleDetails, styleDir);
-    yield * style.build();
-    for (elementName of (yield style.getDefinition()).elements) {
-      yield * style.getElement(elementName);
-    }
-    console.log('Generated', styleDetails);
-  }
+  var list = yield styles.map(function(style) {
+    return { name: style }
+  });
+  yield * build(list);
+  console.log('Generated', styles);
 });
