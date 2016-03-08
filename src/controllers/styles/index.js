@@ -42,7 +42,7 @@ function * getElement() {
 		var elementName = this.params.element;
 		var styleName = this.params.style;
 		var style = new Style(styleName, styleDir);
-		this.body = yield style.getElement({dir: elementName});
+		this.body = yield style.getElement(elementName);
 	} catch(e) {
 		response.call(this, e, elementName);
 	}
