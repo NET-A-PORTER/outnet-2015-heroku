@@ -20,7 +20,7 @@ OMG, I'm ready
 - Create a directory in `src/styles/{project-name}`
 - Create a **definition.json** file in your brand spanking new directory that looks like this:
 
-```
+```json
 {
 	"title": "Retro 1990's Style Guide",
 	"contents": ["buttons", "... list of contents"]
@@ -36,7 +36,7 @@ OMG, I'm ready
 - Keep names **url/css friendly** - just to make dev easier, e.g. *my-super-awesome-styleguide*
 - If you want some code in your **markup.hbs** to be displayed in the client, wrap it with the **markup helper**, e.g.
 
-```
+```handlebars
 {{#markup}}
     <div>My component</div>
 {{/markup}}
