@@ -1,0 +1,60 @@
+@function breakpoints($view) ***REMOVED***
+	$breakpoints: (
+		mobile: (min: 0px, max: 640px),
+		tablet: (min: 641px, max: 1025px),
+		tabletPortrait: (min: 641px, max: 801px),
+		desktop: (min: 1026px, max: 10000px)
+	);
+	@if not map-has-key($breakpoints, $view) ***REMOVED***
+		@warn "Breakpoint `#***REMOVED***$view***REMOVED***` not found";
+	***REMOVED***
+	@return map-get($breakpoints, $view);
+***REMOVED***
+
+@mixin viewport-bound($min: null, $max: null) ***REMOVED***
+	@if not $min and not $max ***REMOVED***
+		@error "No viewport bound dimensions specified";
+	***REMOVED***
+	$query: 'only screen';
+	@if ($min) ***REMOVED*** $query: $query + " and (min-width: #***REMOVED***$min***REMOVED***)" ***REMOVED***;
+	@if ($max) ***REMOVED*** $query: $query + " and (max-width: #***REMOVED***$max***REMOVED***)" ***REMOVED***;
+
+	@media #***REMOVED***$query***REMOVED*** ***REMOVED***
+		@content;
+	***REMOVED***
+***REMOVED***
+
+@mixin viewport-minimum($view) ***REMOVED***
+	$width: map-get(breakpoints($view), 'min');
+	@include viewport-bound($width) ***REMOVED*** @content; ***REMOVED***
+***REMOVED***
+
+@mixin viewport-maximum($view) ***REMOVED***
+	$width: map-get(breakpoints($view), 'max');
+	@include viewport-bound(null, $width) ***REMOVED*** @content; ***REMOVED***
+***REMOVED***
+
+/*
+	Viewport Mixin Usage
+	@include viewport(mobile, tablet, ...)
+
+	Note:
+	1) Mixin applies styles between maximum and minimum width values of viewports specified
+					i.e. @include viewport(mobile, desktop) will be applied to tablets too.
+	2) This implementation reduces the css generated as media query
+					as its contents only need to be generated once.
+*/
+@mixin viewport($views...) ***REMOVED***
+	$rangeMin: ();
+	$rangeMax: ();
+	@each $view in $views ***REMOVED***
+		$sizes: breakpoints($view);
+		$min: map-get($sizes, min);
+		$max: map-get($sizes, max);
+		@if $min ***REMOVED*** $rangeMin: append($rangeMin, $min); ***REMOVED***
+		@if $max ***REMOVED*** $rangeMax: append($rangeMax, $max); ***REMOVED***
+	***REMOVED***
+	@include viewport-bound(min($rangeMin...), max($rangeMax...)) ***REMOVED***
+		@content;
+	***REMOVED***
+***REMOVED***

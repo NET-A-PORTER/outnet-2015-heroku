@@ -1,4 +1,5 @@
 @import "../typography/style";
+@import "../mixins/colours";
 
 .service-message ***REMOVED***
 	position: relative;
@@ -82,7 +83,7 @@
 
 .ribbon ***REMOVED***
 	@include fontFamily(FuturaBook);
-	background: #e6e6e6;
+	background: $greySelected;
 	font-size: 15px;
 	letter-spacing: 0.8px;
 	text-align: center;
