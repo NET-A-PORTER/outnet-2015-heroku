@@ -15,8 +15,6 @@ OMG, I'm ready
 2. Install node modules: `cd preston && npm i`
 3. Start it up: `node --harmony src/server.js`
 
-**Note:** for Outnet 2015 styles, `src/client/fonts` directory needs to be created manually
-
 ## Functional overview
 ### Create a style guide
 - Create a directory in `src/styles/***REMOVED***project-name***REMOVED***`
@@ -58,17 +56,20 @@ OMG, I'm ready
 ### Build and Publish
 
 There are scripts which allow you to build locally and publish styles. These can be found in `scripts/`.
+
 ***Note:*** you can run these using `npm`, for example, `npm run-script build outnet-2015`.
 
-`./scripts/build <styles...>` - Builds assets within `/src/client` directory.
-`./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`. Publishes to development by default.
+- `./scripts/build <styles...>` - Builds assets within `/src/client` directory.
+- `./scripts/publish <styles...>` - Publishes built assets to S3. Make sure you run this after `./scripts/build`. Publishes to development by default.
 
 To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production ./scripts/publish outnet-2015`.
+
 Make sure you have a config file for that environment within `config/`. See `config/schema.json` for how to create a config file for an environment.
 
 ## Releasing
 
 Preston is hosted as a service on http://preston-nap.herokuapp.com.
+
 Install the Heroku CLI to make a new release.
 
 ## TODO
