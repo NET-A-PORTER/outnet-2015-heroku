@@ -1,6 +1,9 @@
 language: node_js
+before_deploy:
+  - ./scripts/travis/create-environment.sh
 deploy:
   provider: heroku
-  app: preston-nap
+  app:
+    master: preston-nap
   api_key:
     secure: OSb9pYKDDTjxgP4uBUyzB7jChvwiFi2SvcHoEQro4Vut2unk9YUqYjZhmNt20wQqIhQa27K4U3q4eOrs/h9N2nS7BIHQAxA3Ti8W054KN8QlAPoRBJytMBwn5wvFbSExAEzTkQe7bfow6Ebj8zgSIWsoWAD6/958JqWcoZ9eVil6zyVN51V9CT0pvmiqs+DBjOcj1AGGhk9E3kvysjf+lfgHONRpi9uYad7Bx0EpfOGXNY/ekyCj2iNARt4vcS2IMDarAloyKWW6jcsYJviaOkclv1hQCBfHYLzAPdavvizt1MTBVfIt24JUSyWa82UmqEmD3mkX5GFmG1QsCUaLJo6cz+TswPo6gVnwwMbIBRMi6UpyZ/KxV2hMxhFnIsZSO6K5/K/fkzzWyQ+cVFXQFe9CqskCeKocRIxdpE8AnxXaMNNfJzX8VMoSUB2VLUCU65P+k5mH+qrJuNiMyNdDVHEkuBnULy3gACN7f5nPI9/8snMQPJHdZAzGaAwK7iQg95aXk4xHVl3nRrTGJFtOaTXndzAARZnJeRY+1eDypOXoyXqbNU6LtZaiyy1Uy7JZ8VCM2ps7OVbzjbAVJ+HwkozWBN5adPMzDut5FZnfLT+xfIpyB9Oav5JGR5b6NJEKcf/RHpcvJK8xTRI2/qOZlefVFxSOmX7N1GPJal/y29c=
