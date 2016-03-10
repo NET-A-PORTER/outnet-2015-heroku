@@ -9,11 +9,11 @@ Prerequisites
 - Node 0.12
 - NPM latest
 
-OMG, I'm ready
-
-1. Clone from repo: `git clone http://stash.vm.wtf.nap:7990/scm/out/preston.git`
+1. Clone from repo: `git clone git@github.com:NET-A-PORTER/preston.git`
 2. Install node modules: `cd preston && npm i`
 3. Start it up: `node --harmony src/server.js`
+
+OMG, I'm ready
 
 ## Functional overview
 ### Create a style guide
