@@ -1,5 +1,5 @@
 language: node_js
-before_deploy:
+after_success:
   - ./scripts/travis/create-environment.sh
 deploy:
   provider: heroku
