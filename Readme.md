@@ -71,7 +71,7 @@ Make sure you have a config file for that environment within `config/`. See `con
 
 Preston is hosted as a service on http://preston-nap.herokuapp.com.
 
-Install the Heroku CLI to make a new release.
+This is continuously deployed to whenever changes are merged into to master.
 
 ## TODO
 - Display SASS & compiled contents in line with markup
