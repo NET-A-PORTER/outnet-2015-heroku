@@ -1,7 +1,7 @@
 # PRESTON
 Style guide generator for the rich and famous
 
-![Build](https://travis-ci.org/NET-A-PORTER/preston.svg)
+[![Build](https://travis-ci.org/NET-A-PORTER/preston.svg)](https://travis-ci.org/NET-A-PORTER/preston)
 
 ## Getting started
 
