@@ -1,6 +1,6 @@
 language: node_js
-after_success:
-  - ./scripts/travis/create-environment
+# after_success:
+#   - ./scripts/travis/create-environment
 # before_deploy:
 #   - ./scripts/travis/destroy-environment
 deploy:
