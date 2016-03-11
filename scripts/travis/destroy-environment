@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+
+var request = require('request');
+
+var commit = process.env.TRAVIS_COMMIT;
+var herokuApiToken = process.env.HEROKU_API_TOKEN;
+//var branch = process.env.TRAVIS_BRANCH;
+
+var options = {
+  method: "GET",
+  url: "https://api.github.com/repos/NET-A-PORTER/preston/commits/" + commit,
+  headers: {
+    'Authorization': 'token 34320b7bc00cdf83c7a74ae635802e6f0f8269ff',
+    'Accept': 'application/vnd.github.v3+json',
+    'User-Agent': 'preston'
+  }
+};
+
+request(options, function(err, response, body) {
+  var parents = JSON.parse(body).parents;
+  console.log(parents.map(function(parent) {return parent.sha}));
+  if(parents.length <= 1) {
+    console.log('No environments needed to be destroyed!');
+  } else {
+    console.log('Destroying environment...');
+    getPullRequests(function(pullRequests) {
+      var mergedPullRequests = parents.filter(function(parent) {
+        return pullRequests.indexOf(parent) !== -1;
+      });
+      console.log('Merged pull requests...', mergedPullRequests);
+      mergedPullRequests.forEach(function(pullRequest) {
+        destroyEnvironment(pullRequest.subst(0,7), function(url) {
+          console.log('Destroyed', url);
+        });
+      });
+    });
+  }
+});
+
+
+function getPullRequests(callback) {
+  var newOptions = {
+    method: "GET",
+    url: "https://api.github.com/repos/NET-A-PORTER/preston/pulls?state=all",
+    headers: {
+      'Authorization': 'token 34320b7bc00cdf83c7a74ae635802e6f0f8269ff',
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'preston'
+    }
+  };
+
+  request(newOptions, function(error, response, body) {
+    callback(JSON.parse(body).map(function(pullRequest) {
+      return pullRequest.head.sha;
+    }));
+  });
+}
+
+function destroyEnvironment(name, callback) {
+  var newOptions = {
+      method: "DELETE",
+      url: "https://api.heroku.com/apps/" + name,
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/vnd.heroku+json; version=3",
+          "Authorization": "Bearer " + herokuApiToken
+      }
+  };
+
+  request(newOptions, function(error, response, body) {
+    callback(JSON.parse(body).web_url);
+  });
+}
