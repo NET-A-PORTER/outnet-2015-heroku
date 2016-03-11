@@ -17,3 +17,6 @@ src/client/*
 
 # Mac nonsense
 .DS_Store
+
+#Editor rubbish
+.idea
