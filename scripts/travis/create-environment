@@ -16,7 +16,7 @@ if(isPullRequest) ***REMOVED***
             "Accept": "application/vnd.heroku+json; version=3",
             "Authorization": "Bearer " + herokuApiToken
     ***REMOVED***,
-        body: '***REMOVED***"source_blob": ***REMOVED*** "url": "https://github.com/jay-a-porter/preston/tarball/' + branch + '"***REMOVED*** ***REMOVED***'
+        body: '***REMOVED***"source_blob": ***REMOVED*** "url": "https://github.com/NET-A-PORTER/preston/tarball/' + branch + '"***REMOVED*** ***REMOVED***'
 ***REMOVED***;
     request(options, function(error, response, body) ***REMOVED***
         console.log('Creating...');
