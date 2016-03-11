@@ -5,6 +5,7 @@ var request = require('request');
 var isPullRequest = process.env.TRAVIS_PULL_REQUEST;
 var herokuApiToken = process.env.HEROKU_API_TOKEN;
 var branch = process.env.TRAVIS_BRANCH;
+var commit = process.env.TRAVIS_COMMIT;
 
 if(isPullRequest) {
     console.log("Creating test environment")
@@ -16,7 +17,7 @@ if(isPullRequest) {
             "Accept": "application/vnd.heroku+json; version=3",
             "Authorization": "Bearer " + herokuApiToken
         },
-        body: '{"source_blob": { "url": "https://github.com/jay-a-porter/preston/tarball/' + branch + '"} }'
+        body: '{"name":' + commit.substr(0,7) + ',"source_blob": { "url": "https://github.com/NET-A-PORTER/preston/tarball/' + branch + '"} }'
     };
     request(options, function(error, response, body) {
         console.log('Creating...');
