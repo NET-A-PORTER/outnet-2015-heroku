@@ -28,7 +28,7 @@ var css = styles.map(function(style) ***REMOVED***
 ***REMOVED***);
 
 
-publish(buildDir + '/css/styles', css)
+publish(buildDir + '/css/styles', css, ***REMOVED*** 'Content-Type': 'text/css' ***REMOVED*** )
   .then(function() ***REMOVED***
     return utils.glob('*(images|fonts)/*.*', ***REMOVED*** cwd: buildDir ***REMOVED***);
 ***REMOVED***)
