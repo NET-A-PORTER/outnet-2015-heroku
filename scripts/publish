@@ -23,12 +23,10 @@ if (typeof styles === 'undefined') {
 
 var buildDir = 'src/client';
 
-var css = styles.map(function(style) {
-  return style + '/styles.css';
-});
-
-
-publish(buildDir + '/css/styles', css, { 'Content-Type': 'text/css' } )
+utils.glob('css/styles/**/styles.css', { cwd: buildDir })
+  .then(function(files) {
+    return publish(buildDir, files, { 'Content-Type': 'text/css' } )
+  })
   .then(function() {
     return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
   })
