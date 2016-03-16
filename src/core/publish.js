@@ -10,12 +10,12 @@ var publisher = new Publisher(***REMOVED***
   timeout: 			    config.get('aws.s3.timeout')
 ***REMOVED***);
 
-function Publish(directory, files) ***REMOVED***
+function Publish(directory, files, options) ***REMOVED***
   return Promise.all(
     files.map( (file) => ***REMOVED***
-      return utils.readFile(directory + '/' + file)
+      return utils.readFile(directory + '/' + file, ***REMOVED*** encoding: null ***REMOVED***)
         .then(function(data) ***REMOVED***
-          publisher.upload(file, data);
+          publisher.upload(file, data, options);
           console.log('Uploaded ' + file + '.');
     ***REMOVED***)
         .catch(function(err) ***REMOVED***
