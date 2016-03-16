@@ -23,12 +23,10 @@ if (typeof styles === 'undefined') ***REMOVED***
 
 var buildDir = 'src/client';
 
-var css = styles.map(function(style) ***REMOVED***
-  return style + '/styles.css';
-***REMOVED***);
-
-
-publish(buildDir + '/css/styles', css, ***REMOVED*** 'Content-Type': 'text/css' ***REMOVED*** )
+utils.glob('css/styles/**/styles.css', ***REMOVED*** cwd: buildDir ***REMOVED***)
+  .then(function(files) ***REMOVED***
+    return publish(buildDir, files, ***REMOVED*** 'Content-Type': 'text/css' ***REMOVED*** )
+***REMOVED***)
   .then(function() ***REMOVED***
     return utils.glob('*(images|fonts)/*.*', ***REMOVED*** cwd: buildDir ***REMOVED***);
 ***REMOVED***)
