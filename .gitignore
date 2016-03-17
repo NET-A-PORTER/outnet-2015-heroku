@@ -20,3 +20,8 @@ src/client/*
 
 # Editor rubbish
 .idea
+
+# config
+config/*
+!config/local.json
+!config/schema.json
