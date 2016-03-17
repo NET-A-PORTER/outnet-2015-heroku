@@ -1,14 +1,14 @@
-***REMOVED***
+{
 	"title": "Outnet 2015",
 	"elements": ["base", "alerts", "typography", "buttons", "breadcrumbs", "icons", "grid", "messaging", "forms"],
 	"views": [
-		***REMOVED*** "title": "iPad 3/4", "width": "1024px", "height": "768px" ***REMOVED***,
-		***REMOVED*** "title": "iPhone 5", "width": "320px", "height": "480px" ***REMOVED***,
-		***REMOVED*** "title": "iPhone 6", "width": "375px", "height": "667px" ***REMOVED***,
-		***REMOVED*** "title": "iPhone 6+", "width": "414px", "height": "736px" ***REMOVED***,
-		***REMOVED*** "title": "Samsung Galaxy S4", "width": "360px", "height": "640px" ***REMOVED***,
-		***REMOVED*** "title": "Desktop 1024x768", "width": "1024px", "height": "768px" ***REMOVED***,
-		***REMOVED*** "title": "Desktop 1280x960", "width": "1280px", "height": "960px" ***REMOVED***,
-		***REMOVED*** "title": "Desktop 1280x960", "width": "1366px", "height": "768px" ***REMOVED***
+		{ "title": "iPad 3/4", "width": "1024px", "height": "768px" },
+		{ "title": "iPhone 5", "width": "320px", "height": "480px" },
+		{ "title": "iPhone 6", "width": "375px", "height": "667px" },
+		{ "title": "iPhone 6+", "width": "414px", "height": "736px" },
+		{ "title": "Samsung Galaxy S4", "width": "360px", "height": "640px" },
+		{ "title": "Desktop 1024x768", "width": "1024px", "height": "768px" },
+		{ "title": "Desktop 1280x960", "width": "1280px", "height": "960px" },
+		{ "title": "Desktop 1280x960", "width": "1366px", "height": "768px" }
 	]
-***REMOVED***
+}

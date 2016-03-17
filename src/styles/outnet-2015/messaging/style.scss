@@ -1,13 +1,13 @@
 @import "../typography/style";
 @import "../mixins/colours";
 
-.service-message ***REMOVED***
+.service-message {
 	position: relative;
 	text-align: center;
 	padding: 40px;
 	margin: 30px 0;
 	&:before,
-	&:after ***REMOVED***
+	&:after {
 		background-image: radial-gradient(circle, #000 1px, transparent 3px);
 		background-size: 50px 10px;
 		content: '';
@@ -15,40 +15,40 @@
 		height: 10px;
 		width: 100%;
 		left: 0;
-	***REMOVED***
-	&:before ***REMOVED***
+	}
+	&:before {
 		top: 0;
-	***REMOVED***
-	&:after ***REMOVED***
+	}
+	&:after {
 		bottom: 0;
-	***REMOVED***
-	&.service-message-notify ***REMOVED***
+	}
+	&.service-message-notify {
 		padding: 30px;
 		&:before,
-		&:after ***REMOVED***
+		&:after {
 			background-image: radial-gradient(circle, #000 0.5px, transparent 2.3px);
 			background-size: 20px 10px;
-		***REMOVED***
-	***REMOVED***
-	&.service-message-service ***REMOVED***
+		}
+	}
+	&.service-message-service {
 		padding: 20px;
 		&:before,
-		&:after ***REMOVED***
+		&:after {
 			background-image: radial-gradient(circle, #000 1px, transparent 1.6px);
 			background-size: 8px 10px;
-		***REMOVED***
-		.service-message-head ***REMOVED***
+		}
+		.service-message-head {
 			font-size: 24px;
 			line-height: 30px;
-		***REMOVED***
-		.service-message-sell ***REMOVED***
+		}
+		.service-message-sell {
 			margin-bottom: -10px;
-		***REMOVED***
-	***REMOVED***
-	.service-message-asterisk ***REMOVED***
+		}
+	}
+	.service-message-asterisk {
 		position: relative;
 		display: inline-block;
-		&:before ***REMOVED***
+		&:before {
 			@include fontFamily(FuturaLight);
 			content: '*';
 			position: absolute;
@@ -57,41 +57,41 @@
 			right: -16px;
 			width: 25px;
 			height: 25px;
-		***REMOVED***
-	***REMOVED***
-	.service-message-asterisk-copy ***REMOVED***
+		}
+	}
+	.service-message-asterisk-copy {
 		@include fontFamily(FuturaBook);
 		font-size: 11px;
 		letter-spacing: 0.8px;
 		margin-bottom: -25px;
 		margin-top: 15px;
-	***REMOVED***
+	}
 	.service-message-head,
-	.service-message-sell ***REMOVED***
+	.service-message-sell {
 		letter-spacing: 0.8px;
 		line-height: 40px;
 		text-transform: uppercase;
-	***REMOVED***
-	.service-message-head ***REMOVED***
+	}
+	.service-message-head {
 		font-size: 28px;
 
-	***REMOVED***
-	.service-message-sell ***REMOVED***
+	}
+	.service-message-sell {
 		font-size: 15px;
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-.ribbon ***REMOVED***
+.ribbon {
 	@include fontFamily(FuturaBook);
 	background: $greySelected;
 	font-size: 15px;
 	letter-spacing: 0.8px;
 	text-align: center;
 	padding: 8px 10px 3px;
-	span ***REMOVED***
+	span {
 		@include fontFamily(FuturaDemi);
-	***REMOVED***
-	@media screen and (max-width: 640px) ***REMOVED***
+	}
+	@media screen and (max-width: 640px) {
 		letter-spacing: 0.8px;
-	***REMOVED***
-***REMOVED***
+	}
+}

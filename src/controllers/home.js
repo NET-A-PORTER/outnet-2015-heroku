@@ -1,7 +1,7 @@
-function * render() ***REMOVED***
+function * render() {
 	yield this.render('home');
-***REMOVED***
+}
 
-module.exports = ***REMOVED***
+module.exports = {
 	render: render
-***REMOVED***;
+};

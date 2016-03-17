@@ -6,56 +6,56 @@ var isPullRequest = process.env.TRAVIS_PULL_REQUEST;
 var herokuApiToken = process.env.HEROKU_API_TOKEN;
 var branch = process.env.TRAVIS_BRANCH;
 
-if(isPullRequest) ***REMOVED***
+if(isPullRequest) {
     console.log("Creating test environment")
-    var options = ***REMOVED***
+    var options = {
         method: "POST",
         url: "https://api.heroku.com/app-setups",
-        headers: ***REMOVED***
+        headers: {
             "Content-Type": "application/json",
             "Accept": "application/vnd.heroku+json; version=3",
             "Authorization": "Bearer " + herokuApiToken
-    ***REMOVED***,
-        body: '***REMOVED***"source_blob": ***REMOVED*** "url": "https://github.com/NET-A-PORTER/preston/tarball/' + branch + '"***REMOVED*** ***REMOVED***'
-***REMOVED***;
-    request(options, function(error, response, body) ***REMOVED***
+        },
+        body: '{"source_blob": { "url": "https://github.com/NET-A-PORTER/preston/tarball/' + branch + '"} }'
+    };
+    request(options, function(error, response, body) {
         console.log('Creating...');
-        if(response.statusCode == 202) ***REMOVED***
+        if(response.statusCode == 202) {
             var id = JSON.parse(body).id;
-            var interval = setInterval(function()***REMOVED***
-                appInfo(id, function(info) ***REMOVED***
+            var interval = setInterval(function(){
+                appInfo(id, function(info) {
                     if(info.status != "pending") clearInterval(interval);
-                    if(info.status == "succeeded") ***REMOVED***
-                        appInfo(id, function(info) ***REMOVED***
+                    if(info.status == "succeeded") {
+                        appInfo(id, function(info) {
                             console.log(info.resolved_success_url);
-                    ***REMOVED***);
-                ***REMOVED*** else if (info.status != "succeeded" && info.status != "pending") ***REMOVED***
+                        });
+                    } else if (info.status != "succeeded" && info.status != "pending") {
                         console.log('Failed to create envionment. Error:', info.failure_message);
-                ***REMOVED***
-            ***REMOVED***);
-        ***REMOVED***, 5000);
-    ***REMOVED*** else ***REMOVED***
+                    }
+                });
+            }, 5000);
+        } else {
             console.log('Failed to create envionment. Error:', JSON.parse(body).message);
-    ***REMOVED***
-***REMOVED***);
-***REMOVED***
+        }
+    });
+}
 
-function appInfo(id, callback) ***REMOVED***
+function appInfo(id, callback) {
 
-    var options = ***REMOVED***
+    var options = {
         method: "GET",
         url: "https://api.heroku.com/app-setups/" + id,
-        headers: ***REMOVED***
+        headers: {
             "Content-Type": "application/json",
             "Accept": "application/vnd.heroku+json; version=3",
             "Authorization": "Bearer " + herokuApiToken
-    ***REMOVED***
-***REMOVED***;
+        }
+    };
 
-    request(options, function(error, response, body) ***REMOVED***
+    request(options, function(error, response, body) {
         console.log('polling...');
         var isPending = JSON.parse(body).status != "succeeded";
         callback(JSON.parse(body));
-***REMOVED***);
+    });
 
-***REMOVED***
+}

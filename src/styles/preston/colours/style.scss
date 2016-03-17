@@ -4,10 +4,10 @@ $colours: (
   standout: #f00
 );
 
-@function get-colour($name) ***REMOVED***
-  @if map-has-key($colours, $name) ***REMOVED***
+@function get-colour($name) {
+  @if map-has-key($colours, $name) {
     @return map-get($colours, $name);
-***REMOVED***
-  @warn "Unknown `#***REMOVED***$name***REMOVED***` in $colours.";
+  }
+  @warn "Unknown `#{$name}` in $colours.";
   @return null;
-***REMOVED***
+}

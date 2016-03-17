@@ -1,24 +1,24 @@
-***REMOVED***
+{
   "name": "preston",
   "version": "0.2.2",
   "description": "Style guide generator for the rich and famous",
   "main": "server.js",
-  "scripts": ***REMOVED***
+  "scripts": {
     "start": "node --harmony src/server.js",
     "build": "./scripts/build",
     "publish": "./scripts/publish",
     "test": "echo \"No tests to run!\" && exit 0"
-***REMOVED***,
-  "repository": ***REMOVED***
+  },
+  "repository": {
     "type": "git",
     "url": "ssh://git@stash.vm.wtf.nap:7999/out/preston.git"
-***REMOVED***,
+  },
   "keywords": [
     "styleguide"
   ],
   "author": "The Outnet Team",
   "license": "MIT",
-  "dependencies": ***REMOVED***
+  "dependencies": {
     "etc": "^0.5.1",
     "etc-yaml": "0.0.5",
     "glob": "^5.0.6",
@@ -30,13 +30,13 @@
     "mkdirp": "^0.5.0",
     "node-sass": "^2.1.1",
     "out-publish": "^1.2.0"
-***REMOVED***,
-  "engines": ***REMOVED***
+  },
+  "engines": {
     "node": "0.12.7"
-***REMOVED***,
-  "devDependencies": ***REMOVED***
+  },
+  "devDependencies": {
     "commander": "^2.9.0",
     "convict": "^1.1.2",
     "request": "^2.69.0"
-***REMOVED***
-***REMOVED***
+  }
+}

@@ -1,21 +1,21 @@
-module.exports = ***REMOVED***
+module.exports = {
 	processors: [],
-	add: (pattern) => ***REMOVED***
+	add: (pattern) => {
 		var tasks = [].slice.call(arguments, 1);
-		this.processors.push(***REMOVED***
+		this.processors.push({
 			pattern: pattern,
 			tasks: tasks
-		***REMOVED***);
-	***REMOVED***,
-	process: function * (directory, files) ***REMOVED***
-		var processed = ***REMOVED******REMOVED***;
+		});
+	},
+	process: function * (directory, files) {
+		var processed = {};
 
 		// loop through all files
-		for (var fileIndex in files) ***REMOVED***
+		for (var fileIndex in files) {
 			var file = files[fileIndex];
 
 			// loop through all processes
-			for (var processIndex in this.processors) ***REMOVED***
+			for (var processIndex in this.processors) {
 				var process = this.processors[processIndex];
 
 				// Regex internal pointer for global pattern must be reset when looped
@@ -23,7 +23,7 @@ module.exports = ***REMOVED***
 				process.pattern.lastIndex = 0;
 
 				// test if filename matches any process
-				if (process.pattern.test(file)) ***REMOVED***
+				if (process.pattern.test(file)) {
 
 					// NOTE: should really use a reduce function im here
 
@@ -33,13 +33,13 @@ module.exports = ***REMOVED***
 
 					// process each task and pass result
 					// onto next function through body object
-					for (var taskIndex in process.tasks) ***REMOVED***
-						result = yield * process.tasks[taskIndex].call(***REMOVED*** body: result ***REMOVED***, directory, file);
-					***REMOVED***
+					for (var taskIndex in process.tasks) {
+						result = yield * process.tasks[taskIndex].call({ body: result }, directory, file);
+					}
 					processed[file] = result;
-				***REMOVED***
-			***REMOVED***
-		***REMOVED***
+				}
+			}
+		}
 		return processed;
-	***REMOVED***
-***REMOVED***;
+	}
+};

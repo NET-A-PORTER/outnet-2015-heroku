@@ -5,7 +5,7 @@ input[type="number"],
 input[type="email"],
 input[type="text"],
 input[type="tel"],
-input[type="url"] ***REMOVED***
+input[type="url"] {
   border: #d3d3d3 1px solid;
   border-radius: 6px;
   color: #b7b7b7;
@@ -17,33 +17,33 @@ input[type="url"] ***REMOVED***
   outline: none;
   &:active,
   &:focus,
-  &.input-active ***REMOVED***
+  &.input-active {
     border-color: #000;
     color: #000;
-***REMOVED***
-  &.input-error ***REMOVED***
+  }
+  &.input-error {
     border-color: #e52a2b;
     color: #b7b7b7;
-    &:focus ***REMOVED***
+    &:focus {
       color: #000;
-***REMOVED***
-***REMOVED***
-***REMOVED***
+    }
+  }
+}
 
-label ***REMOVED***
-  span ***REMOVED***
+label {
+  span {
     @include fontFamily(FuturaDemi);
     display: block;
     font-size: 12px;
     margin: 12px 0 2px;
     padding-left: 2px;
     letter-spacing: 0.5px;
-***REMOVED***
-***REMOVED***
+  }
+}
 
-.input-error ***REMOVED***
+.input-error {
   color: #e52a2b;
   font-family: Arial, sans-serif;
   font-size: 12px;
   padding-left: 2px;
-***REMOVED***
+}

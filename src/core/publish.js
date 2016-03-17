@@ -2,27 +2,27 @@ var utils = base.require('core/utils');
 var config = base.require('core/config');
 var Publisher = require('out-publish');
 
-var publisher = new Publisher(***REMOVED***
+var publisher = new Publisher({
   accessKeyId:      config.get('aws.s3.accessKeyID'),
   secretAccessKey:  config.get('aws.s3.secretAccessKey'),
   bucket:           config.get('aws.s3.bucket'),
   region:           config.get('aws.s3.region'),
   timeout: 			    config.get('aws.s3.timeout')
-***REMOVED***);
+});
 
-function Publish(directory, files, options) ***REMOVED***
+function Publish(directory, files, options) {
   return Promise.all(
-    files.map( (file) => ***REMOVED***
-      return utils.readFile(directory + '/' + file, ***REMOVED*** encoding: null ***REMOVED***)
-        .then(function(data) ***REMOVED***
+    files.map( (file) => {
+      return utils.readFile(directory + '/' + file, { encoding: null })
+        .then(function(data) {
           publisher.upload(file, data, options);
           console.log('Uploaded ' + file + '.');
-    ***REMOVED***)
-        .catch(function(err) ***REMOVED***
+        })
+        .catch(function(err) {
           console.error('Failed to upload ' + file + '.');
-    ***REMOVED***);
-***REMOVED***)
+        });
+    })
   );
-***REMOVED***
+}
 
 module.exports = Publish;

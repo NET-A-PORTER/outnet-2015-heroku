@@ -1,7 +1,7 @@
-@mixin hover-effect ***REMOVED***
+@mixin hover-effect {
 	cursor: pointer;
 	position: relative;
-	&:after ***REMOVED***
+	&:after {
 		border-bottom: #000 1px solid;
 		transition: all 0.1s ease-out;
 		position: absolute;
@@ -10,10 +10,10 @@
 		bottom: -5px;
 		left: 0;
 		opacity: 0;
-	***REMOVED***
+	}
 	&.selected,
-	&:hover:after ***REMOVED***
+	&:hover:after {
 		bottom: 0;
 		opacity: 1;
-	***REMOVED***
-***REMOVED***
+	}
+}

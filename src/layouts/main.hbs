@@ -6,10 +6,10 @@
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
-		<div class="preston-views" ng-if="views.length > 1" ng-class="***REMOVED*** 'preston-views-display': showViews ***REMOVED***">
+		<div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
 			<div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
 			<div class="preston-view-options">
-				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="***REMOVED*** selected: view === selected ***REMOVED***" ng-bind="view.name"></div>
+				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="{ selected: view === selected }" ng-bind="view.name"></div>
 			</div>
 		</div>
 		<div class="preston-nav-item" ui-sref="home">Preston</div>
@@ -21,160 +21,160 @@
 	<script>
 	angular
 		.module('app', ['ngSanitize', 'ui.router'])
-		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) ***REMOVED***
+		.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
 			// stop conflicting with handlebars
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
 
 			$urlRouterProvider.otherwise('/');
 			$stateProvider
-				.state('home', ***REMOVED***
+				.state('home', {
 					url: '/',
 					templateUrl: '/tmpl/home.html'
-				***REMOVED***)
-				.state('guide', ***REMOVED***
+				})
+				.state('guide', {
 					url: '/style/:name',
 					template: '<iframe ng-controller="GuideCtrl" ng-src="/tmpl/guide.html" class="preston-frame" ng-style="view"></iframe>'
-				***REMOVED***);
-		***REMOVED***)
-		.service('MessageService', function() ***REMOVED***
-			function display(type, message) ***REMOVED***
+				});
+		})
+		.service('MessageService', function() {
+			function display(type, message) {
 				alert(message);
-			***REMOVED***
-			return ***REMOVED***
-				error: function(message) ***REMOVED***
+			}
+			return {
+				error: function(message) {
 					display('error', message);
-				***REMOVED***
-			***REMOVED***;
-		***REMOVED***)
-		.service('ApiService', function($http, MessageService) ***REMOVED***
-			return function(version, controller) ***REMOVED***
+				}
+			};
+		})
+		.service('ApiService', function($http, MessageService) {
+			return function(version, controller) {
 				var versionParsed = parseFloat(version).toFixed(1);
 				var baseUrl = '/api/' + versionParsed + '/' + controller;
 
-				return ***REMOVED***
-					get: function(path) ***REMOVED***
+				return {
+					get: function(path) {
 						return $http
 							.get(baseUrl + (path || ''))
-							.error(function(data) ***REMOVED***
+							.error(function(data) {
 								MessageService.error(data.message || 'An error occured');
-							***REMOVED***);
-					***REMOVED***
-				***REMOVED***
-			***REMOVED***
-		***REMOVED***)
-		.factory('StylesFactory', function(ApiService) ***REMOVED***
+							});
+					}
+				}
+			}
+		})
+		.factory('StylesFactory', function(ApiService) {
 			var api = new ApiService(1.0, 'styles');
 
 			// TODO: cache responses as some are
 			// used in multiple controller instances
-			return ***REMOVED***
-				get: function(name) ***REMOVED***
-					return api.get('/' + name).then(function(result) ***REMOVED***
+			return {
+				get: function(name) {
+					return api.get('/' + name).then(function(result) {
 						return result.data;
-					***REMOVED***);
-				***REMOVED***,
-				getAll: function() ***REMOVED***
-					return api.get().then(function(result) ***REMOVED***
+					});
+				},
+				getAll: function() {
+					return api.get().then(function(result) {
 						return result.data;
-					***REMOVED***);
-				***REMOVED***,
-				getElement: function(style, element) ***REMOVED***
-					return api.get('/' + style + '/' + element).then(function(result) ***REMOVED***
+					});
+				},
+				getElement: function(style, element) {
+					return api.get('/' + style + '/' + element).then(function(result) {
 						return result.data;
-					***REMOVED***);
-				***REMOVED***
-			***REMOVED***;
-		***REMOVED***)
-		.service('StyleElement', function(StylesFactory) ***REMOVED***
-			var StyleElement = function(style, name) ***REMOVED***
+					});
+				}
+			};
+		})
+		.service('StyleElement', function(StylesFactory) {
+			var StyleElement = function(style, name) {
 				this.style = style;
 				this.name = name;
-				this.assets = ***REMOVED******REMOVED***;
-			***REMOVED***;
-			StyleElement.prototype = ***REMOVED***
-				getAssetPath: function(type, name) ***REMOVED***
+				this.assets = {};
+			};
+			StyleElement.prototype = {
+				getAssetPath: function(type, name) {
 					return '/' + type + '/' + this.style + '/' + this.name + '/' + name;
-				***REMOVED***,
-				fetch: function() ***REMOVED***
+				},
+				fetch: function() {
 					var self = this;
 					return StylesFactory
 						.getElement(this.style, this.name)
-						.then(function(data) ***REMOVED***
+						.then(function(data) {
 							self.assets = data.assets;
 							return data;
-						***REMOVED***);
-				***REMOVED***
-			***REMOVED***;
+						});
+				}
+			};
 			return StyleElement;
-		***REMOVED***)
-		.service('Style', function($rootScope, StylesFactory, StyleElement) ***REMOVED***
-			var Style = function(style, options) ***REMOVED***
+		})
+		.service('Style', function($rootScope, StylesFactory, StyleElement) {
+			var Style = function(style, options) {
 				this.title = '';
 				this.name = style;
 				this.elements = [];
-				this.options = angular.extend(***REMOVED***
+				this.options = angular.extend({
 					shallow: false
-				***REMOVED***, options);
+				}, options);
 				this.fetch();
 				return this;
-			***REMOVED***;
-			Style.prototype = ***REMOVED***
-				fetch: function() ***REMOVED***
+			};
+			Style.prototype = {
+				fetch: function() {
 					var self = this;
 					return StylesFactory
 						.get(this.name)
-						.then(function(data) ***REMOVED***
+						.then(function(data) {
 							self.title = data.title;
 							self.views = data.views;
 							self.populateElements(data.elements)
-								.then(function() ***REMOVED***
+								.then(function() {
 									// pub/sub baby
 									$rootScope.$broadcast('style.load', self);
-								***REMOVED***);
+								});
 							return data;
-						***REMOVED***);
-				***REMOVED***,
-				populateElements: function(elements) ***REMOVED***
+						});
+				},
+				populateElements: function(elements) {
 					var self = this;
 					return Promise.all(
-						elements.map(function(name) ***REMOVED***
-							return new Promise(function(resolve, reject) ***REMOVED***
+						elements.map(function(name) {
+							return new Promise(function(resolve, reject) {
 								var element = new StyleElement(self.name, name);
 
 								// don't load style elements
-								if (self.options.shallow) ***REMOVED***
+								if (self.options.shallow) {
 									resolve(element);
-								***REMOVED*** else ***REMOVED***
+								} else {
 									// wait for element to load before resolving
-									element.fetch().then(function() ***REMOVED***
+									element.fetch().then(function() {
 										resolve(element);
-									***REMOVED***, reject);
-								***REMOVED***
-							***REMOVED***);
-						***REMOVED***)
-					).then(function(elements) ***REMOVED***
+									}, reject);
+								}
+							});
+						})
+					).then(function(elements) {
 						self.elements = elements;
-					***REMOVED***);
-				***REMOVED***
-			***REMOVED***;
+					});
+				}
+			};
 			return Style;
-		***REMOVED***)
-		.service('StyleView', function() ***REMOVED***
-			function StyleView(name, width, height) ***REMOVED***
+		})
+		.service('StyleView', function() {
+			function StyleView(name, width, height) {
 				this.name = name;
 				this.style = this.getStyle(width, height);
-			***REMOVED***
+			}
 
-			StyleView.prototype.getStyle = function(width, height) ***REMOVED***
-				var style = ***REMOVED***
+			StyleView.prototype.getStyle = function(width, height) {
+				var style = {
 					// specified dimensions
 					width: width,
 					height: height
-				***REMOVED***;
+				};
 
 				// center align if pixels specified
-				if (!!~width.indexOf('px')) ***REMOVED***
+				if (!!~width.indexOf('px')) {
 
 					// offset margin to align
 					var parsedHeight = parseInt(height, 10);
@@ -182,56 +182,56 @@
 					var marginLeft = '-' + parsedWidth * 0.5 + 'px';
 					var marginTop = '-' + parsedHeight * 0.5 + 'px';
 
-					style = angular.extend(***REMOVED***
+					style = angular.extend({
 						left: '50%',
 						top: '50%',
 						'margin-left': marginLeft,
 						'margin-top': marginTop
-					***REMOVED***, style);
-				***REMOVED***
+					}, style);
+				}
 
 				return style;
-			***REMOVED***;
+			};
 
 			return StyleView;
-		***REMOVED***)
-		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView) ***REMOVED***
+		})
+		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView) {
 
 			// loads list of styles for entire app
 			StylesFactory
 				.getAll()
-				.then(function(data) ***REMOVED***
+				.then(function(data) {
 					$scope.styles = data;
-				***REMOVED***);
+				});
 
 			var views = [new StyleView('Default', '100%', '100%')];
 
-			$rootScope.$on('style.load', function(e, style) ***REMOVED***
+			$rootScope.$on('style.load', function(e, style) {
 				$scope.views = views.concat(
-					style.views && style.views.map(function(view) ***REMOVED***
+					style.views && style.views.map(function(view) {
 						return new StyleView(view.title, view.width, view.height);
-					***REMOVED***) || []
+					}) || []
 				);
 				$scope.$digest();
-			***REMOVED***);
+			});
 
-			$scope.selectView = function(view) ***REMOVED***
+			$scope.selectView = function(view) {
 				$scope.selected = view;
 				$rootScope.$broadcast('viewSelected', view);
-			***REMOVED***;
-		***REMOVED***)
-		.controller('HeadCtrl', function($scope, Style) ***REMOVED***
+			};
+		})
+		.controller('HeadCtrl', function($scope, Style) {
 
 			// load default style
-			$scope.style = new Style('preston', ***REMOVED*** shallow: true ***REMOVED***);
+			$scope.style = new Style('preston', { shallow: true });
 
-		***REMOVED***).controller('GuideCtrl', function($scope, $state, Style) ***REMOVED***
+		}).controller('GuideCtrl', function($scope, $state, Style) {
 			$scope.Style = Style;
 			$scope.$state = $state;
-			$scope.$on('viewSelected', function(e, view) ***REMOVED***
+			$scope.$on('viewSelected', function(e, view) {
 				$scope.view = view.style;
-			***REMOVED***);
-		***REMOVED***);
+			});
+		});
 	</script>
 </body>
 </html>

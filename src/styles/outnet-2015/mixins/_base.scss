@@ -2,18 +2,18 @@
 @import 'viewport';
 @import 'aspect_ratio';
 
-@mixin _button ***REMOVED***
+@mixin _button {
   display: block;
   background: $white;
   border: $greyBorder 1px solid;
   padding: 9px;
   line-height: 1em;
   text-align: center;
-***REMOVED***
+}
 
-@mixin arrow($direction: top, $colour: #000, $fill-colour: #fff, $width: 15px, $line-width: 1px) ***REMOVED***
+@mixin arrow($direction: top, $colour: #000, $fill-colour: #fff, $width: 15px, $line-width: 1px) {
     &:after,
-    &:before ***REMOVED***
+    &:before {
         margin-left: $width * 0.5;
         left: 50%;
         bottom: 100%;
@@ -23,65 +23,65 @@
         width: 0;
         position: absolute;
         pointer-events: none;
-***REMOVED***
-    &:after ***REMOVED***
+    }
+    &:after {
         border-bottom-color: $fill-colour;
         border-width: $width;
         margin-left: -$width;
-***REMOVED***
-    &:before ***REMOVED***
+    }
+    &:before {
         border-bottom-color: $colour;
         border-width: $width + ($line-width * 2);
         margin-left: -($width + ($line-width * 2));
-***REMOVED***
-***REMOVED***
+    }
+}
 
-@mixin cross-browser($property, $values...) ***REMOVED***
-    #***REMOVED***-webkit- + $property***REMOVED***: $values;
-    #***REMOVED***-moz- + $property***REMOVED***: $values;
-    #***REMOVED***-ms- + $property***REMOVED***: $values;
-    #***REMOVED***-o- + $property***REMOVED***: $values;
-    #***REMOVED***$property***REMOVED***: $values;
-***REMOVED***
+@mixin cross-browser($property, $values...) {
+    #{-webkit- + $property}: $values;
+    #{-moz- + $property}: $values;
+    #{-ms- + $property}: $values;
+    #{-o- + $property}: $values;
+    #{$property}: $values;
+}
 
-@mixin feature($baseClass) ***REMOVED***
-    #***REMOVED***'body.app-f-' + $baseClass***REMOVED*** ***REMOVED***
+@mixin feature($baseClass) {
+    #{'body.app-f-' + $baseClass} {
         @content;
-***REMOVED***
-***REMOVED***
+    }
+}
 
-@mixin keyframes($name) ***REMOVED***
-    @-webkit-keyframes #***REMOVED***$name***REMOVED*** ***REMOVED*** @content; ***REMOVED***
-    @-moz-keyframes #***REMOVED***$name***REMOVED*** ***REMOVED*** @content; ***REMOVED***
-    @-o-keyframes #***REMOVED***$name***REMOVED*** ***REMOVED*** @content; ***REMOVED***
-    @keyframes #***REMOVED***$name***REMOVED*** ***REMOVED*** @content; ***REMOVED***
-***REMOVED***
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} { @content; }
+    @-moz-keyframes #{$name} { @content; }
+    @-o-keyframes #{$name} { @content; }
+    @keyframes #{$name} { @content; }
+}
 
-@mixin _transition($props...) ***REMOVED***
+@mixin _transition($props...) {
     @include cross-browser(transition, $props);
-***REMOVED***
+}
 
-@mixin _square($width, $height: $width) ***REMOVED***
+@mixin _square($width, $height: $width) {
   width: $width;
   height: $height;
-***REMOVED***
+}
 
-@mixin _user-select($value) ***REMOVED***
+@mixin _user-select($value) {
   $userSelectList: -webkit-touch-callout, -webkit-user-select, -khtml-user-select, -moz-user-select, -ms-user-select, user-select;
-  @each $userSelect in $userSelectList ***REMOVED***
-    #***REMOVED***$userSelect***REMOVED***: $value;
-***REMOVED***
-***REMOVED***
+  @each $userSelect in $userSelectList {
+    #{$userSelect}: $value;
+  }
+}
 
-@mixin increased-tap-area($padding: 8px) ***REMOVED***
+@mixin increased-tap-area($padding: 8px) {
   $tap-size-area: -1 * $padding;
   position: relative;
-  &:after ***REMOVED***
+  &:after {
     content: '';
     position: absolute;
     top: $tap-size-area;
     bottom: $tap-size-area;
     left: $tap-size-area;
     right: $tap-size-area;
-***REMOVED***
-***REMOVED***
+  }
+}

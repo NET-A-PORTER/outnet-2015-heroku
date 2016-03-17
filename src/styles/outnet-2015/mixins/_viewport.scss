@@ -1,38 +1,38 @@
-@function breakpoints($view) ***REMOVED***
+@function breakpoints($view) {
 	$breakpoints: (
 		mobile: (min: 0px, max: 640px),
 		tablet: (min: 641px, max: 1025px),
 		tabletPortrait: (min: 641px, max: 801px),
 		desktop: (min: 1026px, max: 10000px)
 	);
-	@if not map-has-key($breakpoints, $view) ***REMOVED***
-		@warn "Breakpoint `#***REMOVED***$view***REMOVED***` not found";
-	***REMOVED***
+	@if not map-has-key($breakpoints, $view) {
+		@warn "Breakpoint `#{$view}` not found";
+	}
 	@return map-get($breakpoints, $view);
-***REMOVED***
+}
 
-@mixin viewport-bound($min: null, $max: null) ***REMOVED***
-	@if not $min and not $max ***REMOVED***
+@mixin viewport-bound($min: null, $max: null) {
+	@if not $min and not $max {
 		@error "No viewport bound dimensions specified";
-	***REMOVED***
+	}
 	$query: 'only screen';
-	@if ($min) ***REMOVED*** $query: $query + " and (min-width: #***REMOVED***$min***REMOVED***)" ***REMOVED***;
-	@if ($max) ***REMOVED*** $query: $query + " and (max-width: #***REMOVED***$max***REMOVED***)" ***REMOVED***;
+	@if ($min) { $query: $query + " and (min-width: #{$min})" };
+	@if ($max) { $query: $query + " and (max-width: #{$max})" };
 
-	@media #***REMOVED***$query***REMOVED*** ***REMOVED***
+	@media #{$query} {
 		@content;
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-@mixin viewport-minimum($view) ***REMOVED***
+@mixin viewport-minimum($view) {
 	$width: map-get(breakpoints($view), 'min');
-	@include viewport-bound($width) ***REMOVED*** @content; ***REMOVED***
-***REMOVED***
+	@include viewport-bound($width) { @content; }
+}
 
-@mixin viewport-maximum($view) ***REMOVED***
+@mixin viewport-maximum($view) {
 	$width: map-get(breakpoints($view), 'max');
-	@include viewport-bound(null, $width) ***REMOVED*** @content; ***REMOVED***
-***REMOVED***
+	@include viewport-bound(null, $width) { @content; }
+}
 
 /*
 	Viewport Mixin Usage
@@ -44,17 +44,17 @@
 	2) This implementation reduces the css generated as media query
 					as its contents only need to be generated once.
 */
-@mixin viewport($views...) ***REMOVED***
+@mixin viewport($views...) {
 	$rangeMin: ();
 	$rangeMax: ();
-	@each $view in $views ***REMOVED***
+	@each $view in $views {
 		$sizes: breakpoints($view);
 		$min: map-get($sizes, min);
 		$max: map-get($sizes, max);
-		@if $min ***REMOVED*** $rangeMin: append($rangeMin, $min); ***REMOVED***
-		@if $max ***REMOVED*** $rangeMax: append($rangeMax, $max); ***REMOVED***
-	***REMOVED***
-	@include viewport-bound(min($rangeMin...), max($rangeMax...)) ***REMOVED***
+		@if $min { $rangeMin: append($rangeMin, $min); }
+		@if $max { $rangeMax: append($rangeMax, $max); }
+	}
+	@include viewport-bound(min($rangeMin...), max($rangeMax...)) {
 		@content;
-	***REMOVED***
-***REMOVED***
+	}
+}

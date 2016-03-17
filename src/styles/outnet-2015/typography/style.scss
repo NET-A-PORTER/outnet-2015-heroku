@@ -1,55 +1,55 @@
 $fontDirectory: "../../../fonts";
 $fontList: FuturaBook FuturaLight FuturaDemi FuturaMedium;
 
-@each $font in $fontList ***REMOVED***
+@each $font in $fontList {
 	$prefix: $fontDirectory + '/' + $font;
-	@font-face ***REMOVED***
+	@font-face {
 		font-family: $font;
 		src:url($prefix + ".eot"); /* IE9 Compat Modes */
 		src:url($prefix + ".eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */
 			url($prefix + ".woff") format("woff"), /* Modern Browsers */
 			url($prefix + ".ttf") format("truetype"), /* Safari, Android, iOS */
 			url($prefix + ".svg") format("svg");	/* Legacy iOS */
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-@mixin fontFamily($name) ***REMOVED***
+@mixin fontFamily($name) {
 	font-family: $name, Arial, sans-serif;
-***REMOVED***
+}
 
-b ***REMOVED***
+b {
   @include fontFamily(FuturaDemi);
   font-weight: normal;
-***REMOVED***
+}
 
 html,
-body ***REMOVED***
+body {
 	@include fontFamily(FuturaBook);
 	line-height: 1.4em;
 	font-size: 13px;
-***REMOVED***
+}
 
 h1,
-h2 ***REMOVED***
+h2 {
 	font-size: 28px;
 	letter-spacing: 2px;
 	line-height: normal;
 	text-transform: uppercase;
 	text-align: center;
-***REMOVED***
-h1 + h2 ***REMOVED***
+}
+h1 + h2 {
 	@include fontFamily(FuturaBook);
 	color: #777;
 	font-size: 15px;
 	line-height: 28px;
 	margin-top: -16px;
 	text-align: center;
-***REMOVED***
-h2 ***REMOVED***
+}
+h2 {
 	letter-spacing: 1px;
 	text-align: left;
-***REMOVED***
-h3.slug ***REMOVED***
+}
+h3.slug {
 	@include fontFamily(FuturaBook);
 	font-size: 17px;
 	letter-spacing: 0.8px;
@@ -57,7 +57,7 @@ h3.slug ***REMOVED***
 	padding: 0 15px;
 	position: relative;
 	text-align: center;
-	&:after ***REMOVED***
+	&:after {
 		background: #d3d3d3;
 		content: "";
 		display: block;
@@ -65,15 +65,15 @@ h3.slug ***REMOVED***
 		margin: 7px auto;
 		text-transform: capitalize;
 		width: 50px;
-	***REMOVED***
-***REMOVED***
-a ***REMOVED***
+	}
+}
+a {
 	color: #000;
 	text-decoration: underline;
-***REMOVED***
-p ***REMOVED***
+}
+p {
 	letter-spacing: 1px;
-	&.credit ***REMOVED***
+	&.credit {
 		@include fontFamily(FuturaDemi);
 		font-size: 11px;
 		line-height: 25px;
@@ -82,34 +82,34 @@ p ***REMOVED***
 		padding-right: 20px;
 		text-decoration: none;
 		text-transform: lowercase;
-		span ***REMOVED***
+		span {
 			@include fontFamily(FuturaBook);
 			text-decoration: underline;
 			text-transform: none;
-		***REMOVED***
-		&.credit-image ***REMOVED***
+		}
+		&.credit-image {
 			text-align: center;
 			margin-left: auto;
 			margin-right: auto;
-		***REMOVED***
-	***REMOVED***
-	&.description ***REMOVED***
+		}
+	}
+	&.description {
 		@include fontFamily(FuturaLight);
 		font-size: 17px;
-	***REMOVED***
-	&.quote ***REMOVED***
+	}
+	&.quote {
 		font-family: FuturaLight;
 		font-size: 25px;
 		line-height: 45px;
 		max-width: 600px;
 		padding: 20px;
 		text-align: center;
-		.credit ***REMOVED***
+		.credit {
 			@include fontFamily(FuturaBook);
 			@extend p.credit;
 			display: block;
 			margin-top: 30px;
 			text-transform: none;
-		***REMOVED***
-	***REMOVED***
-***REMOVED***
+		}
+	}
+}

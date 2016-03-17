@@ -1,7 +1,7 @@
 @import '../mixins/base';
 @import 'mixins';
 
-%icon ***REMOVED***
+%icon {
   content: "";
   display: block;
   background-image: url("/images/icons.png");
@@ -10,19 +10,19 @@
   @include _square(map_get($spriteDimensions, "iconDimension"));
   margin: -1px 0 0 0;
   background-size: 110%;
-***REMOVED***
+}
 
-@each $colour in $iconColours ***REMOVED***
-  @include create_icons($colour) ***REMOVED***
+@each $colour in $iconColours {
+  @include create_icons($colour) {
     @extend %icon;
-***REMOVED***;
-***REMOVED***
+  };
+}
 
-@include viewport(mobile) ***REMOVED***
-  @each $colour in $iconColours ***REMOVED***
-    @include create_icons($colour) ***REMOVED***
+@include viewport(mobile) {
+  @each $colour in $iconColours {
+    @include create_icons($colour) {
       margin-top: -1px;
       @include _square(14px);
-***REMOVED***
-***REMOVED***
-***REMOVED***
+    }
+  }
+}

@@ -18,14 +18,14 @@ OMG, I'm ready
 
 ## Functional overview
 ### Create a style guide
-- Create a directory in `src/styles/***REMOVED***project-name***REMOVED***`
+- Create a directory in `src/styles/{project-name}`
 - Create a **definition.json** file in your brand spanking new directory that looks like this:
 
 ```json
-***REMOVED***
+{
 	"title": "Retro 1990's Style Guide",
 	"contents": ["buttons", "... list of contents"]
-***REMOVED***
+}
 ```
 - Create a directories for the content you require in the style guide, e.g. **buttons**
 - In each directory create **markup.hbs** and **style.scss** files
@@ -38,17 +38,17 @@ OMG, I'm ready
 - If you want some code in your **markup.hbs** to be displayed in the client, wrap it with the **markup helper**, e.g.
 
 ```handlebars
-***REMOVED******REMOVED***#markup***REMOVED******REMOVED***
+{{#markup}}
     <div>My component</div>
-***REMOVED******REMOVED***/markup***REMOVED******REMOVED***
+{{/markup}}
 ```
 
 ## Technical overview
 - App runs from `src` directory
-- Style guides stored in `src/styles/***REMOVED***project***REMOVED***/`
+- Style guides stored in `src/styles/{project}/`
 - Styles compiled by **node-sass** middleware at runtime
 	- App styles compiled to `src/client/css/`
-	- Style guides compiled to `src/client/css/***REMOVED***guide-name***REMOVED***`
+	- Style guides compiled to `src/client/css/{guide-name}`
 - Built on top of API
 	- API routes should be defined in `src/routes/`
 	- Try hitting **/api/1.0/styles**

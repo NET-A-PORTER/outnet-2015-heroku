@@ -2,7 +2,7 @@
 
 button,
 input[type=submit],
-.btn ***REMOVED***
+.btn {
 	background: $greySelected;
 	border: none;
 	color: $black;
@@ -21,68 +21,68 @@ input[type=submit],
 	text-transform: uppercase;
 	vertical-align: middle;
 	white-space: initial;
-	&:hover ***REMOVED***
+	&:hover {
 		background: #b7b7b7;
 		color: #000;
-	***REMOVED***
-	&.btn-small ***REMOVED***
+	}
+	&.btn-small {
 		font-size: 13px;
 		max-width: 150px;
 		padding: 8px 15px 7px;
-	***REMOVED***
-	&.btn-primary ***REMOVED***
+	}
+	&.btn-primary {
 		background: #000;
 		color: #fff;
-		&:hover ***REMOVED***
+		&:hover {
 			background: #2a2626;
-		***REMOVED***
-	***REMOVED***
+		}
+	}
 	&.btn-selector-multi,
 	&.btn-selector-single-1,
-	&.btn-selector-single-2 ***REMOVED***
+	&.btn-selector-single-2 {
 		@extend .btn-small;
 		background: #fff;
 		border: #d3d3d3 1px solid;
 		max-width: inherit;
 		text-transform: none;
-	***REMOVED***
+	}
 	&.btn-selector-single-1:hover,
-	&.btn-selector-single-2:hover ***REMOVED***
+	&.btn-selector-single-2:hover {
 		background: $greySelected;
-	***REMOVED***
-	&.btn-selector-active ***REMOVED***
-		&.btn-selector-multi ***REMOVED***
+	}
+	&.btn-selector-active {
+		&.btn-selector-multi {
 			border: 2px solid #b7b7b7;
-		***REMOVED***
-		&.btn-selector-single-1 ***REMOVED***
+		}
+		&.btn-selector-single-1 {
 			background: #000;
 			border-color: #000;
 			color: #fff;
-		***REMOVED***
-		&.btn-selector-single-2 ***REMOVED***
+		}
+		&.btn-selector-single-2 {
 			background: $greySelected;
 			color: #000;
-		***REMOVED***
-	***REMOVED***
-	&.btn-selector-multi:hover ***REMOVED***
+		}
+	}
+	&.btn-selector-multi:hover {
 		@extend .btn-selector-active.btn-selector-multi;
-	***REMOVED***
-	&.btn-white ***REMOVED***
+	}
+	&.btn-white {
 		background: #fff;
 		color: #000;
 		outline: #000 1px solid;
-		&:hover ***REMOVED***
+		&:hover {
 			background: #000;
 			color: #fff;
-		***REMOVED***
-	***REMOVED***
+		}
+	}
 	&[disabled],
 	&[disabled]:hover,
 	&.btn-disabled,
-	&.btn-disabled:hover ***REMOVED***
+	&.btn-disabled:hover {
 		background: $greySelected;
 		color: #b7b7b7;
 		cursor: default;
 		outline: none;
-	***REMOVED***
-***REMOVED***
+	}
+}

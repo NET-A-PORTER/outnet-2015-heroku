@@ -1,4 +1,4 @@
 <h1 class="preston-heading">Available styles</h1>
 <div ng-controller="NavCtrl">
-	<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide(***REMOVED*** name: style.name ***REMOVED***)" class="preston-nav-item"></div>
+	<div ng-repeat="style in styles" ng-bind="style.title" ui-sref="guide({ name: style.name })" class="preston-nav-item"></div>
 </div>

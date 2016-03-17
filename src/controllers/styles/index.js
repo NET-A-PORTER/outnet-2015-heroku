@@ -3,66 +3,66 @@ var Styles		= require('./styles');
 var styleDir	= base.path('styles');
 var styles		= null;
 
-function response(error, name) ***REMOVED***
+function response(error, name) {
 	console.log(error);
 
 	var message = 'Error retrieving ' + name;
 	var status = 500;
-	if (error.errno === -2) ***REMOVED***
+	if (error.errno === -2) {
 		status = 404;
 		message = name + ' not found';
-	***REMOVED***
+	}
 
 	this.status = status;
-	this.body = ***REMOVED*** message: message ***REMOVED***;
-***REMOVED***
+	this.body = { message: message };
+}
 
-function * list() ***REMOVED***
-	try ***REMOVED***
+function * list() {
+	try {
 		// assign styles for caching
 		styles = styles || new Styles(styleDir);
 		this.body = yield styles.getAll();
-	***REMOVED*** catch(e) ***REMOVED***
+	} catch(e) {
 		response.call(this, e, 'styles');
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-function * get() ***REMOVED***
-	try ***REMOVED***
+function * get() {
+	try {
 		var styleName = this.params.style;
 		var style = new Style(styleName, styleDir);
 		this.body = yield style.getDefinition();
-	***REMOVED*** catch(e) ***REMOVED***
+	} catch(e) {
 		response.call(this, e, styleName);
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-function * getElement() ***REMOVED***
-	try ***REMOVED***
+function * getElement() {
+	try {
 		var elementName = this.params.element;
 		var styleName = this.params.style;
 		var style = new Style(styleName, styleDir);
 		this.body = yield style.getElement(elementName);
-	***REMOVED*** catch(e) ***REMOVED***
+	} catch(e) {
 		response.call(this, e, elementName);
-	***REMOVED***
-***REMOVED***
+	}
+}
 
-function * build(styles) ***REMOVED***
+function * build(styles) {
   var styleDir	= base.path('styles');
   var list = styles ? styles : yield * new Styles(styleDir).getAll();
-  for (styleDetails of list) ***REMOVED***
+  for (styleDetails of list) {
     var style = new Style(styleDetails.name, styleDir);
     yield * style.build();
-    for (elementName of (yield style.getDefinition()).elements) ***REMOVED***
+    for (elementName of (yield style.getDefinition()).elements) {
       yield * style.getElement(elementName);
-***REMOVED***
-***REMOVED***
-***REMOVED***
+    }
+  }
+}
 
-module.exports = ***REMOVED***
+module.exports = {
 	get: get,
 	getElement: getElement,
 	list: list,
   build: build
-***REMOVED***;
+};

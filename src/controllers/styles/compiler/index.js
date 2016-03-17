@@ -7,7 +7,7 @@ var assetPath					= base.path('client');
 
 compiler.add(/document\.yml/ig, new DocumentCompiler());
 compiler.add(/(\.woff|\.ttf|\.eot|\.svg|\.png)/ig, new CopyMethod(assetPath));
-compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) ***REMOVED***
+compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) {
 	// save to css directory
 	var info = directory.split('/').slice(-2);
 	var basePath = base.path('client/css');
@@ -17,6 +17,6 @@ compiler.add(/\.scss/ig, new SassCompiler(), function * (directory, file) ***REM
 
 	yield utils.writeFile(path, this.body.compiled);
 	return this.body;
-***REMOVED***);
+});
 
 module.exports = compiler;

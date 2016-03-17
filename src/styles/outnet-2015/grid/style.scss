@@ -28,29 +28,29 @@
 // TODO
 // Add "vertical-gap" class for mobile responsiveness
 
-@mixin _breakpoints($min, $max: false) ***REMOVED***
-  @if $max == false ***REMOVED***
-    @media only screen and (min-width: $min) ***REMOVED***
+@mixin _breakpoints($min, $max: false) {
+  @if $max == false {
+    @media only screen and (min-width: $min) {
       @content;
-***REMOVED***
-***REMOVED***
-  @else ***REMOVED***
-    @media only screen and (min-width: $min) and (max-width: $max) ***REMOVED***
+    }
+  }
+  @else {
+    @media only screen and (min-width: $min) and (max-width: $max) {
       @content;
-***REMOVED***
-***REMOVED***
-***REMOVED***
+    }
+  }
+}
 
-@mixin _clear ***REMOVED***
+@mixin _clear {
   zoom: 1;
-  &:before, &:after ***REMOVED***
+  &:before, &:after {
     content: "";
     display: table;
-***REMOVED***
-  &:after ***REMOVED***
+  }
+  &:after {
     clear: both;
-***REMOVED***
-***REMOVED***
+  }
+}
 
 // The spacing between columns
 $gutters: 10, 20;
@@ -61,14 +61,14 @@ $columns: 12;
 // Merge grids at
 $merge_grids_breakpoint: 460px;
 
-%grid ***REMOVED***
+%grid {
   // The parent will span the entire width. Clear to contain children
   width: 100%;
   @include _clear;
   // Create span classes from 1 to the maximum grid columns for this
   // particular grid.
-  @for $span_i from 1 through $columns ***REMOVED***
-    & > .span-#***REMOVED***$span_i***REMOVED*** ***REMOVED***
+  @for $span_i from 1 through $columns {
+    & > .span-#{$span_i} {
       // each span element is fraction of this parent
       // what fraction? span-1 is 1/x of x. span-2 is 2/x of x.
       // calculate the width of the span by finding the width of
@@ -76,51 +76,51 @@ $merge_grids_breakpoint: 460px;
       width: 100% / $columns * $span_i;
       min-height: 1px;
       float: left;
-***REMOVED***
-***REMOVED***
+    }
+  }
   // If the gutter class is attached to the grid class, apply a padding to
   // all child span classes.
-  @each $gutter in $gutters ***REMOVED***
-    &.gutter-#***REMOVED***$gutter***REMOVED*** ***REMOVED***
+  @each $gutter in $gutters {
+    &.gutter-#{$gutter} {
       // repeat the previous loop and apply a padding
-      @for $span_i from 1 through $columns ***REMOVED***
-        & > .span-#***REMOVED***$span_i***REMOVED*** ***REMOVED***
+      @for $span_i from 1 through $columns {
+        & > .span-#{$span_i} {
           // each element needs to get half the gutter as padding
           // they join to complete the gutter
           padding: 0 $gutter / 2 * 1px;
-          &:first-child ***REMOVED***
+          &:first-child {
             padding-left: 0;
-      ***REMOVED***
-          &:last-child ***REMOVED***
+          }
+          &:last-child {
             padding-right: 0;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+          }
+        }
+      }
+    }
+  }
+}
 
 
-.grid-#***REMOVED***$columns***REMOVED*** ***REMOVED***
+.grid-#{$columns} {
   @extend %grid;
-  @include _breakpoints(0, $merge_grids_breakpoint) ***REMOVED***
-    @for $span_i from 1 through $columns ***REMOVED***
-      & > .span-#***REMOVED***$span_i***REMOVED*** ***REMOVED***
+  @include _breakpoints(0, $merge_grids_breakpoint) {
+    @for $span_i from 1 through $columns {
+      & > .span-#{$span_i} {
         width: 100%;
-  ***REMOVED***
-***REMOVED***
-    @each $gutter in $gutters ***REMOVED***
-      &.gutter-#***REMOVED***$gutter***REMOVED*** ***REMOVED***
-        @for $span_i from 1 through $columns ***REMOVED***
-          & > .span-#***REMOVED***$span_i***REMOVED*** ***REMOVED***
+      }
+    }
+    @each $gutter in $gutters {
+      &.gutter-#{$gutter} {
+        @for $span_i from 1 through $columns {
+          & > .span-#{$span_i} {
   		  padding: 0;
-      ***REMOVED***
-    ***REMOVED***
-  ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+          }
+        }
+      }
+    }
+  }
+}
 
-.grid-mobile-#***REMOVED***$columns***REMOVED*** ***REMOVED***
+.grid-mobile-#{$columns} {
   @extend %grid;
-***REMOVED***
+}

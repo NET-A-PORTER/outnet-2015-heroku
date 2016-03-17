@@ -10,21 +10,21 @@ var styles;
 
 cli
   .arguments('<styles...>')
-  .action(function (arg) ***REMOVED***
+  .action(function (arg) {
     styles = arg
-***REMOVED***);
+  });
 
 cli.parse(process.argv);
 
-if (typeof styles === 'undefined') ***REMOVED***
+if (typeof styles === 'undefined') {
    console.error('no styles given!');
    process.exit(1);
-***REMOVED***
+}
 
-utils.yield(function * main() ***REMOVED***
-  var list = yield styles.map(function(style) ***REMOVED***
-    return ***REMOVED*** name: style ***REMOVED***
-***REMOVED***);
+utils.yield(function * main() {
+  var list = yield styles.map(function(style) {
+    return { name: style }
+  });
   yield * build(list);
   console.log('Generated', styles);
-***REMOVED***);
+});

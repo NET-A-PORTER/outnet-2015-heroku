@@ -1,8 +1,8 @@
-global.base = ***REMOVED***
-	require: (path) => ***REMOVED***
+global.base = {
+	require: (path) => {
 		return require(this.path(path));
-	***REMOVED***,
-	path: (path) => ***REMOVED***
+	},
+	path: (path) => {
 		return __dirname + '/' + path;
-	***REMOVED***
-***REMOVED***;
+	}
+};

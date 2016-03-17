@@ -10,32 +10,32 @@ var styles;
 
 cli
   .arguments('<styles...>')
-  .action(function (arg) ***REMOVED***
+  .action(function (arg) {
      styles = arg;
-***REMOVED***);
+  });
 
 cli.parse(process.argv);
 
-if (typeof styles === 'undefined') ***REMOVED***
+if (typeof styles === 'undefined') {
    console.error('no styles given!');
    process.exit(1);
-***REMOVED***
+}
 
 var buildDir = 'src/client';
 
-utils.glob('css/styles/**/styles.css', ***REMOVED*** cwd: buildDir ***REMOVED***)
-  .then(function(files) ***REMOVED***
-    return publish(buildDir, files, ***REMOVED*** 'Content-Type': 'text/css' ***REMOVED*** )
-***REMOVED***)
-  .then(function() ***REMOVED***
-    return utils.glob('*(images|fonts)/*.*', ***REMOVED*** cwd: buildDir ***REMOVED***);
-***REMOVED***)
-  .then(function(files) ***REMOVED***
+utils.glob('css/styles/**/styles.css', { cwd: buildDir })
+  .then(function(files) {
+    return publish(buildDir, files, { 'Content-Type': 'text/css' } )
+  })
+  .then(function() {
+    return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
+  })
+  .then(function(files) {
     return publish(buildDir, files);
-***REMOVED***)
-  .then(function() ***REMOVED***
+  })
+  .then(function() {
     console.log('Finished publishing.');
-***REMOVED***)
-  .catch(function(error) ***REMOVED***
+  })
+  .catch(function(error) {
     console.error('Failed to publish. Error:', error);
-***REMOVED***);
+  });

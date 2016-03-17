@@ -1,23 +1,23 @@
 @import '../base/style';
 @import '../typography/style';
 
-.preston-header ***REMOVED***
+.preston-header {
 	@extend .preston-type;
 	background: #fff;
 	border-bottom: #ccc 1px solid;
 	padding: 5px 10px;
 	position: relative;
 	z-index: 1;
-***REMOVED***
-.preston-nav ***REMOVED***
+}
+.preston-nav {
 	float: right;
-	> div ***REMOVED***
+	> div {
 		@extend .preston-nav-item;
-	***REMOVED***
-***REMOVED***
-.preston-nav-item ***REMOVED***
+	}
+}
+.preston-nav-item {
 	@include hover-effect;
 	@extend .preston-type;
 	display: inline-block;
 	padding: 1px 3px;
-***REMOVED***
+}

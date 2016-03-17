@@ -7,7 +7,7 @@
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-if="element.assets['override.scss']" ng-href=":: element.getAssetPath('css', 'override.css') ::">
 	<style>
-	pre ***REMOVED*** white-space: pre-wrap; ***REMOVED***
+	pre { white-space: pre-wrap; }
 	</style>
 </head>
 <body>
@@ -24,7 +24,7 @@
 						<div class="preston-pill"
 							ng-repeat="view in element.views track by $index"
 							ng-bind="view.title"
-							ng-class="***REMOVED*** 'preston-pill-selected': $index == element.selected ***REMOVED***"
+							ng-class="{ 'preston-pill-selected': $index == element.selected }"
 							ng-click="element.selected = (element.selected == $index ? -1 : $index)"></div>
 					</div>
 					<div ng-bind="element.name"></div>
@@ -40,59 +40,59 @@
 	var parentScope = window.parent.angular.element(window.frameElement).scope();
 	angular
 		.module('app', ['ngSanitize'])
-		.config(function($interpolateProvider) ***REMOVED***
+		.config(function($interpolateProvider) {
 			// stop conflicting with handlebars
 			$interpolateProvider.startSymbol('::');
 			$interpolateProvider.endSymbol('::');
-		***REMOVED***)
-		.service('ElementViewService', function($sce) ***REMOVED***
-			var formatForDisplay = function(content) ***REMOVED***
+		})
+		.service('ElementViewService', function($sce) {
+			var formatForDisplay = function(content) {
 				return '<pre><code>' + content + '</code></pre>';
-			***REMOVED***;
+			};
 
-			var formatDocument = function(doc, callback) ***REMOVED***
-				return doc.reduce(function(prev, section) ***REMOVED***
+			var formatDocument = function(doc, callback) {
+				return doc.reduce(function(prev, section) {
 					var detail = section.detail && '<p>' + section.detail + '</p>' || '';
 					var title = section.title && '<h3 class="preston-element-section-title">' + section.title + '</h3>' || '';
 					var markup = section.markup && '<div class="preston-element-markup">' + section.markup + '</div>' || '';
 					var details = title + detail + markup;
 					if (callback) details += callback(section);
 					return prev += details;
-				***REMOVED***, '');
-			***REMOVED***;
+				}, '');
+			};
 
-			var ElementViewService = function(baseElement) ***REMOVED***
+			var ElementViewService = function(baseElement) {
 				this.base = baseElement;
 				this.name = this.base.name;
 				this.views = this.createViews();
 				this.selected = 0;
 				return this;
-			***REMOVED***;
-			ElementViewService.prototype = ***REMOVED***
-				addView: function(title, content) ***REMOVED***
-					this.views.push(***REMOVED***
+			};
+			ElementViewService.prototype = {
+				addView: function(title, content) {
+					this.views.push({
 						title: title,
 						contents: $sce.trustAsHtml(content)
-					***REMOVED***);
-				***REMOVED***,
-				createViews: function() ***REMOVED***
+					});
+				},
+				createViews: function() {
 					this.views = [];
 					var baseAssets = this.base.assets;
-					for (var name in baseAssets) ***REMOVED***
+					for (var name in baseAssets) {
 						var asset = baseAssets[name];
 						var extension = name.split('.').pop();
-						switch (extension) ***REMOVED***
+						switch (extension) {
 							case 'yml':
-								var html = formatDocument(asset, function(section) ***REMOVED***
-									if (section.markupEscaped) ***REMOVED***
+								var html = formatDocument(asset, function(section) {
+									if (section.markupEscaped) {
 										// make the code legible mate
 										var formatted = section.markupEscaped
 											.replace(/(\r\n|\n|\r)/gm, '<br>')
 											.replace(/(\t)/gm, '&nbsp;&nbsp;');
 										return formatForDisplay(formatted);
-									***REMOVED***
+									}
 									return '';
-								***REMOVED***);
+								});
 								this.addView('Details', formatDocument(asset));
 								this.addView('HTML', html);
 								break;
@@ -101,48 +101,48 @@
 								 * if UI navigation of each element improves
 								 * enable the view of multiple sass files
 								*/
-								if (name == 'style.scss') ***REMOVED***
+								if (name == 'style.scss') {
 									this.addView('CSS', formatForDisplay(asset.compiled));
 									this.addView('SASS', formatForDisplay(asset.source));
-								***REMOVED***
+								}
 								break;
-						***REMOVED***
-					***REMOVED***
+						}
+					}
 					return this.views;
-				***REMOVED***
-			***REMOVED***;
+				}
+			};
 
 			return ElementViewService;
-		***REMOVED***)
-		.controller('GuideCtrl', function($scope, ElementViewService) ***REMOVED***
+		})
+		.controller('GuideCtrl', function($scope, ElementViewService) {
 			var Style = parentScope.Style;
 			var $state = parentScope.$state;
 			var currentStyle = $state.params.name;
 
-			$scope.preston = new Style('preston', ***REMOVED*** shallow: true ***REMOVED***);
+			$scope.preston = new Style('preston', { shallow: true });
 			$scope.style = new Style(currentStyle);
 
-			parentScope.$on('style.load', function(e, style) ***REMOVED***
+			parentScope.$on('style.load', function(e, style) {
 				// don't map elements when preston styles loaded
-				if (style.name !== 'preston') ***REMOVED***
-					$scope.elements = $scope.style.elements.map(function(element) ***REMOVED***
+				if (style.name !== 'preston') {
+					$scope.elements = $scope.style.elements.map(function(element) {
 						return new ElementViewService(element);
-					***REMOVED***);
+					});
 
 					// TODO: make this a directive
-					window.setTimeout(function() ***REMOVED***
-						hljs.configure(***REMOVED***
+					window.setTimeout(function() {
+						hljs.configure({
 							languages: ['html', 'css', 'scss']
-						***REMOVED***);
-						[].forEach.call(document.querySelectorAll('code'), function(block) ***REMOVED***
+						});
+						[].forEach.call(document.querySelectorAll('code'), function(block) {
 							hljs.highlightBlock(block);
-						***REMOVED***);
-					***REMOVED***, 100);
-				***REMOVED***
+						});
+					}, 100);
+				}
 				// force scope update on load
 				$scope.$digest();
-			***REMOVED***);
-		***REMOVED***);
+			});
+		});
 	</script>
 </body>
 </html>

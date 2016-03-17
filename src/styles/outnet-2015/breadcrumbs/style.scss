@@ -1,26 +1,26 @@
-.breadcrumbs ***REMOVED***
+.breadcrumbs {
 	font-size: 13px;
 	text-align: center;
-	> * ***REMOVED***
+	> * {
 		display: inline-block;
 		position: relative;
 		margin-right: 15px;
 		color: #777;
 		text-decoration: none;
 		letter-spacing: 0.3px;
-		&:after ***REMOVED***
+		&:after {
 			content: ' > ';
 			position: absolute;
 			right: -13px;
 			top: 0;
-		***REMOVED***
-		&:last-child:after ***REMOVED***
+		}
+		&:last-child:after {
 			display: none;
-		***REMOVED***
-	***REMOVED***
-	a ***REMOVED***
+		}
+	}
+	a {
 		position: relative;
-		&:before ***REMOVED***
+		&:before {
 			content: "";
 			position: absolute;
 			width: 100%;
@@ -33,11 +33,11 @@
 			transform: scaleX(0);
 			-webkit-transition: all 0.4s ease-in-out;
 			transition: all 0.5s ease-in-out;
-		***REMOVED***
-		&:hover:before ***REMOVED***
+		}
+		&:hover:before {
 			-webkit-transform: scaleX(1);
 			transform: scaleX(1);
 			visibility: visible;
-		***REMOVED***
-	***REMOVED***
-***REMOVED***
+		}
+	}
+}
