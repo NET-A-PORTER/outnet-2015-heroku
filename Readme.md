@@ -34,6 +34,8 @@ OMG, I'm ready
 - Publish it via bower and install it into Preston
 - That's it really
 
+Take a look at [outnet-2015](https://github.com/NET-A-PORTER/outnet-2015) for an example of a style guide.
+
 ### Guidelines
 - Keep names **url/css friendly** - just to make dev easier, e.g. *my-super-awesome-styleguide*
 - If you want some code in your **markup.hbs** to be displayed in the client, wrap it with the **markup helper**, e.g.
