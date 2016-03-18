@@ -1,0 +1,26 @@
+{
+  "name": "preston",
+  "description": "Style guide generator for the rich and famous",
+  "main": "server.js",
+  "authors": [
+    "The Outnet Team"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "styleguide"
+  ],
+  "homepage": "https://github.com/NET-A-PORTER/preston",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/styles",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "outnet-2015": "^1.0.0"
+  }
+}
