@@ -18,9 +18,8 @@ OMG, I'm ready
 
 ## Functional overview
 ### Create a style guide
-- Create a directory in `src/styles/{project-name}`
+- Create a directory for your style
 - Create a **definition.json** file in your brand spanking new directory that looks like this:
-
 ```json
 {
 	"title": "Retro 1990's Style Guide",
@@ -31,6 +30,8 @@ OMG, I'm ready
 - In each directory create **markup.hbs** and **style.scss** files
 	- Your markup.hbs file will be displayed in the client
 	- Your styles.scss will be compiled and requested by the client
+- In your root directory, create a **style.scss** to be built
+- Publish it via bower and install it into Preston
 - That's it really
 
 ### Guidelines
@@ -77,3 +78,4 @@ This is continuously deployed to whenever changes are merged into to master.
 - Display SASS & compiled contents in line with markup
 - Separation of base, component and module styles
 - Release tasks
+- npm styles
