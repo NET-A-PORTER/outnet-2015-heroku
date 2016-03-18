@@ -33,7 +33,7 @@ OMG, I'm ready
 - In your root directory, create a **style.scss** to be built
 - Publish it via bower and install it into Preston
 - That's it really
-- 
+
 Take a look at [outnet-2015](https://github.com/NET-A-PORTER/outnet-2015) for an example of a style guide.
 
 ### Guidelines
