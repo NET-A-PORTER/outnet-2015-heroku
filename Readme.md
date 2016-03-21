@@ -17,6 +17,9 @@ Prerequisites
 OMG, I'm ready
 
 ## Functional overview
+### Current styles
+- [Outnet 2015](https://github.com/NET-A-PORTER/outnet-2015)
+
 ### Create a style guide
 - Create a directory for your style
 - Create a **definition.json** file in your brand spanking new directory that looks like this:
