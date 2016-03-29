@@ -1,0 +1,9 @@
+{
+  "assets": [
+    {
+      "type": "css",
+      "path": "/css",
+      "ext": ".css"
+    }
+  ]
+}

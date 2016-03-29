@@ -1,8 +1,8 @@
 {
   "env": {
     "doc": "The applicaton environment.",
-    "format": ["production", "development", "test"],
-    "default": "development",
+    "format": ["production", "development", "test", "local"],
+    "default": "local",
     "env": "NODE_ENV"
   },
   "aws": {

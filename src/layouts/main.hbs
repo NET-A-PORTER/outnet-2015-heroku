@@ -112,6 +112,7 @@
 			var Style = function(style, options) {
 				this.title = '';
 				this.name = style;
+				this.cssPaths = [];
 				this.elements = [];
 				this.options = angular.extend({
 					shallow: false
@@ -125,6 +126,13 @@
 					return StylesFactory
 						.get(this.name)
 						.then(function(data) {
+						    self.cssPaths = data.assets
+						    .filter(function(asset) {
+						        return asset.name == "css";
+						    })
+						    .map(function(asset) {
+						        return asset.url;
+						    });
 							self.title = data.title;
 							self.views = data.views;
 							self.populateElements(data.elements)
