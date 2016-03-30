@@ -21,6 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "bower": "^1.7.7",
+    "convict": "^1.1.2",
     "etc": "^0.5.1",
     "etc-yaml": "0.0.5",
     "glob": "^5.0.6",
@@ -38,7 +39,6 @@
   },
   "devDependencies": {
     "commander": "^2.9.0",
-    "convict": "^1.1.2",
     "request": "^2.69.0"
   }
 }
