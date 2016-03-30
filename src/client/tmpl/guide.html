@@ -4,7 +4,7 @@
 	<title>Preston</title>
 	<link rel="stylesheet" href="/js/highlightjs.css">
 	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
-	<link rel="stylesheet" ng-repeat="element in style.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
+	<link rel="stylesheet" ng-repeat="cssPath in style.cssPaths" ng-href=":: cssPath ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-if="element.assets['override.scss']" ng-href=":: element.getAssetPath('css', 'override.css') ::">
 	<style>
 	pre { white-space: pre-wrap; }

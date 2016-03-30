@@ -1,20 +1,20 @@
 {
   "env": {
     "doc": "The applicaton environment.",
-    "format": ["production", "development", "test"],
-    "default": "development",
+    "format": ["production", "development", "test", "local"],
+    "default": "local",
     "env": "NODE_ENV"
   },
   "aws": {
     "s3": {
       "accessKeyID": {
-        "doc": "Username of S3 account for publishing" 
+        "doc": "Username of S3 account for publishing"
       },
       "secretAccessKey": {
-        "doc": "Password/secret of S3 account for publishing" 
+        "doc": "Password/secret of S3 account for publishing"
       },
       "bucket": {
-        "doc": "Name of S3 bucket to publish to" 
+        "doc": "Name of S3 bucket to publish to"
       },
       "region": {
         "doc": "Region to publish assets to. Consider latency when setting this",
@@ -25,5 +25,15 @@
         "default": 5000
       }
     }
+  },
+  "assets": {
+    "doc": "Asset information including path and extension",
+    "default": [
+      {
+        "type": "css",
+        "path": "/css",
+        "ext": ".css"
+      }
+    ]
   }
 }
