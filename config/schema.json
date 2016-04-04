@@ -8,10 +8,12 @@
   "aws": {
     "s3": {
       "accessKeyID": {
-        "doc": "Username of S3 account for publishing"
+        "doc": "Username of S3 account for publishing",
+        "env": "AWS_S3_ACCESS_KEY_ID"
       },
       "secretAccessKey": {
-        "doc": "Password/secret of S3 account for publishing"
+        "doc": "Password/secret of S3 account for publishing",
+        "env": "AWS_S3_SECRET_ACCESS_KEY"
       },
       "bucket": {
         "doc": "Name of S3 bucket to publish to"
