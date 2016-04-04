@@ -12,6 +12,7 @@ Prerequisites
 
 1. Clone from repo: `git clone git@github.com:NET-A-PORTER/preston.git`
 2. Install node modules: `cd preston && npm i`
+3. Make sure you have node-sass globally installed: `npm install -g node-sass`
 3. Start it up: `node --harmony src/server.js`
 
 OMG, I'm ready
