@@ -15,7 +15,7 @@ function Publish(directory, files, options) {
     files.map( (file) => {
       return utils.readFile(directory + '/' + file, { encoding: null })
         .then(function(data) {
-          publisher.upload(file, data, options);
+          return publisher.upload(file, data, options);
           console.log('Uploaded ' + file + '.');
         })
         .catch(function(err) {
