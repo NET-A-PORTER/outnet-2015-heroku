@@ -40,5 +40,8 @@
   "devDependencies": {
     "commander": "^2.9.0",
     "request": "^2.69.0"
+  },
+  "scripts": {
+    "start": "node --harmony src/server.js"
   }
 }
