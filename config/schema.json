@@ -16,7 +16,8 @@
         "env": "AWS_S3_SECRET_ACCESS_KEY"
       },
       "bucket": {
-        "doc": "Name of S3 bucket to publish to"
+        "doc": "Name of S3 bucket to publish to",
+        "env": "AWS_S3_BUCKET"
       },
       "region": {
         "doc": "Region to publish assets to. Consider latency when setting this",
