@@ -10,13 +10,20 @@ var publisher = new Publisher({
   timeout: 			    config.get('aws.s3.timeout')
 });
 
+function versionFile(name, version) {
+  var nameArr = name.split('.');
+  nameArr.splice(nameArr.length-1, 0, version);
+  return nameArr.join('.');
+}
+
 function Publish(directory, files, options) {
   return Promise.all(
     files.map( (file) => {
       var fileName = file;
       return utils.readFile(directory + '/' + file, { encoding: null })
         .then(function(data) {
-          if (options.hash) fileName = utils.checksum(file, data);
+          if (options.version) fileName = versionFile(fileName, options.version);
+          if (options.hash) fileName = utils.checksum(fileName, data);
           console.log('Uploading ' + fileName + '.');
           return publisher.upload(fileName, data, options);
         })

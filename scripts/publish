@@ -6,13 +6,29 @@ var cli = require('commander');
 var utils = base.require('core/utils');
 var publish = base.require('core/publish');
 
+var style;
+
+cli
+  .arguments('<style>')
+  .action(function (arg) {
+     style = arg;
+  });
+
 cli.parse(process.argv);
+
+if (typeof style === 'undefined') {
+   console.error('no style given!');
+   process.exit(1);
+}
 
 var buildDir = 'src/client';
 
-utils.glob('css/**/*.*', { cwd: buildDir })
+utils.glob('css/' + style + '.css', { cwd: buildDir })
   .then(function(files) {
-    return publish(buildDir, files, { 'Content-Type': 'text/css' } )
+    return publish(buildDir, files, {
+      version: require('../bower.json').dependencies[style],
+      'Content-Type': 'text/css'
+    } )
   })
   .then(function() {
     return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
