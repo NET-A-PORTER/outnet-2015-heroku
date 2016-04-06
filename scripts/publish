@@ -2,7 +2,7 @@
 
 require('../src/global');
 
-var cli = require('commander');
+var cli = require('commander')
 var utils = base.require('core/utils');
 var publish = base.require('core/publish');
 
@@ -12,9 +12,9 @@ cli
   .arguments('<style>')
   .action(function (arg) {
      style = arg;
-  });
-
-cli.parse(process.argv);
+  })
+  .option('-l --latest', 'Update the latest css to be the one being published')
+  .parse(process.argv);
 
 if (typeof style === 'undefined') {
    console.error('no style given!');
@@ -25,10 +25,18 @@ var buildDir = 'src/client';
 
 utils.glob('css/' + style + '.css', { cwd: buildDir })
   .then(function(files) {
-    return publish(buildDir, files, {
-      version: require('../bower.json').dependencies[style],
-      'Content-Type': 'text/css'
-    } )
+    var promises = [
+      publish(buildDir, files, {
+        version: require('../bower.json').dependencies[style],
+        'Content-Type': 'text/css'
+      } )
+    ];
+    if(cli.latest) promises.push(
+      publish(buildDir, files, {
+        'Content-Type': 'text/css'
+      } )
+    );
+    return Promise.all(promises);
   })
   .then(function() {
     return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
