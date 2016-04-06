@@ -13,13 +13,15 @@ var publisher = new Publisher({
 function Publish(directory, files, options) {
   return Promise.all(
     files.map( (file) => {
+      var fileName = file;
       return utils.readFile(directory + '/' + file, { encoding: null })
         .then(function(data) {
-          console.log('Uploading ' + file + '.');
-          return publisher.upload(file, data, options);
+          if (options.hash) fileName = utils.checksum(file, data);
+          console.log('Uploading ' + fileName + '.');
+          return publisher.upload(fileName, data, options);
         })
         .catch(function(err) {
-          console.error('Failed to upload ' + file + '.');
+          console.error('Failed to upload ' + fileName + '.');
         });
     })
   );

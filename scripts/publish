@@ -18,7 +18,7 @@ utils.glob('css/**/*.*', { cwd: buildDir })
     return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
   })
   .then(function(files) {
-    return publish(buildDir, files);
+    return publish(buildDir, files, { hash: true });
   })
   .then(function() {
     console.log('Finished publishing.');

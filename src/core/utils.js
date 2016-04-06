@@ -1,6 +1,17 @@
 var fs		= require('fs');
 var glob 	= require('glob');
 var mkdirp	= require('mkdirp');
+var crypto = require('crypto');
+
+function checksum(name, str, algorithm, encoding) {
+  var fileArr = name.split('.');
+  var hash = crypto
+    .createHash(algorithm || 'md5')
+    .update(str, 'utf8')
+    .digest(encoding || 'hex');
+  fileArr.splice(fileArr.length-1, 0, hash);
+  return fileArr.join('.');
+}
 
 function globFunc(pattern, options) {
 	return new Promise((resolve, reject) => {
@@ -65,6 +76,7 @@ function yield(gen) {
 }
 
 module.exports = {
+  checksum: checksum,
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
