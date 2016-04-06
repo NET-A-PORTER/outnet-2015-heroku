@@ -1,6 +1,20 @@
 var fs		= require('fs');
 var glob 	= require('glob');
 var mkdirp	= require('mkdirp');
+var crypto = require('crypto');
+
+function addToFileName(name, parts) {
+  var nameArr = name.split('.');
+  Array.prototype.splice.apply(nameArr, [nameArr.length-1, 0].concat(parts));
+  return nameArr.join('.');
+}
+
+function checksum(str, algorithm, encoding) {
+  return crypto
+    .createHash(algorithm || 'md5')
+    .update(str, 'utf8')
+    .digest(encoding || 'hex');
+}
 
 function globFunc(pattern, options) {
 	return new Promise((resolve, reject) => {
@@ -65,6 +79,8 @@ function yield(gen) {
 }
 
 module.exports = {
+  addToFileName: addToFileName,
+  checksum: checksum,
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,

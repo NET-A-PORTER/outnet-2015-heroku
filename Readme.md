@@ -66,11 +66,9 @@ Take a look at [outnet-2015](https://github.com/NET-A-PORTER/outnet-2015) for an
 There are scripts which allow you to build locally and publish styles.
 
 - `npm run-script build <styles...>` - Builds assets within `/src/client` directory.
-- `npm run-script publish` - Publishes all built assets to S3. Make sure you run this after `npm run-script build`. Publishes to development by default.
+- `npm run-script publish <style>` - Publishes all built assets to S3. Make sure you run this after `npm run-script build`.
 
-To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production npm run-script publish outnet-2015`.
-
-Make sure you have a config file for that environment within `config/`. See `config/schema.json` for how to create a config file for an environment.
+To publish to an environment, set `NODE_ENV` as part of your command, e.g. `NODE_ENV=production npm run-script publish outnet-2015`. Make sure you have a config file for that environment within `config/` or the necessary environment variables set. See `config/schema.json` for how to create a config file for an environment and how to set the environment variables.
 
 ## Releasing
 
