@@ -10,25 +10,21 @@ var publisher = new Publisher({
   timeout: 			    config.get('aws.s3.timeout')
 });
 
-function addToFileName(name, part) {
-  var nameArr = name.split('.');
-  nameArr.splice(nameArr.length-1, 0, part);
-  return nameArr.join('.');
-}
-
 function Publish(directory, files, options) {
   return Promise.all(
     files.map( (file) => {
       var fileName = file;
       return utils.readFile(directory + '/' + file, { encoding: null })
         .then(function(data) {
-          if (options.version) fileName = addToFileName(fileName, options.version);
-          if (options.hash) fileName = addToFileName(fileName, utils.checksum(data));
+          var parts = [];
+          if (options.version) parts.push(options.version);
+          if (options.hash) parts.push(utils.checksum(data));
+          fileName = utils.addToFileName(fileName, parts);
           console.log('Uploading ' + fileName + '.');
           return publisher.upload(fileName, data, options);
         })
         .catch(function(err) {
-          console.error('Failed to upload ' + fileName + '.');
+          console.error('Failed to upload ' + fileName + '.', err);
         });
     })
   );
