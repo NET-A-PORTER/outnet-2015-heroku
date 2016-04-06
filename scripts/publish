@@ -4,7 +4,8 @@ require('../src/global');
 
 var cli = require('commander')
 var utils = base.require('core/utils');
-var publish = base.require('core/publish');
+var publisher = base.require('core/publish');
+var publish = publisher.publish;
 
 var style;
 
@@ -13,7 +14,6 @@ cli
   .action(function (arg) {
      style = arg;
   })
-  .option('-l --latest', 'Update the latest css to be the one being published')
   .parse(process.argv);
 
 if (typeof style === 'undefined') {
@@ -23,26 +23,30 @@ if (typeof style === 'undefined') {
 
 var buildDir = 'src/client';
 
+publisher.setVersion(require('../bower.json').dependencies[style]);
+
 utils.glob('css/' + style + '.css', { cwd: buildDir })
   .then(function(files) {
     var promises = [
       publish(buildDir, files, {
-        version: require('../bower.json').dependencies[style],
         'Content-Type': 'text/css'
       } )
     ];
-    if(cli.latest) promises.push(
-      publish(buildDir, files, {
-        'Content-Type': 'text/css'
-      } )
-    );
     return Promise.all(promises);
   })
   .then(function() {
-    return utils.glob('*(images|fonts)/*.*', { cwd: buildDir });
+    return utils.glob('images/*.*', { cwd: buildDir });
   })
   .then(function(files) {
-    return publish(buildDir, files, { hash: true });
+    return publish(buildDir, files, {
+      'Content-Type': 'image/svg+xml'
+    });
+  })
+  .then(function() {
+    return utils.glob('fonts/*.*', { cwd: buildDir });
+  })
+  .then(function(files) {
+    return publish(buildDir, files);
   })
   .then(function() {
     console.log('Finished publishing.');
