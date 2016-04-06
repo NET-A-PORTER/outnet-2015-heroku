@@ -9,14 +9,17 @@
     "s3": {
       "accessKeyID": {
         "doc": "Username of S3 account for publishing",
+        "default": "SOMEKEY",
         "env": "AWS_S3_ACCESS_KEY_ID"
       },
       "secretAccessKey": {
         "doc": "Password/secret of S3 account for publishing",
+        "default": "SOMESECRET",
         "env": "AWS_S3_SECRET_ACCESS_KEY"
       },
       "bucket": {
         "doc": "Name of S3 bucket to publish to",
+        "default": "preston-assets-dev",
         "env": "AWS_S3_BUCKET"
       },
       "region": {
