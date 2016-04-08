@@ -81,3 +81,4 @@ This is continuously deployed to whenever changes are merged into to master.
 - Separation of base, component and module styles
 - Release tasks
 - npm styles
+- CLI to create styles
