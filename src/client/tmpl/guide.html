@@ -57,7 +57,7 @@
 					var markup = section.markup && '<div class="preston-element-markup">' + section.markup + '</div>' || '';
 					var details = title + detail + markup;
 					if (callback) details += callback(section);
-					return prev += details;
+					return section.disabled ? prev : prev += details;
 				}, '');
 			};
 
@@ -126,6 +126,7 @@
 				// don't map elements when preston styles loaded
 				if (style.name !== 'preston') {
 					$scope.elements = $scope.style.elements.map(function(element) {
+          console.log(element);
 						return new ElementViewService(element);
 					});
 

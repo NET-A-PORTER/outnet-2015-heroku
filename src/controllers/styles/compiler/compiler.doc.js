@@ -14,7 +14,8 @@ function DocumentCompiler() {
         title: section.title,
         detail: section.detail,
         markup: section.markup,
-        markupEscaped: markupEscaped
+        markupEscaped: markupEscaped,
+        disabled: section.disable
       }
     });
   };
