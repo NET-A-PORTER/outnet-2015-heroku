@@ -126,7 +126,6 @@
 				// don't map elements when preston styles loaded
 				if (style.name !== 'preston') {
 					$scope.elements = $scope.style.elements.map(function(element) {
-          console.log(element);
 						return new ElementViewService(element);
 					});
 
