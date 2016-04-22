@@ -30,6 +30,9 @@
   padding: 0 29px 0 0;
 }
 .preston-nav-menu {
+  .hide-menu & {
+    display: none;
+  }
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

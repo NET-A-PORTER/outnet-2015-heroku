@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div ng-controller="NavCtrl" class="preston-header">
+	<div ng-controller="NavCtrl" ui-sref-active="hide-menu" class="preston-header">
 		<div class="preston-nav-item" ui-sref="home">Home</div>
-        <ul class="preston-nav-menu">
+        <ul class="preston-nav-menu" ng-if="menu.length > 1">
             <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-click="scrollTo(element)" ng-bind="element.label"></li>
         </ul>
         <div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
@@ -207,7 +207,7 @@
 
 			return StyleView;
 		})
-		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView, StyleElement) {
+		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView) {
 
 			// loads list of styles for entire app
 			StylesFactory
