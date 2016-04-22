@@ -9,7 +9,7 @@
 	<div ng-controller="NavCtrl" class="preston-header">
 		<div class="preston-nav-item" ui-sref="home">Home</div>
         <ul class="preston-nav-menu">
-            <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-bind="element.name"></li>
+            <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-click="scrollTo(element)" ng-bind="element.label"></li>
         </ul>
         <div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
             <div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
@@ -225,7 +225,10 @@
 					}) || []
 				);
                 $scope.menu = style.elements && style.elements.map(function(element) {
-                        return new StyleElement(element.style, element.name.replace('-', ' '), element.assets);
+                        return {
+                            label: element.name.replace('-', ' '),
+                            name: element.name
+                        }
                     }) || [];
 				$scope.$digest();
 			});
@@ -234,6 +237,10 @@
 				$scope.selected = view;
 				$rootScope.$broadcast('viewSelected', view);
 			};
+
+            $scope.scrollTo = function(element) {
+                $rootScope.$broadcast('elementSelected', element);
+            }
 		})
 		.controller('HeadCtrl', function($scope, Style) {
 
