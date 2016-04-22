@@ -7,13 +7,16 @@
 </head>
 <body>
 	<div ng-controller="NavCtrl" class="preston-header">
-		<div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
-			<div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
-			<div class="preston-view-options">
-				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="{ selected: view === selected }" ng-bind="view.name"></div>
-			</div>
-		</div>
-		<div class="preston-nav-item" ui-sref="home">Preston</div>
+		<div class="preston-nav-item" ui-sref="home">Home</div>
+        <ul class="preston-nav-menu">
+            <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-bind="element.name"></li>
+        </ul>
+        <div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
+            <div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
+            <div class="preston-view-options">
+                <div ng-repeat="view in views" ng-click="selectView(view)" ng-class="{ selected: view === selected }" ng-bind="view.name"></div>
+            </div>
+        </div>
 	</div>
 	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
@@ -204,7 +207,7 @@
 
 			return StyleView;
 		})
-		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView) {
+		.controller('NavCtrl', function($rootScope, $scope, StylesFactory, StyleView, StyleElement) {
 
 			// loads list of styles for entire app
 			StylesFactory
@@ -221,6 +224,9 @@
 						return new StyleView(view.title, view.width, view.height);
 					}) || []
 				);
+                $scope.menu = style.elements && style.elements.map(function(element) {
+                        return new StyleElement(element.style, element.name.replace('-', ' '), element.assets);
+                    }) || [];
 				$scope.$digest();
 			});
 
