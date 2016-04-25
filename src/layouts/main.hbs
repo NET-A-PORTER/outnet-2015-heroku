@@ -6,14 +6,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<div ng-controller="NavCtrl" class="preston-header">
-		<div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
-			<div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
-			<div class="preston-view-options">
-				<div ng-repeat="view in views" ng-click="selectView(view)" ng-class="{ selected: view === selected }" ng-bind="view.name"></div>
-			</div>
-		</div>
-		<div class="preston-nav-item" ui-sref="home">Preston</div>
+	<div ng-controller="NavCtrl" ui-sref-active="hide-menu" class="preston-header">
+		<div class="preston-nav-item" ui-sref="home">Home</div>
+        <ul class="preston-nav-menu" ng-if="menu.length > 1">
+            <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-click="scrollTo(element)" ng-bind="element.label"></li>
+        </ul>
+        <div class="preston-views" ng-if="views.length > 1" ng-class="{ 'preston-views-display': showViews }">
+            <div class="preston-view-heading" ng-click="showViews = !showViews">Views</div>
+            <div class="preston-view-options">
+                <div ng-repeat="view in views" ng-click="selectView(view)" ng-class="{ selected: view === selected }" ng-bind="view.name"></div>
+            </div>
+        </div>
 	</div>
 	<div class="preston-container" ui-view></div>
 	<script src="/js/angular.js"></script>
@@ -221,6 +224,12 @@
 						return new StyleView(view.title, view.width, view.height);
 					}) || []
 				);
+                $scope.menu = style.elements && style.elements.map(function(element) {
+                        return {
+                            label: element.name.replace('-', ' '),
+                            name: element.name
+                        }
+                    }) || [];
 				$scope.$digest();
 			});
 
@@ -228,6 +237,10 @@
 				$scope.selected = view;
 				$rootScope.$broadcast('viewSelected', view);
 			};
+
+            $scope.scrollTo = function(element) {
+                $rootScope.$broadcast('elementSelected', element);
+            }
 		})
 		.controller('HeadCtrl', function($scope, Style) {
 

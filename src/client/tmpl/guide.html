@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<div class="preston-container">
-		<div class="preston-element" ng-repeat="element in elements" ng-class="'preston-element-' + element.name">
+		<div class="preston-element" id=":: element.name ::" ng-repeat="element in elements" ng-class="'preston-element-' + element.name">
 			<div class="preston-element-examples">
 				<div class="preston-element-title">
 					<div class="preston-pill-container">
@@ -114,13 +114,19 @@
 
 			return ElementViewService;
 		})
-		.controller('GuideCtrl', function($scope, ElementViewService) {
+		.controller('GuideCtrl', function($scope, $location, $anchorScroll, ElementViewService) {
 			var Style = parentScope.Style;
 			var $state = parentScope.$state;
 			var currentStyle = $state.params.name;
 
 			$scope.preston = new Style('preston', { shallow: true });
 			$scope.style = new Style(currentStyle);
+
+			parentScope.$on('elementSelected', function(e, element) {
+                $location.hash(element.name);
+				$anchorScroll.yOffset = 90;
+                $anchorScroll();
+            });
 
 			parentScope.$on('style.load', function(e, style) {
 				// don't map elements when preston styles loaded
