@@ -20,7 +20,9 @@
 }
 
 .preston-nav-item {
-  @include hover-effect;
+  > span {
+    @include hover-effect;
+  }
   @extend .preston-type;
   display: inline-block;
   padding: 1px 3px;

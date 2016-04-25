@@ -114,12 +114,8 @@ body {
 }
 
 .preston-views {
-  right: 5px;
-  top: 5px;
   font-size: 16px;
   padding: 0 10px 10px;
-  height: 15px;
-  overflow: hidden;
   &.preston-views-display {
     .preston-view-options {
       position: fixed;

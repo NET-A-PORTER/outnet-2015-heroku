@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div ng-controller="NavCtrl" ui-sref-active="hide-menu" class="preston-header">
-		<div class="preston-nav-item" ui-sref="home">Home</div>
+		<div class="preston-nav-item" ui-sref="home"><span>Home</span></div>
         <ul class="preston-nav-menu" ng-if="menu.length > 1">
             <li ng-repeat="element in menu" class="preston-nav-menu-item" ng-click="scrollTo(element)" ng-bind="element.label"></li>
         </ul>
