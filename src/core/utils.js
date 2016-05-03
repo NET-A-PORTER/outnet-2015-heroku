@@ -57,33 +57,11 @@ function writeFile(path, data) {
 	});
 }
 
-function yield(gen) {
-  var it = gen();
-  var value;
-
-  (function iterate(val){
-    var nextGen = it.next( val );
-    if (!nextGen.done) {
-      value = nextGen.value;
-      if ("then" in value) {
-        value.then( iterate );
-      } else {
-        setTimeout( function(){
-          iterate( value );
-        }, 0 );
-      }
-    } else {
-      return value;
-    }
-  })();
-}
-
 module.exports = {
   addToFileName: addToFileName,
   checksum: checksum,
 	glob: globFunc,
 	readDir: readDir,
 	readFile: readFile,
-	writeFile: writeFile,
-  yield: yield
+	writeFile: writeFile
 };
