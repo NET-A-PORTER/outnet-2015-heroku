@@ -7,7 +7,8 @@ var publisher = new Publisher({
   secretAccessKey:  config.get('aws.s3.secretAccessKey'),
   bucket:           config.get('aws.s3.bucket'),
   region:           config.get('aws.s3.region'),
-  timeout: 			    config.get('aws.s3.timeout')
+  timeout: 			    config.get('aws.s3.timeout'),
+  cache:   			    config.get('aws.s3.cacheControl'),
 });
 
 var version;

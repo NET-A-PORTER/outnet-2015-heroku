@@ -29,6 +29,11 @@
       "timeout": {
         "doc": "Time to wait for publishing before returning an error",
         "default": 5000
+      },
+      "cacheControl": {
+        "doc": "Time for CDN to cache assets for",
+        "default": "no-cache",
+        "env": "AWS_S3_CACHE_CONTROL"
       }
     }
   },
