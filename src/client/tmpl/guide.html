@@ -2,7 +2,7 @@
 <html ng-app="app" ng-controller="GuideCtrl">
 <head>
 	<title>Preston</title>
-	<link rel="stylesheet" href="/js/highlightjs.css">
+	<link rel="stylesheet" href="/lib/highlightjs.css">
 	<link rel="stylesheet" ng-repeat="element in preston.elements" ng-href=":: element.getAssetPath('css', 'style.css') ::">
 	<link rel="stylesheet" ng-repeat="cssPath in style.cssPaths" ng-href=":: cssPath ::">
 	<link rel="stylesheet" ng-repeat="element in style.elements" ng-if="element.assets['override.scss']" ng-href=":: element.getAssetPath('css', 'override.css') ::">
@@ -33,10 +33,10 @@
 			</div>
 		</div>
 	</div>
-	<script src="/js/angular.js"></script>
-	<script src="/js/angular-sanitize.js"></script>
-	<script src="/js/highlight.js"></script>
-	<script src="/js/polyfill/es6-promise.js"></script>
+	<script src="/lib/angular.js"></script>
+	<script src="/lib/angular-sanitize.js"></script>
+	<script src="/lib/highlight.js"></script>
+	<script src="/lib/polyfill/es6-promise.js"></script>
 	<script>
 	var parentScope = window.parent.angular.element(window.frameElement).scope();
 	angular
@@ -107,6 +107,9 @@
 									this.addView('SASS', formatForDisplay(asset.source));
 								}
 								break;
+              case 'js':
+                this.addView('JS', formatForDisplay(asset));
+                break;
 						}
 					}
 					return this.views;
@@ -139,7 +142,7 @@
 					// TODO: make this a directive
 					window.setTimeout(function() {
 						hljs.configure({
-							languages: ['html', 'css', 'scss']
+							languages: ['html', 'css', 'scss', 'js']
 						});
 						[].forEach.call(document.querySelectorAll('code'), function(block) {
 							hljs.highlightBlock(block);
