@@ -1,6 +1,6 @@
 module.exports = {
 	processors: [],
-	add: (pattern) => {
+	add: function(pattern) {
 		var tasks = [].slice.call(arguments, 1);
 		this.processors.push({
 			pattern: pattern,

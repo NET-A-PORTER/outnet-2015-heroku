@@ -11,32 +11,33 @@ function Style(name, baseDir) {
 }
 
 Style.prototype = {
-	getDefinition: () => {
-		var self = this;
+	getDefinition: function() {
 		return utils
-			.readFile(self.path + '/definition.json')
+			.readFile(this.path + '/definition.json')
 			.then((contents) => {
 				var parsed = JSON.parse(contents);
-				parsed.name = self.name;
-				parsed.assets = config.get('assets').map(function(asset) {
+				parsed.name = this.name;
+				parsed.assets = config.get('assets').map((asset) => {
 					return {
 						name: asset.type,
-						url: asset.path + '/' + self.name + asset.ext
+						url: asset.path + '/' + this.name + asset.ext
 					};
 				})
 				return parsed;
 			});
 	},
 	getElement: function * (name) {
-		return yield * new Element({dir: this.path + '/' + name});
+    let element = Object.create(Element);
+		return yield * Element.call(element, {dir: this.path + '/' + name});
 	},
-    build: function * () {
-        yield * new Element({dir: this.path, files: ['styles.scss']});
+  build: function * () {
+    let element = Object.create(Element);
+    yield * Element.call(element, {dir: this.path, files: ['styles.scss']});
 
-		//need to refactor;
-        copy = new CopyMethod('src/client/css');
-        yield * copy('src/client/css/styles/' + this.name, 'styles.css', this.name + '.css')
-    }
+    //need to refactor;
+    copy = new CopyMethod('src/client/css');
+    yield * copy('src/client/css/styles/' + this.name, 'styles.css', this.name + '.css')
+  }
 };
 
 module.exports = Style;

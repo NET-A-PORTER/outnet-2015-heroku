@@ -1,8 +1,8 @@
 global.base = {
-	require: (path) => {
+	require: function (path) {
 		return require(this.path(path));
 	},
-	path: (path) => {
+	path: function(path) {
 		return __dirname + '/' + path;
 	}
 };
