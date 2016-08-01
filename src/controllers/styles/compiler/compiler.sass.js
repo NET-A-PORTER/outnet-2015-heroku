@@ -12,7 +12,7 @@ function SassCompiler() {
 		var compiled = sass.renderSync({
 			data: source,
 			includePaths: [includePaths]
-		}).css;
+		}).css.toString();
 
 		return {
 			compiled: compiled,
