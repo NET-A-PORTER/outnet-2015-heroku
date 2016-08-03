@@ -17,10 +17,15 @@ Style.prototype = {
 			.then((contents) => {
 				var parsed = JSON.parse(contents);
 				parsed.name = this.name;
-				parsed.assets = config.get('assets').map((asset) => {
+				parsed.assets = (parsed.files || []).map((file) => {
+          var fileName = file.split('.')[0]
+          var fileExt = file.split('.')[1];
+          var asset = config.get('assets').find(
+              (asset) => asset.type === fileExt
+          );
 					return {
-						name: asset.type,
-						url: asset.path + '/' + this.name + asset.ext
+						name: asset.compiledType,
+						url: asset.compiledPath + '/' + this.name + '.' + asset.compiledType
 					};
 				})
 				return parsed;
@@ -28,15 +33,26 @@ Style.prototype = {
 	},
 	getElement: function * (name) {
     let element = Object.create(Element);
-		return yield * Element.call(element, {dir: this.path + '/' + name});
+		return yield * Element.call(element, {
+      dir: this.path + '/' + name,
+      baseDir: this.name
+    });
 	},
   build: function * () {
-    let element = Object.create(Element);
-    yield * Element.call(element, {dir: this.path, files: ['styles.scss']});
+    let files = (yield this.getDefinition()).files || [];
 
-    //need to refactor;
+    for (const file of files) {
+      let element = Object.create(Element);
+      yield * Element.call(element, {
+        dir: this.path,
+        files: [file],
+        baseDir: this.name
+      });
+    }
+
+    // need to refactor;
     copy = new CopyMethod('src/client/css');
-    yield * copy('src/client/css/styles/' + this.name, 'styles.css', this.name + '.css')
+    yield * copy('src/client/css/' + this.name, 'styles.css', this.name + '.css')
   }
 };
 

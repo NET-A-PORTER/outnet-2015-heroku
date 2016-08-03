@@ -27,7 +27,8 @@ OMG, I'm ready
 ```json
 {
 	"title": "Retro 1990's Style Guide",
-	"contents": ["buttons", "... list of contents"]
+	"contents": ["buttons", "... list of contents"],
+  "files": ["path/to/styles.scss"]
 }
 ```
 - Create a directories for the content you require in the style guide, e.g. **buttons**
