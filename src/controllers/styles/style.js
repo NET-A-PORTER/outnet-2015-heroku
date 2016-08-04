@@ -52,7 +52,11 @@ Style.prototype = {
 
     // need to refactor;
     copy = new CopyMethod('src/client/css');
-    yield * copy('src/client/css/' + this.name, 'styles.css', this.name + '.css')
+    yield * copy({
+      directory: 'src/client/css/' + this.name,
+      file: 'styles.css',
+      name: this.name + '.css'
+    })
   }
 };
 

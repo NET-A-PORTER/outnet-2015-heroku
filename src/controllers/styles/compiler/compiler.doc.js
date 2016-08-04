@@ -5,7 +5,7 @@ var compiler = etc().use(yml);
 
 function DocumentCompiler() {
 
-  return function * (directory, file) {
+  return function * ({directory, file}) {
     var path = directory + '/' + file;
     var result = etc().use(yml).file(path).toJSON();
     return result.document.map((section) => {

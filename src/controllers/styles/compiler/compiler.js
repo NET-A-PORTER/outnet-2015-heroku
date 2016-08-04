@@ -34,7 +34,11 @@ module.exports = {
 					// process each task and pass result
 					// onto next function through body object
 					for (var taskIndex in process.tasks) {
-						result = yield * process.tasks[taskIndex].call({ body: result }, directory, file, baseDir);
+						result = yield * process.tasks[taskIndex].call({ body: result }, {
+              directory: directory,
+              file: file,
+              baseDir: baseDir
+            });
 					}
 					processed[file] = result;
 				}
