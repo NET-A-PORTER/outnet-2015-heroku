@@ -19,10 +19,10 @@
         </div>
 	</div>
 	<div class="preston-container" ui-view></div>
-	<script src="/js/angular.js"></script>
-	<script src="/js/angular-router.js"></script>
-	<script src="/js/angular-sanitize.js"></script>
-	<script src="/js/polyfill/es6-promise.js"></script>
+	<script src="/lib/angular.js"></script>
+	<script src="/lib/angular-router.js"></script>
+	<script src="/lib/angular-sanitize.js"></script>
+	<script src="/lib/polyfill/es6-promise.js"></script>
 	<script>
 	angular
 		.module('app', ['ngSanitize', 'ui.router'])
@@ -225,12 +225,12 @@
 						return new StyleView(view.title, view.width, view.height);
 					}) || []
 				);
-                $scope.menu = style.elements && style.elements.map(function(element) {
-                        return {
-                            label: element.name.replace('-', ' '),
-                            name: element.name
-                        }
-                    }) || [];
+        $scope.menu = style.elements && style.elements.map(function(element) {
+          return {
+            label: element.name.replace('-', ' '),
+            name: element.name
+          }
+        }) || [];
 				$scope.$digest();
 			});
 
@@ -239,9 +239,9 @@
 				$rootScope.$broadcast('viewSelected', view);
 			};
 
-            $scope.scrollTo = function(element) {
-                $rootScope.$broadcast('elementSelected', element);
-            }
+      $scope.scrollTo = function(element) {
+        $rootScope.$broadcast('elementSelected', element);
+      }
 		})
 		.controller('HeadCtrl', function($scope, Style) {
 

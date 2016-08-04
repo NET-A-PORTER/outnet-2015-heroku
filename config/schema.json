@@ -41,9 +41,9 @@
     "doc": "Asset information including path and extension",
     "default": [
       {
-        "type": "css",
-        "path": "/css",
-        "ext": ".css"
+        "type": "scss",
+        "compiledPath": "/css",
+        "compiledType": "css"
       }
     ]
   }

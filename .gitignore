@@ -12,7 +12,7 @@ node_modules
 
 # generated files
 src/client/*
-!src/client/js
+!src/client/lib
 !src/client/tmpl
 
 # Mac nonsense
