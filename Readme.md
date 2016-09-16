@@ -31,10 +31,10 @@ Style guides are currently installed via **[Bower](https://bower.io/)**.
 }
 ```
 - Create a directory for element in the style guide, e.g. **buttons**
-- In each directory create **document.yml** and **style.scss** files
-	- Your document.yml file should contain your elements' markup, [example](https://github.com/NET-A-PORTER/outnet-2015/blob/master/buttons/document.yml)
-	- Your styles.scss file is where you put your own styles for your element
-- In your root directory, create a **style.scss** to be built, which imports the styles for each element, e.g.
+- In each directory create `document.yml` and `style.scss` files
+	- Your `document.yml` file should contain your elements' markup, [example](https://github.com/NET-A-PORTER/outnet-2015/blob/master/buttons/document.yml)
+	- Your `style.scss` file is where you put your own styles for your element
+- In your root directory, create a `style.scss` to be built, which imports the styles for each element, e.g.
 
   ```
   	@import 'typography/style';
