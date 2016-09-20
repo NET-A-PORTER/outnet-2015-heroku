@@ -43,12 +43,14 @@
   height: 54px;
   padding: 0;
   margin: 0;
-  overflow-x: scroll;
   .preston-nav-menu-item {
     @include hover-effect;
     display: inline;
     cursor: pointer;
     font-weight: bolder;
     margin-left: 15px;
+  }
+  @media all and (max-width: 725px) {
+    overflow-x: scroll;
   }
 }
