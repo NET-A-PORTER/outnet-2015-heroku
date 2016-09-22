@@ -83,6 +83,7 @@
 						var asset = baseAssets[name];
 						var extension = name.split('.').pop();
 						switch (extension) {
+              case 'yaml':
 							case 'yml':
 								var html = formatDocument(asset, function(section) {
 									if (section.markupEscaped) {

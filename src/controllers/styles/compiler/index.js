@@ -6,7 +6,7 @@ var CopyMethod				  = require('./method.copy');
 var utils							  = base.require('core/utils');
 var assetPath					  = base.path('client');
 
-compiler.add(/document\.yml/ig, new DocumentCompiler());
+compiler.add(/document(\.yml|\.yaml)/ig, new DocumentCompiler());
 compiler.add(/(\.woff|\.ttf|\.eot|\.svg|\.png|\.js)/ig, new CopyMethod(assetPath));
 compiler.add(/\.js/ig, new JavascriptCompiler(assetPath));
 compiler.add(/\.scss/ig, new SassCompiler(), function * ({directory, file, baseDir}) {
