@@ -11,7 +11,8 @@ function SassCompiler() {
 		var source = yield utils.readFile(path);
 		var compiled = sass.renderSync({
 			data: source,
-			includePaths: [includePaths]
+			includePaths: [includePaths],
+      outputStyle: 'compressed'
 		}).css.toString();
 
 		return {
