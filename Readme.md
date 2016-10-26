@@ -1,4 +1,4 @@
-# PRESTON
+# preston-serve
 Application to preview and document YOOX Net-A-Porter style guides.
 
 [![Build](https://travis-ci.org/NET-A-PORTER/preston.svg)](https://travis-ci.org/NET-A-PORTER/preston)
