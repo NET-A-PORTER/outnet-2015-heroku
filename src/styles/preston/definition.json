@@ -1,5 +1,0 @@
-{
-	"title": "Preston",
-	"elements": ["base", "colours", "typography", "navigation", "content"],
-  "files": ["styles.scss"]
-}

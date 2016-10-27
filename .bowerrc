@@ -1,4 +1,4 @@
 {
-  "directory": "src/styles",
+  "directory": "node_modules/preston-serve/src/styles",
   "analytics": false
 }

@@ -4,8 +4,7 @@
   "description": "Style guide generator for the rich and famous",
   "main": "server.js",
   "scripts": {
-    "start": "node --harmony src/server.js",
-    "test": "echo \"No tests to run!\" && exit 0",
+    "start": "STYLE_DIR=node_modules/preston-serve/src/styles STYLE_NAME=outnet-2015 BUILD_DIR=client preston-serve",
     "postinstall": "./node_modules/.bin/bower install"
   },
   "repository": {
@@ -19,21 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "bower": "^1.7.7",
-    "co": "^4.6.0",
-    "commander": "^2.9.0",
-    "convict": "^1.2.0",
-    "etc": "^0.5.1",
-    "etc-yaml": "0.0.5",
-    "glob": "^5.0.6",
-    "handlebars": "^3.0.2",
-    "koa": "^0.19.0",
-    "koa-handlebars": "^0.5.3",
-    "koa-router": "^4.3.2",
-    "koa-static": "^1.4.9",
-    "mkdirp": "^0.5.0",
-    "node-sass": "^3.8.0",
-    "out-publish": "^1.2.0",
-    "request": "^2.69.0"
+    "preston-serve": "^0.1.9"
   },
   "engines": {
     "node": "6.2.2"

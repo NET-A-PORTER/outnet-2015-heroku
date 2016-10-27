@@ -11,9 +11,7 @@ pids
 node_modules
 
 # generated files
-src/client/*
-!src/client/lib
-!src/client/tmpl
+client
 
 # Mac nonsense
 .DS_Store
@@ -25,7 +23,3 @@ src/client/*
 config/*
 !config/local.json
 !config/schema.json
-
-# bower styles
-src/styles/*
-!src/styles/preston
