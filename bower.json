@@ -21,6 +21,6 @@
     "tests"
   ],
   "dependencies": {
-    "outnet-2015": "2.5.9"
+    "outnet-2015": "2.6.3"
   }
 }
